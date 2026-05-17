@@ -179,7 +179,7 @@ const repositories = [
   { repo: 'Shik3i/Antigrav',            displayName: 'KoalaTimer', type: 'package' },
 ];
 
-const CACHE_KEY = 'koala-releases-cache';
+const CACHE_KEY = 'koala-releases-cache-v2';
 const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
 
 async function fetchGitHubReleases() {
@@ -218,7 +218,7 @@ async function fetchGitHubReleases() {
       const pkgName = repoName.toLowerCase();
       
       const apiUrl = isPackage 
-        ? `https://api.github.com/users/${owner}/packages/container/${pkgName}/versions`
+        ? `https://api.github.com/repos/${item.repo}/tags`
         : `https://api.github.com/repos/${item.repo}/releases/latest`;
         
       const fallbackUrl = isPackage
@@ -240,15 +240,22 @@ async function fetchGitHubReleases() {
           if (!data || data.length === 0) {
             return { displayName: item.displayName, tag: null, url: fallbackUrl, date: null, status: 'none' };
           }
-          const latest = data[0];
-          const tags = latest.metadata?.container?.tags || [];
-          const tag = tags.find(t => t !== 'latest') || tags[0] || 'docker';
+          const latestTag = data[0];
+          
+          let date = null;
+          try {
+            const commitRes = await fetch(latestTag.commit.url);
+            if (commitRes.ok) {
+              const commitData = await commitRes.json();
+              date = new Date(commitData.commit.author.date);
+            }
+          } catch (e) { /* ignore commit fetch error */ }
           
           return {
             displayName: item.displayName,
-            tag: tag,
+            tag: latestTag.name,
             url: fallbackUrl,
-            date: new Date(latest.updated_at),
+            date: date,
             status: 'ok'
           };
         } else {
