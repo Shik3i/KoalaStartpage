@@ -172,7 +172,7 @@ const repositories = [
   { repo: 'Shik3i/KoalaSync',            displayName: 'KoalaSync' },
   { repo: 'Shik3i/KoalaClicker',         displayName: 'KoalaClicker' },
   { repo: 'Shik3i/FlyffUniverseHelper',  displayName: 'KoalaFlyff' },
-  { repo: 'Shik3i/KoalaTimer',           displayName: 'KoalaTimer' },
+  { repo: 'Shik3i/Antigrav',              displayName: 'KoalaTimer' },
 ];
 
 async function fetchGitHubReleases() {
