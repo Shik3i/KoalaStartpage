@@ -36,6 +36,13 @@ body {
   100% { opacity: 1; }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .bg-mesh {
+    animation: none;
+    opacity: 0.85;
+  }
+}
+
 /* ── Glassmorphism Tile ───────────────────────── */
 .bento-tile {
   background: rgba(255, 255, 255, 0.04);

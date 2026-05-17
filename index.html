@@ -7,8 +7,17 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Koala Startpage</title>
 
-    <!-- Favicon (Koala emoji as SVG) -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐨</text></svg>">
+    <!-- Favicon & PWA -->
+    <link rel="icon" href="icon.svg">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#09090b">
+
+    <!-- Open Graph / SEO -->
+    <meta property="og:title" content="Koala Startpage">
+    <meta property="og:description" content="Dashboard for Koala projects, services, and system monitoring.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://start.koalastuff.net/icon.svg">
 
     <!-- Set lang class ASAP to prevent flash of wrong language -->
     <script>
@@ -174,6 +183,13 @@
                             <i class="ph ph-cloud-arrow-up text-lg text-emerald-400/70"></i>
                             <div class="flex flex-col">
                                 <span class="font-medium">Duplicati</span>
+                                <span class="text-[0.65rem] text-gray-600">UnraidBox</span>
+                            </div>
+                        </a>
+                        <a href="http://100.99.84.61/login" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="Unraid UI">
+                            <i class="ph ph-hard-drives text-lg text-blue-400/70"></i>
+                            <div class="flex flex-col">
+                                <span class="font-medium">Unraid UI</span>
                                 <span class="text-[0.65rem] text-gray-600">UnraidBox</span>
                             </div>
                         </a>
