@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koala Startpage</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="min-h-screen p-4 sm:p-8 flex items-center justify-center">
+
+    <div class="max-w-6xl w-full mx-auto">
+        <!-- Grid Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[minmax(180px,_auto)]">
+            
+            <!-- 1. Time & Greeting (Large) -->
+            <div class="bento-tile rounded-3xl p-8 flex flex-col justify-end md:col-span-2 md:row-span-2 relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 opacity-5">
+                    <i class="ph-fill ph-planet text-[10rem]"></i>
+                </div>
+                <div class="relative z-10">
+                    <h2 id="greeting" class="text-2xl md:text-3xl font-medium text-gray-400 mb-2">Hallo</h2>
+                    <h1 id="current-time" class="text-6xl md:text-8xl font-bold tracking-tighter mb-4 text-white">00:00</h1>
+                    <p id="current-date" class="text-lg md:text-xl text-gray-400">Datum lädt...</p>
+                </div>
+            </div>
+
+            <!-- 2. System Status & Monitoring -->
+            <div class="bento-tile rounded-3xl p-6 flex flex-col md:col-span-1 md:row-span-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2 bg-emerald-500/20 text-emerald-400 rounded-xl">
+                        <i class="ph ph-activity text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold">System Status</h3>
+                </div>
+                <div class="flex-1 flex flex-col gap-2 justify-center">
+                    <a href="https://status.koalastuff.net" target="_blank" class="bento-link flex items-center gap-3 p-3 rounded-xl text-gray-300">
+                        <i class="ph ph-heartbeat text-xl text-emerald-400"></i>
+                        <span class="font-medium">Uptime Kuma</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 3. Projects & Services -->
+            <div class="bento-tile rounded-3xl p-6 flex flex-col md:col-span-1 md:row-span-2">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2 bg-blue-500/20 text-blue-400 rounded-xl">
+                        <i class="ph ph-rocket-launch text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold">Services</h3>
+                </div>
+                <div class="flex flex-col gap-2 flex-1 overflow-y-auto pr-1">
+                    <a href="https://sync.koalastuff.net" target="_blank" class="bento-link flex items-center gap-3 p-3 rounded-xl text-gray-300">
+                        <i class="ph ph-arrows-left-right text-xl text-blue-400"></i>
+                        <span class="font-medium">KoalaSync</span>
+                    </a>
+                    
+                    <div class="h-px bg-gray-800 my-1"></div>
+                    
+                    <a href="https://timer.koalastuff.net" target="_blank" class="bento-link flex items-center gap-3 p-3 rounded-xl text-gray-300">
+                        <i class="ph ph-timer text-xl text-purple-400"></i>
+                        <span class="font-medium">KoalaTimer</span>
+                    </a>
+                    <!-- Timer Subpages -->
+                    <div class="pl-8 flex flex-col gap-1">
+                        <a href="https://timer.koalastuff.net/blackjack" target="_blank" class="bento-link flex items-center gap-2 p-2 rounded-lg text-sm text-gray-400 hover:text-gray-200">
+                            <i class="ph ph-cards"></i> Blackjack
+                        </a>
+                        <a href="https://timer.koalastuff.net/esports" target="_blank" class="bento-link flex items-center gap-2 p-2 rounded-lg text-sm text-gray-400 hover:text-gray-200">
+                            <i class="ph ph-game-controller"></i> Esports
+                        </a>
+                        <a href="https://timer.koalastuff.net/news" target="_blank" class="bento-link flex items-center gap-2 p-2 rounded-lg text-sm text-gray-400 hover:text-gray-200">
+                            <i class="ph ph-newspaper"></i> News
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. GitHub Releases Tracker -->
+            <div class="bento-tile rounded-3xl p-6 flex flex-col md:col-span-2 md:row-span-1 overflow-hidden">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="p-2 bg-gray-700/50 text-gray-200 rounded-xl">
+                        <i class="ph ph-git-merge text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold">Latest Releases</h3>
+                </div>
+                <div id="releases-container" class="flex-1 overflow-y-auto pr-1">
+                    <!-- Injected by script.js -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
