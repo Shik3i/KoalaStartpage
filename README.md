@@ -30,6 +30,38 @@ koalastuff.net {
 }
 ```
 
+## 🛠️ Development & Tailwind Compilation
+
+To maintain maximum performance (100/100 PageSpeed scores) and support highly secure Content Security Policies (CSP) without requiring `'unsafe-inline'` or `'unsafe-eval'`, this project uses static Tailwind CSS compilation.
+
+The source files consist of:
+- `style.src.css` — Contains Tailwind base directives and all custom CSS styles.
+- `index.html` / `impressum.html` / `datenschutz.html` — Scanned by Tailwind to identify utilized classes.
+
+The final output is compiled into `style.css` (minified and purged), which is tracked in Git to preserve a **zero-build deployment** on the VPS.
+
+### Local Development Setup
+
+If you are developing on a new machine or running a new coding agent, follow these steps:
+
+1. **Install Node.js & npm** (if not already installed).
+2. **Install dependencies** (strictly for local development):
+   ```bash
+   npm install
+   ```
+3. **Compile once:**
+   ```bash
+   npm run build
+   ```
+4. **Run hot reload (watch mode) during active development:**
+   ```bash
+   npm run watch
+   ```
+   *This automatically recompiles and purges `style.css` in real-time as you edit HTML or JS files.*
+
+> [!NOTE]
+> The `node_modules` folder is excluded from Git via `.gitignore`. The production web server (e.g. Caddy) only serves the optimized static assets. You do **not** need to install npm packages on your production VPS.
+
 ## 🔄 Updating
 
 To deploy the latest changes, simply pull from the repository:

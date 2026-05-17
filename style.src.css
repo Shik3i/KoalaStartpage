@@ -1,0 +1,282 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base ─────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #09090b;
+  color: #e2e8f0;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Animated Background ──────────────────────── */
+.bg-mesh {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(244, 114, 182, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 60% at 60% 80%, rgba(52, 211, 153, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 40% 40% at 10% 70%, rgba(251, 191, 36, 0.06) 0%, transparent 50%);
+  animation: meshShift 20s ease-in-out infinite alternate;
+}
+
+@keyframes meshShift {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-mesh {
+    animation: none;
+    opacity: 0.85;
+  }
+}
+
+/* ── Glassmorphism Tile ───────────────────────── */
+.bento-tile {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+}
+
+.bento-tile:hover {
+  transform: scale(1.015);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.3),
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Don't hover-lift the hero clock tile */
+.bento-tile--hero:hover {
+  transform: none;
+}
+
+/* Allow internal scrolling on specific tiles via inline style */
+
+/* ── Link Items ───────────────────────────────── */
+.bento-link {
+  transition: background-color 0.2s ease,
+              color 0.2s ease,
+              transform 0.2s ease;
+  text-decoration: none;
+}
+
+.bento-link:hover {
+  background-color: rgba(255, 255, 255, 0.06);
+  transform: translateX(2px);
+}
+
+/* ── Stagger Fade-in Animations ───────────────── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in:nth-child(1) { animation-delay: 0.05s; }
+.fade-in:nth-child(2) { animation-delay: 0.12s; }
+.fade-in:nth-child(3) { animation-delay: 0.19s; }
+.fade-in:nth-child(4) { animation-delay: 0.26s; }
+.fade-in:nth-child(5) { animation-delay: 0.33s; }
+.fade-in:nth-child(6) { animation-delay: 0.40s; }
+
+/* ── Clock Pulse ──────────────────────────────── */
+.clock-colon {
+  animation: colonPulse 2s ease-in-out infinite;
+}
+
+@keyframes colonPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ── Accent Glow Badges ──────────────────────── */
+.badge-emerald {
+  background: rgba(52, 211, 153, 0.12);
+  color: #34d399;
+  box-shadow: 0 0 12px rgba(52, 211, 153, 0.15);
+}
+
+.badge-blue {
+  background: rgba(99, 102, 241, 0.12);
+  color: #818cf8;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.15);
+}
+
+.badge-purple {
+  background: rgba(168, 85, 247, 0.12);
+  color: #a78bfa;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.15);
+}
+
+.badge-amber {
+  background: rgba(251, 191, 36, 0.12);
+  color: #fbbf24;
+  box-shadow: 0 0 12px rgba(251, 191, 36, 0.15);
+}
+
+.badge-rose {
+  background: rgba(244, 114, 182, 0.12);
+  color: #f472b6;
+  box-shadow: 0 0 12px rgba(244, 114, 182, 0.15);
+}
+
+.badge-gray {
+  background: rgba(148, 163, 184, 0.10);
+  color: #94a3b8;
+  box-shadow: 0 0 12px rgba(148, 163, 184, 0.08);
+}
+
+/* ── Language Toggle ─────────────────────────── */
+.lang-toggle {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  transition: all 0.25s ease;
+}
+
+.lang-toggle:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.lang-btn {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.lang-btn.active {
+  background: rgba(99, 102, 241, 0.3);
+  color: #c7d2fe;
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.2);
+}
+
+/* ── Footer ──────────────────────────────────── */
+.footer-link {
+  color: rgba(148, 163, 184, 0.4);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-size: 0.75rem;
+}
+
+.footer-link:hover {
+  color: rgba(148, 163, 184, 0.7);
+}
+
+/* ── Skeleton Loader ─────────────────────────── */
+.skeleton {
+  background: linear-gradient(90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Scrollbar ───────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ── Legal Pages ─────────────────────────────── */
+.legal-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.legal-page h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #e2e8f0, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.legal-page h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  color: #cbd5e1;
+}
+
+.legal-page p,
+.legal-page li {
+  color: #94a3b8;
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+
+.legal-page a {
+  color: #818cf8;
+  text-decoration: none;
+}
+
+.legal-page a:hover {
+  text-decoration: underline;
+}
+
+.legal-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 0.875rem;
+  margin-bottom: 2rem;
+  transition: color 0.2s;
+}
+
+.legal-back:hover {
+  color: #94a3b8;
+}
+
+/* ── Multilingual Visibility ─────────────────── */
+.lang-de [lang="en"] { display: none !important; }
+.lang-en [lang="de"] { display: none !important; }

@@ -7,22 +7,13 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Impressum — Koala Startpage</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐨</text></svg>">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Preconnect & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2/src/regular/style.css">
     <link rel="stylesheet" href="style.css">
-    <script>
-        (function() {
-            var saved = localStorage.getItem('koala-lang');
-            var lang = saved || (navigator.language.startsWith('de') ? 'de' : 'en');
-            document.documentElement.classList.add('lang-' + lang);
-            document.documentElement.lang = lang;
-        })();
-    </script>
-    <style>
-        /* Language visibility via CSS class on <html> */
-        .lang-de [lang="en"] { display: none !important; }
-        .lang-en [lang="de"] { display: none !important; }
-    </style>
+    <script src="js/lang-init.js"></script>
 </head>
 <body class="min-h-screen">
     <div class="bg-mesh" aria-hidden="true"></div>
@@ -30,14 +21,14 @@
     <div class="relative z-10 legal-page">
         <!-- Top bar: Back link + Language toggle -->
         <div class="flex items-center justify-between mb-8">
-            <a href="index.html" class="legal-back" style="margin-bottom: 0;">
+            <a href="index.html" class="legal-back mb-0">
                 <i class="ph ph-arrow-left"></i>
                 <span lang="de">Zurück zur Startseite</span>
                 <span lang="en">Back to Startpage</span>
             </a>
             <div class="lang-toggle rounded-full flex items-center p-0.5 gap-0.5">
-                <button onclick="setLegalLang('de')" class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-de">DE</button>
-                <button onclick="setLegalLang('en')" class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-en">EN</button>
+                <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-de">DE</button>
+                <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-en">EN</button>
             </div>
         </div>
 
@@ -50,16 +41,16 @@
         </h2>
         <p lang="de">Administrator KoalaStuff (Privatperson)</p>
         <p lang="en">Administrator KoalaStuff (Private Individual)</p>
-        <p lang="de">E-Mail: <span style="color: #818cf8; cursor: pointer; text-decoration: underline;" onclick="this.innerHTML='admin' + '@' + 'koalastuff.net';">[E-Mail anzeigen]</span></p>
-        <p lang="en">Email: <span style="color: #818cf8; cursor: pointer; text-decoration: underline;" onclick="this.innerHTML='admin' + '@' + 'koalastuff.net';">[Show Email]</span></p>
+        <p lang="de">E-Mail: <span class="email-trigger text-indigo-400 cursor-pointer underline hover:text-indigo-300 transition-colors" data-user="admin" data-domain="koalastuff.net">[E-Mail anzeigen]</span></p>
+        <p lang="en">Email: <span class="email-trigger text-indigo-400 cursor-pointer underline hover:text-indigo-300 transition-colors" data-user="admin" data-domain="koalastuff.net">[Show Email]</span></p>
 
-        <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 12px; padding: 1.25rem; margin: 1.5rem 0; opacity: 0.85;">
-            <p lang="de" style="margin: 0; font-size: 0.9rem;">
+        <div class="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 my-6 opacity-85">
+            <p lang="de" class="m-0 text-sm">
                 Diese Website ist ein rein privates Hobby-Projekt und dient keinen geschäftsmäßigen Zwecken.
                 Eine Impressumspflicht nach § 5 DDG (ehemals TMG) besteht daher nicht.
                 Diese Angaben erfolgen rein freiwillig zur Transparenz gegenüber der Community.
             </p>
-            <p lang="en" style="margin: 0; font-size: 0.9rem;">
+            <p lang="en" class="m-0 text-sm">
                 This website is a purely private hobby project and does not serve any commercial purposes.
                 Therefore, there is no obligation to provide a legal notice according to § 5 DDG (formerly TMG).
                 This information is provided voluntarily for transparency towards the community.
@@ -104,26 +95,6 @@
         </p>
     </div>
 
-    <script>
-        function setLegalLang(lang) {
-            var html = document.documentElement;
-            html.classList.remove('lang-en', 'lang-de');
-            html.classList.add('lang-' + lang);
-            html.lang = lang;
-            localStorage.setItem('koala-lang', lang);
-            updateLegalLangButtons(lang);
-        }
-
-        function updateLegalLangButtons(lang) {
-            document.getElementById('legal-lang-de').classList.toggle('active', lang === 'de');
-            document.getElementById('legal-lang-en').classList.toggle('active', lang === 'en');
-        }
-
-        // Init buttons on load
-        (function() {
-            var lang = document.documentElement.classList.contains('lang-en') ? 'en' : 'de';
-            updateLegalLangButtons(lang);
-        })();
-    </script>
+    <script src="js/legal.js" defer></script>
 </body>
 </html>

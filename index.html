@@ -20,16 +20,12 @@
     <meta property="og:image" content="https://start.koalastuff.net/icon.svg">
 
     <!-- Set lang class ASAP to prevent flash of wrong language -->
-    <script>
-        (function() {
-            var s = localStorage.getItem('koala-lang');
-            var l = s || (navigator.language.startsWith('de') ? 'de' : 'en');
-            document.documentElement.lang = l;
-        })();
-    </script>
+    <script src="js/lang-init.js"></script>
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Preconnect & Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Phosphor Icons (regular weight only) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2/src/regular/style.css">
@@ -102,7 +98,7 @@
                 </div>
 
                 <!-- ╔═══ 3. Services ═══╗ -->
-                <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col lg:row-span-2 fade-in" style="overflow-y: auto;">
+                <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col lg:row-span-2 fade-in overflow-y-auto">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="badge-blue p-2 rounded-xl">
                             <i class="ph ph-rocket-launch text-xl"></i>
