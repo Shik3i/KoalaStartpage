@@ -175,8 +175,22 @@ const repositories = [
   { repo: 'Shik3i/Antigrav',              displayName: 'KoalaTimer' },
 ];
 
+const CACHE_KEY = 'koala-releases-cache';
+const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
+
 async function fetchGitHubReleases() {
   const container = document.getElementById('releases-container');
+
+  // Check cache first
+  try {
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+    if (cached && (Date.now() - cached.timestamp) < CACHE_TTL) {
+      // Restore date objects from ISO strings
+      cachedReleases = cached.data.map(r => ({ ...r, date: r.date ? new Date(r.date) : null }));
+      renderReleases(cachedReleases, container);
+      return;
+    }
+  } catch (e) { /* ignore corrupt cache */ }
 
   // Show skeleton loaders
   container.innerHTML = Array(repositories.length).fill(0).map(() => `
@@ -217,6 +231,19 @@ async function fetchGitHubReleases() {
       }
     }));
 
+    // If ALL failed (likely rate limited), try to use stale cache
+    const allFailed = releases.every(r => r.status === 'error');
+    if (allFailed) {
+      try {
+        const stale = JSON.parse(localStorage.getItem(CACHE_KEY));
+        if (stale && stale.data) {
+          cachedReleases = stale.data.map(r => ({ ...r, date: r.date ? new Date(r.date) : null }));
+          renderReleases(cachedReleases, container);
+          return;
+        }
+      } catch (e) { /* no stale cache */ }
+    }
+
     releases.sort((a, b) => {
       if (a.date && b.date) return b.date - a.date;
       if (a.date) return -1;
@@ -225,6 +252,12 @@ async function fetchGitHubReleases() {
     });
 
     cachedReleases = releases;
+
+    // Save to cache
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: releases }));
+    } catch (e) { /* storage full */ }
+
     renderReleases(releases, container);
 
   } catch (error) {
