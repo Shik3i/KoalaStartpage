@@ -66,6 +66,11 @@ body {
   transform: none;
 }
 
+/* Allow internal scrolling on tiles that need it */
+.bento-tile--scrollable {
+  overflow: visible;
+}
+
 /* ── Link Items ───────────────────────────────── */
 .bento-link {
   transition: background-color 0.2s ease,

@@ -10,7 +10,7 @@ const translations = {
     greeting_afternoon: 'Guten Tag',
     greeting_evening: 'Guten Abend',
     greeting_night: 'Gute Nacht',
-    tile_status: 'System Status',
+    tile_quicklinks: 'Quick Links',
     tile_services: 'Services',
     tile_releases: 'Latest Releases',
     link_uptime: 'Status-Seite',
@@ -26,13 +26,19 @@ const translations = {
     footer_privacy: 'Datenschutz',
     footer_imprint: 'Impressum',
     date_locale: 'de-DE',
+    time_just_now: 'Gerade eben',
+    time_minutes_ago: 'vor {n} Min.',
+    time_hours_ago: 'vor {n} Std.',
+    time_days_ago: 'vor {n} Tagen',
+    time_weeks_ago: 'vor {n} Wochen',
+    time_months_ago: 'vor {n} Monaten',
   },
   en: {
     greeting_morning: 'Good Morning',
     greeting_afternoon: 'Good Afternoon',
     greeting_evening: 'Good Evening',
     greeting_night: 'Good Night',
-    tile_status: 'System Status',
+    tile_quicklinks: 'Quick Links',
     tile_services: 'Services',
     tile_releases: 'Latest Releases',
     link_uptime: 'Status Page',
@@ -48,6 +54,12 @@ const translations = {
     footer_privacy: 'Privacy Policy',
     footer_imprint: 'Imprint',
     date_locale: 'en-US',
+    time_just_now: 'Just now',
+    time_minutes_ago: '{n}m ago',
+    time_hours_ago: '{n}h ago',
+    time_days_ago: '{n}d ago',
+    time_weeks_ago: '{n}w ago',
+    time_months_ago: '{n}mo ago',
   }
 };
 
@@ -94,15 +106,12 @@ function initLangToggle() {
 }
 
 function applyLanguage() {
-  // Update all elements with data-i18n attribute
   document.querySelectorAll('[data-i18n]').forEach(el => {
     el.textContent = t(el.dataset.i18n);
   });
 
-  // Re-render clock immediately for date locale
   if (typeof updateClock === 'function') updateClock();
 
-  // Re-render releases if cached
   if (cachedReleases) {
     const container = document.getElementById('releases-container');
     renderReleases(cachedReleases, container);
@@ -117,18 +126,15 @@ function updateClock() {
 
   const now = new Date();
 
-  // Time with pulsing colon
   const h = String(now.getHours()).padStart(2, '0');
   const m = String(now.getMinutes()).padStart(2, '0');
   const s = String(now.getSeconds()).padStart(2, '0');
   timeEl.innerHTML = `${h}<span class="clock-colon">:</span>${m}<span class="text-3xl md:text-5xl text-gray-500 ml-2 font-light">${s}</span>`;
 
-  // Date
   const locale = t('date_locale');
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   dateEl.textContent = now.toLocaleDateString(locale, options);
 
-  // Greeting
   const hour = now.getHours();
   let key = 'greeting_evening';
   if (hour >= 5 && hour < 12) key = 'greeting_morning';
@@ -142,12 +148,31 @@ function initClock() {
   setInterval(updateClock, 1000);
 }
 
+// ── Relative Time ───────────────────────────────
+function relativeTime(date) {
+  if (!date) return '—';
+  const now = new Date();
+  const diffMs = now - date;
+  const diffMins = Math.floor(diffMs / 60000);
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffDays = Math.floor(diffMs / 86400000);
+  const diffWeeks = Math.floor(diffDays / 7);
+  const diffMonths = Math.floor(diffDays / 30);
+
+  if (diffMins < 1) return t('time_just_now');
+  if (diffMins < 60) return t('time_minutes_ago').replace('{n}', diffMins);
+  if (diffHours < 24) return t('time_hours_ago').replace('{n}', diffHours);
+  if (diffDays < 7) return t('time_days_ago').replace('{n}', diffDays);
+  if (diffWeeks < 5) return t('time_weeks_ago').replace('{n}', diffWeeks);
+  return t('time_months_ago').replace('{n}', diffMonths);
+}
+
 // ── GitHub Releases ─────────────────────────────
 const repositories = [
-  'Shik3i/KoalaSync',
-  'Shik3i/KoalaClicker',
-  'Shik3i/FlyffUniverseHelper',
-  'Shik3i/KoalaTimer',
+  { repo: 'Shik3i/KoalaSync',            displayName: 'KoalaSync' },
+  { repo: 'Shik3i/KoalaClicker',         displayName: 'KoalaClicker' },
+  { repo: 'Shik3i/FlyffUniverseHelper',  displayName: 'KoalaFlyff' },
+  { repo: 'Shik3i/KoalaTimer',           displayName: 'KoalaTimer' },
 ];
 
 async function fetchGitHubReleases() {
@@ -168,18 +193,19 @@ async function fetchGitHubReleases() {
   `).join('');
 
   try {
-    const releases = await Promise.all(repositories.map(async (repo) => {
+    const releases = await Promise.all(repositories.map(async ({ repo, displayName }) => {
       try {
         const response = await fetch(`https://api.github.com/repos/${repo}/releases/latest`);
         if (!response.ok) {
           if (response.status === 404) {
-            return { repo, tag: null, url: `https://github.com/${repo}/releases`, date: null, status: 'none' };
+            return { repo, displayName, tag: null, url: `https://github.com/${repo}/releases`, date: null, status: 'none' };
           }
           throw new Error(`HTTP ${response.status}`);
         }
         const data = await response.json();
         return {
           repo,
+          displayName,
           tag: data.tag_name,
           url: data.html_url,
           date: new Date(data.published_at),
@@ -187,11 +213,10 @@ async function fetchGitHubReleases() {
         };
       } catch (err) {
         console.error(`Error loading ${repo}:`, err);
-        return { repo, tag: null, url: `https://github.com/${repo}/releases`, date: null, status: 'error' };
+        return { repo, displayName, tag: null, url: `https://github.com/${repo}/releases`, date: null, status: 'error' };
       }
     }));
 
-    // Sort: releases with dates first (newest first), then no-release, then errors
     releases.sort((a, b) => {
       if (a.date && b.date) return b.date - a.date;
       if (a.date) return -1;
@@ -213,10 +238,8 @@ function renderReleases(releases, container) {
   const colors = ['text-indigo-400', 'text-emerald-400', 'text-amber-400', 'text-rose-400', 'text-purple-400'];
 
   releases.forEach((rel, i) => {
-    const repoName = rel.repo.split('/')[1];
-    const locale = t('date_locale');
-    const dateStr = rel.date ? rel.date.toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' }) : '—';
     const iconColor = colors[i % colors.length];
+    const timeAgo = relativeTime(rel.date);
 
     let tagText = rel.tag || '';
     if (rel.status === 'none') tagText = t('releases_none');
@@ -234,12 +257,12 @@ function renderReleases(releases, container) {
       <div class="flex items-center gap-3">
         <i class="ph ph-github-logo text-xl ${iconColor} opacity-70 group-hover:opacity-100 transition-opacity"></i>
         <div class="flex flex-col">
-          <span class="font-medium text-sm text-gray-300 group-hover:text-white transition-colors">${repoName}</span>
+          <span class="font-medium text-sm text-gray-300 group-hover:text-white transition-colors">${rel.displayName}</span>
           <span class="text-xs ${tagColor}">${tagText}</span>
         </div>
       </div>
       <div class="text-xs text-gray-600 flex items-center gap-2 group-hover:text-gray-400 transition-colors">
-        <span>${dateStr}</span>
+        <span>${timeAgo}</span>
         <i class="ph ph-arrow-up-right text-xs"></i>
       </div>
     `;

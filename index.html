@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Koala Startpage — Dashboard for Koala projects, services, and system monitoring.">
+    <meta name="robots" content="noindex, nofollow">
     <title>Koala Startpage</title>
 
     <!-- Favicon (Koala emoji as SVG) -->
@@ -50,7 +51,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
 
                 <!-- ╔═══ 1. Clock & Greeting (Hero) ═══╗ -->
-                <div class="bento-tile bento-tile--hero rounded-2xl lg:rounded-3xl p-6 lg:p-8 flex flex-col justify-end md:col-span-2 lg:col-span-2 lg:row-span-2 min-h-[240px] lg:min-h-[360px] relative overflow-hidden fade-in">
+                <div class="bento-tile bento-tile--hero rounded-2xl lg:rounded-3xl p-6 lg:p-8 flex flex-col justify-end md:col-span-2 lg:col-span-2 lg:row-span-2 min-h-[240px] lg:min-h-[360px] relative fade-in">
                     <!-- Decorative gradient orb -->
                     <div class="absolute -top-20 -right-20 w-60 h-60 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
                     <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-emerald-500/8 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
@@ -64,24 +65,28 @@
                     </div>
                 </div>
 
-                <!-- ╔═══ 2. System Status ═══╗ -->
+                <!-- ╔═══ 2. Quick Links ═══╗ -->
                 <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col fade-in">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="badge-emerald p-2 rounded-xl">
-                            <i class="ph ph-heartbeat text-xl"></i>
+                        <div class="badge-amber p-2 rounded-xl">
+                            <i class="ph ph-lightning text-xl"></i>
                         </div>
-                        <h3 class="text-base font-semibold" data-i18n="tile_status">System Status</h3>
+                        <h3 class="text-base font-semibold" data-i18n="tile_quicklinks">Quick Links</h3>
                     </div>
                     <div class="flex flex-col gap-1.5 flex-1 justify-center">
+                        <a href="https://github.com/Shik3i" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm">
+                            <i class="ph ph-github-logo text-lg text-gray-400"></i>
+                            <span class="font-medium">GitHub</span>
+                        </a>
                         <a href="https://status.koalastuff.net" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm">
-                            <i class="ph ph-chart-line-up text-lg text-emerald-400/80"></i>
+                            <i class="ph ph-heartbeat text-lg text-emerald-400/80"></i>
                             <span class="font-medium" data-i18n="link_uptime">Status-Seite</span>
                         </a>
                     </div>
                 </div>
 
                 <!-- ╔═══ 3. Services ═══╗ -->
-                <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col lg:row-span-2 fade-in">
+                <div class="bento-tile bento-tile--scrollable rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col lg:row-span-2 fade-in">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="badge-blue p-2 rounded-xl">
                             <i class="ph ph-rocket-launch text-xl"></i>
@@ -121,7 +126,7 @@
                     </div>
                 </div>
 
-                <!-- ╔═══ 4. GitHub Releases (Full Width Bottom) ═══╗ -->
+                <!-- ╔═══ 4. GitHub Releases ═══╗ -->
                 <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col md:col-span-2 lg:col-span-2 fade-in">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="badge-gray p-2 rounded-xl">
@@ -139,10 +144,12 @@
     </main>
 
     <!-- Footer -->
-    <footer class="relative z-10 pb-4 pt-6 flex items-center justify-center gap-4">
+    <footer class="relative z-10 pb-4 pt-6 flex items-center justify-center gap-3 text-gray-700">
         <a href="datenschutz.html" class="footer-link" data-i18n="footer_privacy">Datenschutz</a>
-        <span class="text-gray-800">·</span>
+        <span>·</span>
         <a href="impressum.html" class="footer-link" data-i18n="footer_imprint">Impressum</a>
+        <span>·</span>
+        <span class="text-xs" style="color: rgba(148,163,184,0.3);">© 2026 KoalaStuff</span>
     </footer>
 
     <script src="script.js"></script>
