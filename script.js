@@ -146,7 +146,7 @@ function initClock() {
 const repositories = [
   'Shik3i/KoalaSync',
   'Shik3i/KoalaClicker',
-  'Shik3i/KoalaFlyff',
+  'Shik3i/FlyffUniverseHelper',
   'Shik3i/KoalaTimer',
 ];
 
