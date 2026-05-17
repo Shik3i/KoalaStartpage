@@ -8,3 +8,16 @@
         document.documentElement.classList.add('lang-' + l);
     }
 })();
+
+// Register Service Worker for offline capability (PWA)
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(registration) {
+        console.log('[Service Worker] Registered successfully with scope:', registration.scope);
+      })
+      .catch(function(err) {
+        console.log('[Service Worker] Registration failed:', err);
+      });
+  });
+}
