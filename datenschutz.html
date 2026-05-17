@@ -3,87 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Datenschutzerklärung — Koala Startpage">
+    <meta name="description" content="Datenschutzerklärung / Privacy Policy — Koala Startpage">
+    <meta name="robots" content="noindex">
     <title>Datenschutz — Koala Startpage</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐨</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2/src/regular/style.css">
     <link rel="stylesheet" href="style.css">
+    <script>
+        (function() {
+            var saved = localStorage.getItem('koala-lang');
+            var lang = saved || (navigator.language.startsWith('de') ? 'de' : 'en');
+            document.documentElement.classList.add('lang-' + lang);
+            document.documentElement.lang = lang;
+        })();
+    </script>
+    <style>
+        .lang-de [lang="en"] { display: none !important; }
+        .lang-en [lang="de"] { display: none !important; }
+    </style>
 </head>
 <body class="min-h-screen">
     <div class="bg-mesh" aria-hidden="true"></div>
 
     <div class="relative z-10 legal-page">
-        <a href="index.html" class="legal-back">
-            <i class="ph ph-arrow-left"></i>
-            Zurück zur Startseite
-        </a>
+        <!-- Top bar: Back link + Language toggle -->
+        <div class="flex items-center justify-between mb-8">
+            <a href="index.html" class="legal-back" style="margin-bottom: 0;">
+                <i class="ph ph-arrow-left"></i>
+                <span lang="de">Zurück zur Startseite</span>
+                <span lang="en">Back to Startpage</span>
+            </a>
+            <div class="lang-toggle rounded-full flex items-center p-0.5 gap-0.5">
+                <button onclick="setLegalLang('de')" class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-de">DE</button>
+                <button onclick="setLegalLang('en')" class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-en">EN</button>
+            </div>
+        </div>
 
-        <h1>Datenschutzerklärung</h1>
+        <h1 lang="de">Datenschutzerklärung</h1>
+        <h1 lang="en">Privacy Policy</h1>
 
-        <h2>1. Verantwortlicher</h2>
-        <p>
-            Verantwortlich für die Datenverarbeitung auf dieser Webseite ist der Betreiber der Domain
-            <strong>koalastuff.net</strong>. Kontaktdaten können dem <a href="impressum.html">Impressum</a> entnommen werden.
+        <!-- 1. Hosting -->
+        <h2>
+            <span lang="de">1. Hosting & Logfiles</span>
+            <span lang="en">1. Hosting & Logfiles</span>
+        </h2>
+        <p lang="de">
+            Diese Seite wird auf einem privaten Server gehostet. Zur Gewährleistung der Stabilität werden standardmäßige Server-Logs
+            (IP-Adresse, Browser-Kennung, Zeitpunkt) erhoben, aber nicht mit Personen verknüpft und nach 7 Tagen automatisch gelöscht.
+        </p>
+        <p lang="en">
+            This site is hosted on a private server. To ensure stability, standard server logs (IP address, browser identifier, time)
+            are collected, but not linked to individuals and are automatically deleted after 7 days.
         </p>
 
-        <h2>2. Allgemeine Hinweise</h2>
-        <p>
-            Diese Webseite ist eine statische Startseite (Dashboard) ohne Benutzerkonten, Kontaktformulare
-            oder Tracking-Dienste. Es werden keine personenbezogenen Daten erhoben, verarbeitet oder gespeichert,
-            die über die technisch notwendige Auslieferung der Seite hinausgehen.
-        </p>
-
-        <h2>3. Hosting & Server-Logs</h2>
-        <p>
-            Die Seite wird über einen eigenen Webserver (Caddy) ausgeliefert. Beim Zugriff auf die Seite
-            können folgende Daten in Server-Logs protokolliert werden:
-        </p>
+        <!-- 2. External Services -->
+        <h2>
+            <span lang="de">2. Externe Dienste (CDN)</span>
+            <span lang="en">2. External Services (CDN)</span>
+        </h2>
+        <p lang="de">Diese Seite bindet folgende externe Ressourcen ein:</p>
+        <p lang="en">This site loads the following external resources:</p>
         <ul class="list-disc list-inside ml-4">
-            <li>IP-Adresse des anfragenden Geräts</li>
-            <li>Datum und Uhrzeit der Anfrage</li>
-            <li>Angeforderte Ressource (URL)</li>
-            <li>HTTP-Statuscode</li>
-            <li>User-Agent (Browser-Kennung)</li>
+            <li><strong>Tailwind CSS</strong> — <code class="text-indigo-400">cdn.tailwindcss.com</code></li>
+            <li><strong>Phosphor Icons</strong> — <code class="text-indigo-400">cdn.jsdelivr.net</code></li>
+            <li><strong>Inter Font</strong> — <code class="text-indigo-400">fonts.googleapis.com</code></li>
+            <li><strong>GitHub REST API</strong> — <code class="text-indigo-400">api.github.com</code></li>
         </ul>
-        <p>
-            Diese Daten werden ausschließlich zur Sicherstellung des technischen Betriebs und zur
-            Fehleranalyse verwendet. Eine Zusammenführung mit anderen Datenquellen findet nicht statt.
-        </p>
-
-        <h2>4. Externe Dienste (CDN)</h2>
-        <p>
-            Diese Seite bindet folgende externe Ressourcen ein:
-        </p>
-        <ul class="list-disc list-inside ml-4">
-            <li><strong>Tailwind CSS</strong> via <code class="text-indigo-400">cdn.tailwindcss.com</code></li>
-            <li><strong>Phosphor Icons</strong> via <code class="text-indigo-400">cdn.jsdelivr.net</code></li>
-            <li><strong>Inter Font</strong> via <code class="text-indigo-400">fonts.googleapis.com</code></li>
-            <li><strong>GitHub REST API</strong> via <code class="text-indigo-400">api.github.com</code></li>
-        </ul>
-        <p>
+        <p lang="de" style="margin-top: 0.75rem;">
             Beim Laden dieser Ressourcen wird Ihre IP-Adresse an die jeweiligen CDN-Betreiber übermittelt.
             Es gelten die Datenschutzrichtlinien der jeweiligen Anbieter.
         </p>
+        <p lang="en" style="margin-top: 0.75rem;">
+            When loading these resources, your IP address is transmitted to the respective CDN operators.
+            The privacy policies of the respective providers apply.
+        </p>
 
-        <h2>5. Lokale Speicherung</h2>
-        <p>
+        <!-- 3. Local Storage -->
+        <h2>
+            <span lang="de">3. Lokale Speicherung</span>
+            <span lang="en">3. Local Storage</span>
+        </h2>
+        <p lang="de">
             Die Seite speichert ausschließlich Ihre Sprachpräferenz (DE/EN) im <code class="text-indigo-400">localStorage</code>
-            Ihres Browsers. Diese Daten verlassen Ihr Gerät nicht und können jederzeit über die Browser-Einstellungen
-            gelöscht werden.
+            Ihres Browsers. Diese Daten verlassen Ihr Gerät nicht und können jederzeit über die Browser-Einstellungen gelöscht werden.
+        </p>
+        <p lang="en">
+            The site only stores your language preference (DE/EN) in your browser's <code class="text-indigo-400">localStorage</code>.
+            This data never leaves your device and can be deleted at any time via your browser settings.
         </p>
 
-        <h2>6. Cookies</h2>
-        <p>
-            Diese Webseite verwendet keine eigenen Cookies.
+        <!-- 4. Cookies -->
+        <h2>
+            <span lang="de">4. Cookies</span>
+            <span lang="en">4. Cookies</span>
+        </h2>
+        <p lang="de">Diese Webseite verwendet keine Cookies.</p>
+        <p lang="en">This website does not use any cookies.</p>
+
+        <!-- 5. Tracking -->
+        <h2>
+            <span lang="de">5. Kein Tracking</span>
+            <span lang="en">5. No Tracking</span>
+        </h2>
+        <p lang="de">
+            KoalaStuff verzichtet bewusst auf Analyse-Tools, Tracking-Cookies oder Werbenetzwerke.
+        </p>
+        <p lang="en">
+            KoalaStuff deliberately avoids analytics tools, tracking cookies, or advertising networks.
         </p>
 
-        <h2>7. Ihre Rechte</h2>
-        <p>
-            Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung
-            Ihrer personenbezogenen Daten. Kontaktieren Sie dazu den Verantwortlichen über die im
-            <a href="impressum.html">Impressum</a> angegebenen Kontaktdaten.
+        <!-- 6. Your Rights -->
+        <h2>
+            <span lang="de">6. Ihre Rechte</span>
+            <span lang="en">6. Your Rights</span>
+        </h2>
+        <p lang="de">
+            Sie haben das Recht auf Auskunft, Berichtigung oder Löschung Ihrer Daten.
+            Da wir jedoch keine personenbezogenen Daten dauerhaft speichern, ist eine Zuordnung zu Ihrer Person in der Regel technisch nicht möglich.
         </p>
+        <p lang="en">
+            You have the right to information, correction, or deletion of your data.
+            However, since we do not store any personal data permanently, linking data to your person is technically impossible in most cases.
+        </p>
+        <p lang="de">Kontakt bei Fragen: <span style="color: #818cf8; cursor: pointer; text-decoration: underline;" onclick="this.innerHTML='admin' + '@' + 'koalastuff.net';">[E-Mail anzeigen]</span></p>
+        <p lang="en">Contact for questions: <span style="color: #818cf8; cursor: pointer; text-decoration: underline;" onclick="this.innerHTML='admin' + '@' + 'koalastuff.net';">[Show Email]</span></p>
     </div>
+
+    <script>
+        function setLegalLang(lang) {
+            var html = document.documentElement;
+            html.classList.remove('lang-en', 'lang-de');
+            html.classList.add('lang-' + lang);
+            html.lang = lang;
+            localStorage.setItem('koala-lang', lang);
+            updateLegalLangButtons(lang);
+        }
+
+        function updateLegalLangButtons(lang) {
+            document.getElementById('legal-lang-de').classList.toggle('active', lang === 'de');
+            document.getElementById('legal-lang-en').classList.toggle('active', lang === 'en');
+        }
+
+        (function() {
+            var lang = document.documentElement.classList.contains('lang-en') ? 'en' : 'de';
+            updateLegalLangButtons(lang);
+        })();
+    </script>
 </body>
 </html>
