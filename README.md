@@ -2,18 +2,26 @@
 
 A modern, static dashboard ("Bento Box" UI) designed to track Koala projects, services, and system status. Built with pure HTML, CSS, Vanilla JS, and Tailwind CSS via CDN.
 
+## Features
+
+- **Live Clock** with dynamic greeting (DE/EN)
+- **GitHub Releases** tracker with localStorage caching (10min TTL)
+- **Services & Quick Links** to all Koala projects
+- **Tailscale Internal Links** (only accessible within the Tailnet)
+- **DE/EN Language Toggle** (persisted in localStorage)
+- Glassmorphism dark theme with stagger animations
+
 ## Deployment with Caddy
 
-This project requires **no build step**. It can be served directly from any web server. Here is an example of how to serve it using Caddy.
+This project requires **no build step**. Serve directly from any web server.
 
 ### Example `Caddyfile`
 
 ```caddyfile
 start.koalastuff.net {
-    root * /path/to/KoalaStartpage
+    root * /opt/KoalaStartpage
     file_server
-    
-    # Optional security headers
+
     header {
         -Server
         X-Content-Type-Options "nosniff"
@@ -24,24 +32,23 @@ start.koalastuff.net {
 
 ## Updating
 
-To pull the latest changes, simply navigate to the repository on your server and pull:
-
 ```bash
-cd /path/to/KoalaStartpage
+cd /opt/KoalaStartpage
 git pull origin main
 ```
-There is no need to restart the web server or rebuild any assets.
+No restart needed — Caddy serves the new files immediately.
 
 ## Modifying Tracked Repositories
 
-To add or remove GitHub repositories from the release tracker, open `script.js` and edit the `repositories` array:
+Edit the `repositories` array in `script.js`:
 
 ```javascript
 const repositories = [
-    'Shik3i/KoalaSync',
-    'Shik3i/KoalaClicker',
-    'Shik3i/KoalaFlyff',
-    'Shik3i/KoalaTimer',
-    // 'New/Repo'
+  { repo: 'Shik3i/KoalaSync',           displayName: 'KoalaSync' },
+  { repo: 'Shik3i/KoalaClicker',        displayName: 'KoalaClicker' },
+  { repo: 'Shik3i/FlyffUniverseHelper', displayName: 'KoalaFlyff' },
+  { repo: 'Shik3i/Antigrav',            displayName: 'KoalaTimer' },
 ];
 ```
+
+The `displayName` field controls what's shown in the UI, independent of the actual GitHub repo name.

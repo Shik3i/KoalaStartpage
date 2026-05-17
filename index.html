@@ -10,13 +10,20 @@
     <!-- Favicon (Koala emoji as SVG) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐨</text></svg>">
 
+    <!-- Set lang class ASAP to prevent flash of wrong language -->
+    <script>
+        (function() {
+            var s = localStorage.getItem('koala-lang');
+            var l = s || (navigator.language.startsWith('de') ? 'de' : 'en');
+            document.documentElement.lang = l;
+        })();
+    </script>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Phosphor Icons (jsdelivr for reliability) -->
+    <!-- Phosphor Icons (regular weight only) -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2/src/regular/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2/src/bold/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2/src/fill/style.css">
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="style.css">
@@ -74,11 +81,11 @@
                         <h3 class="text-base font-semibold" data-i18n="tile_quicklinks">Quick Links</h3>
                     </div>
                     <div class="flex flex-col gap-1.5 flex-1 justify-center">
-                        <a href="https://github.com/Shik3i" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm">
+                        <a href="https://github.com/Shik3i" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="github.com/Shik3i">
                             <i class="ph ph-github-logo text-lg text-gray-400"></i>
                             <span class="font-medium">GitHub</span>
                         </a>
-                        <a href="https://status.koalastuff.net" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm">
+                        <a href="https://status.koalastuff.net" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="status.koalastuff.net">
                             <i class="ph ph-heartbeat text-lg text-emerald-400/80"></i>
                             <span class="font-medium" data-i18n="link_uptime">Status-Seite</span>
                         </a>
@@ -86,16 +93,16 @@
                 </div>
 
                 <!-- ╔═══ 3. Services ═══╗ -->
-                <div class="bento-tile bento-tile--scrollable rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col lg:row-span-2 fade-in">
+                <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col lg:row-span-2 fade-in" style="overflow-y: auto;">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="badge-blue p-2 rounded-xl">
                             <i class="ph ph-rocket-launch text-xl"></i>
                         </div>
                         <h3 class="text-base font-semibold" data-i18n="tile_services">Services</h3>
                     </div>
-                    <div class="flex flex-col gap-1 flex-1 overflow-y-auto">
+                    <div class="flex flex-col gap-1 flex-1">
                         <!-- KoalaSync -->
-                        <a href="https://sync.koalastuff.net" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm">
+                        <a href="https://sync.koalastuff.net" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="sync.koalastuff.net">
                             <i class="ph ph-arrows-left-right text-lg text-indigo-400/80"></i>
                             <span class="font-medium" data-i18n="link_sync">KoalaSync</span>
                         </a>
@@ -103,7 +110,7 @@
                         <div class="h-px bg-white/5 mx-2 my-1.5"></div>
 
                         <!-- KoalaTimer -->
-                        <a href="https://timer.koalastuff.net" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm">
+                        <a href="https://timer.koalastuff.net" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="timer.koalastuff.net">
                             <i class="ph ph-timer text-lg text-purple-400/80"></i>
                             <span class="font-medium" data-i18n="link_timer">KoalaTimer</span>
                         </a>
@@ -127,7 +134,7 @@
                 </div>
 
                 <!-- ╔═══ 4. GitHub Releases ═══╗ -->
-                <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col md:col-span-2 lg:col-span-3 fade-in">
+                <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col md:col-span-2 lg:col-span-2 fade-in">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="badge-gray p-2 rounded-xl">
                             <i class="ph ph-git-merge text-xl"></i>
@@ -136,6 +143,41 @@
                     </div>
                     <div id="releases-container" class="flex-1">
                         <!-- Injected by script.js -->
+                    </div>
+                </div>
+
+                <!-- ╔═══ 5. Tailscale / Internal ═══╗ -->
+                <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col md:col-span-2 lg:col-span-4 fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="badge-purple p-2 rounded-xl">
+                            <i class="ph ph-lock-key text-xl"></i>
+                        </div>
+                        <h3 class="text-base font-semibold" data-i18n="tile_internal">Internal (Tailscale)</h3>
+                        <span class="text-[0.65rem] text-gray-600 bg-white/5 px-2 py-0.5 rounded-full ml-auto" data-i18n="label_tailscale_only">Nur im Tailnet erreichbar</span>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+                        <a href="http://100.68.158.76:5001" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-3 rounded-xl text-gray-300 text-sm" title="Dockge — Container Management">
+                            <i class="ph ph-package text-lg text-purple-400/70"></i>
+                            <span class="font-medium">Dockge</span>
+                        </a>
+                        <a href="http://100.68.158.76:3000/d/rYdddlPWk/node-exporter-full" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-3 rounded-xl text-gray-300 text-sm" title="Grafana — Server Monitoring">
+                            <i class="ph ph-chart-line text-lg text-amber-400/70"></i>
+                            <span class="font-medium">Grafana</span>
+                        </a>
+                        <a href="http://100.68.158.76:8200/ngclient/" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-3 rounded-xl text-gray-300 text-sm" title="Duplicati — HetznerBox Backup">
+                            <i class="ph ph-cloud-arrow-up text-lg text-emerald-400/70"></i>
+                            <div class="flex flex-col">
+                                <span class="font-medium">Duplicati</span>
+                                <span class="text-[0.65rem] text-gray-600">HetznerBox</span>
+                            </div>
+                        </a>
+                        <a href="http://100.99.84.61:8200/ngclient/" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-3 rounded-xl text-gray-300 text-sm" title="Duplicati — UnraidBox Backup">
+                            <i class="ph ph-cloud-arrow-up text-lg text-emerald-400/70"></i>
+                            <div class="flex flex-col">
+                                <span class="font-medium">Duplicati</span>
+                                <span class="text-[0.65rem] text-gray-600">UnraidBox</span>
+                            </div>
+                        </a>
                     </div>
                 </div>
 

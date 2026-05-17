@@ -66,10 +66,7 @@ body {
   transform: none;
 }
 
-/* Allow internal scrolling on tiles that need it */
-.bento-tile--scrollable {
-  overflow: visible;
-}
+/* Allow internal scrolling on specific tiles via inline style */
 
 /* ── Link Items ───────────────────────────────── */
 .bento-link {
@@ -103,6 +100,7 @@ body {
 .fade-in:nth-child(3) { animation-delay: 0.19s; }
 .fade-in:nth-child(4) { animation-delay: 0.26s; }
 .fade-in:nth-child(5) { animation-delay: 0.33s; }
+.fade-in:nth-child(6) { animation-delay: 0.40s; }
 
 /* ── Clock Pulse ──────────────────────────────── */
 .clock-colon {
