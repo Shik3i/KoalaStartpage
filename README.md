@@ -14,19 +14,45 @@
 - **Live Clock & Greeting:** Dynamic greetings based on the time of day, with full Internationalization (i18n) support (DE/EN).
 - **Service Hub:** Quick access to all active Koala projects (KoalaSync, KoalaTimer, etc.) and server management tools.
 - **Internal Tailscale Integration:** Direct links to private infrastructure (Dockge, Grafana, Duplicati) logically grouped for Tailnet users.
-- **Zero Build Step:** Entirely static. No Webpack, Node.js, or NPM required. Serve directly via any lightweight web server.
+- **100% Self-Hosted Privacy:** Zero external CDNs are loaded (all fonts and icons are hosted locally), ensuring absolute GDPR/DSGVO compliance.
+- **Zero-Build Production:** The compiled, purged CSS is committed directly to Git. The production VPS only serves static files and requires no Node.js or NPM build steps.
 
 ## 🚀 Deployment
 
-Because the project is entirely static, it can be deployed in seconds. We recommend using [Caddy](https://caddyserver.com/) for effortless HTTPS and static file serving.
+Because the project is entirely static, it can be deployed in seconds. We recommend using [Caddy](https://caddyserver.com/) for effortless HTTPS, Gzip/Zstandard compression, browser caching, and robust security headers.
 
-### Example `Caddyfile`
+### Recommended `Caddyfile` Configuration
 
 ```caddyfile
 koalastuff.net {
-        import security_headers
-        root * /var/www/startpage
-        file_server
+    # 1. Enable modern compression (Zstandard & Gzip)
+    encode zstd gzip
+
+    # 2. Strict Same-Origin Security Headers
+    header {
+        Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+        X-Frame-Options "SAMEORIGIN"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), vr=()"
+
+        # Ultra-Strict Content Security Policy (No external CDNs allowed)
+        # 'unsafe-inline' in style-src allows password managers / browser extensions to style elements safely
+        Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' data: https://start.koalastuff.net; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none';"
+
+        -Server
+    }
+
+    # 3. Efficient 30-Day Browser Caching for static assets
+    @static {
+        file
+        path *.css *.js *.svg *.ico *.png *.jpg *.woff2
+    }
+    header @static Cache-Control "public, max-age=2592000"
+
+    # 4. Webroot and file server
+    root * /var/www/startpage
+    file_server
 }
 ```
 

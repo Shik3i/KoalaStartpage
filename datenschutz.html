@@ -47,24 +47,31 @@
 
         <!-- 2. External Services -->
         <h2>
-            <span lang="de">2. Externe Dienste (CDN)</span>
-            <span lang="en">2. External Services (CDN)</span>
+            <span lang="de">2. Externe Dienste & API-Verbindungen</span>
+            <span lang="en">2. External Services & API Connections</span>
         </h2>
-        <p lang="de">Diese Seite bindet folgende externe Ressourcen ein:</p>
-        <p lang="en">This site loads the following external resources:</p>
-        <ul class="list-disc list-inside ml-4">
-            <li><strong>Tailwind CSS</strong> — <code class="text-indigo-400">cdn.tailwindcss.com</code></li>
-            <li><strong>Phosphor Icons</strong> — <code class="text-indigo-400">cdn.jsdelivr.net</code></li>
-            <li><strong>Inter Font</strong> — <code class="text-indigo-400">fonts.googleapis.com</code></li>
+        <p lang="de">
+            Diese Webseite wird vollständig autark betrieben. Alle Schriftarten (Google Fonts Inter), Icons (Phosphor Icons) und Stylesheets 
+            werden lokal auf unserem Server gehostet. Es erfolgt beim Laden der Seite <strong>keine</strong> automatische Verbindung zu externen Content Delivery Networks (CDNs).
+        </p>
+        <p lang="en">
+            This website is operated completely independently. All fonts (Google Fonts Inter), icons (Phosphor Icons), and stylesheets 
+            are hosted locally on our own server. When loading the page, <strong>no</strong> automatic connection is made to external Content Delivery Networks (CDNs).
+        </p>
+        <p lang="de" style="margin-top: 0.75rem;">
+            Zur dynamischen Darstellung der Softwareversionen im Dashboard lädt Ihr Browser asynchron Daten über folgende offizielle Programmierschnittstelle (API) nach:
+        </p>
+        <p lang="en" style="margin-top: 0.75rem;">
+            To dynamically display software versions in the dashboard, your browser asynchronously fetches data via the following official programming interface (API):
+        </p>
+        <ul class="list-disc list-inside ml-4 font-mono text-sm">
             <li><strong>GitHub REST API</strong> — <code class="text-indigo-400">api.github.com</code></li>
         </ul>
         <p lang="de" style="margin-top: 0.75rem;">
-            Beim Laden dieser Ressourcen wird Ihre IP-Adresse an die jeweiligen CDN-Betreiber übermittelt.
-            Es gelten die Datenschutzrichtlinien der jeweiligen Anbieter.
+            Dabei wird Ihre IP-Adresse an GitHub (GitHub Inc., USA) übermittelt. Es gelten die Datenschutzrichtlinien von GitHub.
         </p>
         <p lang="en" style="margin-top: 0.75rem;">
-            When loading these resources, your IP address is transmitted to the respective CDN operators.
-            The privacy policies of the respective providers apply.
+            When doing so, your IP address is transmitted to GitHub (GitHub Inc., USA). GitHub's privacy policy applies.
         </p>
 
         <!-- 3. Local Storage -->
