@@ -7,6 +7,11 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Impressum — Koala Startpage</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐨</text></svg>">
+    <!-- Font Preloads (Speeds up text rendering & eliminates chaining latency on mobile) -->
+    <link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/Phosphor.woff2" as="font" type="font/woff2" crossorigin>
+
     <!-- Custom Styles (Includes compiled local fonts and icons) -->
     <link rel="stylesheet" href="style.css">
     <script src="js/lang-init.js"></script>
@@ -17,14 +22,14 @@
     <div class="relative z-10 legal-page">
         <!-- Top bar: Back link + Language toggle -->
         <div class="flex items-center justify-between mb-8">
-            <a href="index.html" class="legal-back mb-0">
+            <a href="index.html" class="legal-back mb-0" aria-label="Zurück zur Startseite / Back to Startpage">
                 <i class="ph ph-arrow-left"></i>
                 <span lang="de">Zurück zur Startseite</span>
                 <span lang="en">Back to Startpage</span>
             </a>
             <div class="lang-toggle rounded-full flex items-center p-0.5 gap-0.5">
-                <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-de">DE</button>
-                <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-en">EN</button>
+                <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-de" aria-label="Sprache auf Deutsch umstellen">DE</button>
+                <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-en" aria-label="Switch language to English">EN</button>
             </div>
         </div>
 
