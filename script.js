@@ -173,10 +173,10 @@ function relativeTime(date) {
 
 // ── GitHub Releases ─────────────────────────────
 const repositories = [
-  { repo: 'Shik3i/KoalaSync',            displayName: 'KoalaSync' },
-  { repo: 'Shik3i/KoalaClicker',         displayName: 'KoalaClicker' },
-  { repo: 'Shik3i/FlyffUniverseHelper',  displayName: 'KoalaFlyff' },
-  { repo: 'Shik3i/Antigrav',              displayName: 'KoalaTimer' },
+  { repo: 'Shik3i/KoalaSync',           displayName: 'KoalaSync' },
+  { repo: 'Shik3i/KoalaClicker',        displayName: 'KoalaClicker' },
+  { repo: 'Shik3i/FlyffUniverseHelper', displayName: 'KoalaFlyff' },
+  { repo: 'Shik3i/Antigrav',            displayName: 'KoalaTimer', type: 'package' },
 ];
 
 const CACHE_KEY = 'koala-releases-cache';
@@ -211,27 +211,58 @@ async function fetchGitHubReleases() {
   `).join('');
 
   try {
-    const releases = await Promise.all(repositories.map(async ({ repo, displayName }) => {
+    const releases = await Promise.all(repositories.map(async (item) => {
+      const isPackage = item.type === 'package';
+      const owner = item.repo.split('/')[0];
+      const repoName = item.repo.split('/')[1];
+      const pkgName = repoName.toLowerCase();
+      
+      const apiUrl = isPackage 
+        ? `https://api.github.com/users/${owner}/packages/container/${pkgName}/versions`
+        : `https://api.github.com/repos/${item.repo}/releases/latest`;
+        
+      const fallbackUrl = isPackage
+        ? `https://github.com/${item.repo}/pkgs/container/${pkgName}`
+        : `https://github.com/${item.repo}/releases`;
+
       try {
-        const response = await fetch(`https://api.github.com/repos/${repo}/releases/latest`);
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           if (response.status === 404) {
-            return { repo, displayName, tag: null, url: `https://github.com/${repo}/releases`, date: null, status: 'none' };
+            return { displayName: item.displayName, tag: null, url: fallbackUrl, date: null, status: 'none' };
           }
           throw new Error(`HTTP ${response.status}`);
         }
+        
         const data = await response.json();
-        return {
-          repo,
-          displayName,
-          tag: data.tag_name,
-          url: data.html_url,
-          date: new Date(data.published_at),
-          status: 'ok'
-        };
+        
+        if (isPackage) {
+          if (!data || data.length === 0) {
+            return { displayName: item.displayName, tag: null, url: fallbackUrl, date: null, status: 'none' };
+          }
+          const latest = data[0];
+          const tags = latest.metadata?.container?.tags || [];
+          const tag = tags.find(t => t !== 'latest') || tags[0] || 'docker';
+          
+          return {
+            displayName: item.displayName,
+            tag: tag,
+            url: fallbackUrl,
+            date: new Date(latest.updated_at),
+            status: 'ok'
+          };
+        } else {
+          return {
+            displayName: item.displayName,
+            tag: data.tag_name,
+            url: data.html_url,
+            date: new Date(data.published_at),
+            status: 'ok'
+          };
+        }
       } catch (err) {
-        console.error(`Error loading ${repo}:`, err);
-        return { repo, displayName, tag: null, url: `https://github.com/${repo}/releases`, date: null, status: 'error' };
+        console.error(`Error loading ${item.displayName}:`, err);
+        return { displayName: item.displayName, tag: null, url: fallbackUrl, date: null, status: 'error' };
       }
     }));
 
