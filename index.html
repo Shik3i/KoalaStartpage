@@ -3,101 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Koala Startpage — Dashboard for Koala projects, services, and system monitoring.">
     <title>Koala Startpage</title>
-    
+
+    <!-- Favicon (Koala emoji as SVG) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐨</text></svg>">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    
+
+    <!-- Phosphor Icons (jsdelivr for reliability) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2/src/regular/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2/src/bold/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2/src/fill/style.css">
+
     <!-- Custom Styles -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="min-h-screen p-4 sm:p-8 flex items-center justify-center">
+<body class="min-h-screen flex flex-col">
 
-    <div class="max-w-6xl w-full mx-auto">
-        <!-- Grid Layout -->
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 auto-rows-[minmax(180px,_auto)]">
-            
-            <!-- 1. Time & Greeting (Large) -->
-            <div class="bento-tile rounded-3xl p-8 flex flex-col justify-end md:col-span-2 md:row-span-2 relative overflow-hidden">
-                <div class="absolute top-0 right-0 p-8 opacity-5">
-                    <i class="ph-fill ph-planet text-[10rem]"></i>
+    <!-- Animated Background Mesh -->
+    <div class="bg-mesh" aria-hidden="true"></div>
+
+    <!-- Main Content -->
+    <main class="relative z-10 flex-1 flex items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div class="max-w-6xl w-full mx-auto">
+
+            <!-- Top Bar: Branding + Language Toggle -->
+            <div class="flex items-center justify-between mb-6 md:mb-8 fade-in">
+                <!-- Koala Branding -->
+                <div class="flex items-center gap-2.5">
+                    <span class="text-2xl">🐨</span>
+                    <span class="text-lg font-semibold tracking-tight text-gray-300">
+                        Koala<span class="text-indigo-400">Stuff</span>
+                    </span>
                 </div>
-                <div class="relative z-10">
-                    <h2 id="greeting" class="text-2xl md:text-3xl font-medium text-gray-400 mb-2">Hallo</h2>
-                    <h1 id="current-time" class="text-6xl md:text-8xl font-bold tracking-tighter mb-4 text-white">00:00</h1>
-                    <p id="current-date" class="text-lg md:text-xl text-gray-400">Datum lädt...</p>
+
+                <!-- Language Toggle -->
+                <div class="lang-toggle rounded-full flex items-center p-0.5 gap-0.5">
+                    <button id="lang-de" class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400">DE</button>
+                    <button id="lang-en" class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400">EN</button>
                 </div>
             </div>
 
-            <!-- 2. System Status & Monitoring -->
-            <div class="bento-tile rounded-3xl p-6 flex flex-col md:col-span-1 md:row-span-1">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="p-2 bg-emerald-500/20 text-emerald-400 rounded-xl">
-                        <i class="ph ph-activity text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold">System Status</h3>
-                </div>
-                <div class="flex-1 flex flex-col gap-2 justify-center">
-                    <a href="https://status.koalastuff.net" target="_blank" class="bento-link flex items-center gap-3 p-3 rounded-xl text-gray-300">
-                        <i class="ph ph-heartbeat text-xl text-emerald-400"></i>
-                        <span class="font-medium">Uptime Kuma</span>
-                    </a>
-                </div>
-            </div>
+            <!-- Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
 
-            <!-- 3. Projects & Services -->
-            <div class="bento-tile rounded-3xl p-6 flex flex-col md:col-span-1 md:row-span-2">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="p-2 bg-blue-500/20 text-blue-400 rounded-xl">
-                        <i class="ph ph-rocket-launch text-2xl"></i>
+                <!-- ╔═══ 1. Clock & Greeting (Hero) ═══╗ -->
+                <div class="bento-tile bento-tile--hero rounded-2xl lg:rounded-3xl p-6 lg:p-8 flex flex-col justify-end md:col-span-2 lg:col-span-2 lg:row-span-2 min-h-[240px] lg:min-h-[360px] relative overflow-hidden fade-in">
+                    <!-- Decorative gradient orb -->
+                    <div class="absolute -top-20 -right-20 w-60 h-60 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+                    <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-emerald-500/8 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+                    <div class="relative z-10">
+                        <p id="greeting" class="text-xl md:text-2xl font-light text-gray-400 mb-1">Guten Tag</p>
+                        <h1 id="current-time" class="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tighter mb-3 text-white">
+                            00<span class="clock-colon">:</span>00
+                        </h1>
+                        <p id="current-date" class="text-base md:text-lg text-gray-500 font-light">…</p>
                     </div>
-                    <h3 class="text-lg font-semibold">Services</h3>
                 </div>
-                <div class="flex flex-col gap-2 flex-1 overflow-y-auto pr-1">
-                    <a href="https://sync.koalastuff.net" target="_blank" class="bento-link flex items-center gap-3 p-3 rounded-xl text-gray-300">
-                        <i class="ph ph-arrows-left-right text-xl text-blue-400"></i>
-                        <span class="font-medium">KoalaSync</span>
-                    </a>
-                    
-                    <div class="h-px bg-gray-800 my-1"></div>
-                    
-                    <a href="https://timer.koalastuff.net" target="_blank" class="bento-link flex items-center gap-3 p-3 rounded-xl text-gray-300">
-                        <i class="ph ph-timer text-xl text-purple-400"></i>
-                        <span class="font-medium">KoalaTimer</span>
-                    </a>
-                    <!-- Timer Subpages -->
-                    <div class="pl-8 flex flex-col gap-1">
-                        <a href="https://timer.koalastuff.net/blackjack" target="_blank" class="bento-link flex items-center gap-2 p-2 rounded-lg text-sm text-gray-400 hover:text-gray-200">
-                            <i class="ph ph-cards"></i> Blackjack
-                        </a>
-                        <a href="https://timer.koalastuff.net/esports" target="_blank" class="bento-link flex items-center gap-2 p-2 rounded-lg text-sm text-gray-400 hover:text-gray-200">
-                            <i class="ph ph-game-controller"></i> Esports
-                        </a>
-                        <a href="https://timer.koalastuff.net/news" target="_blank" class="bento-link flex items-center gap-2 p-2 rounded-lg text-sm text-gray-400 hover:text-gray-200">
-                            <i class="ph ph-newspaper"></i> News
+
+                <!-- ╔═══ 2. System Status ═══╗ -->
+                <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="badge-emerald p-2 rounded-xl">
+                            <i class="ph ph-heartbeat text-xl"></i>
+                        </div>
+                        <h3 class="text-base font-semibold" data-i18n="tile_status">System Status</h3>
+                    </div>
+                    <div class="flex flex-col gap-1.5 flex-1 justify-center">
+                        <a href="https://status.koalastuff.net" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm">
+                            <i class="ph ph-chart-line-up text-lg text-emerald-400/80"></i>
+                            <span class="font-medium" data-i18n="link_uptime">Status-Seite</span>
                         </a>
                     </div>
                 </div>
-            </div>
 
-            <!-- 4. GitHub Releases Tracker -->
-            <div class="bento-tile rounded-3xl p-6 flex flex-col md:col-span-2 md:row-span-1 overflow-hidden">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="p-2 bg-gray-700/50 text-gray-200 rounded-xl">
-                        <i class="ph ph-git-merge text-2xl"></i>
+                <!-- ╔═══ 3. Services ═══╗ -->
+                <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col lg:row-span-2 fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="badge-blue p-2 rounded-xl">
+                            <i class="ph ph-rocket-launch text-xl"></i>
+                        </div>
+                        <h3 class="text-base font-semibold" data-i18n="tile_services">Services</h3>
                     </div>
-                    <h3 class="text-lg font-semibold">Latest Releases</h3>
-                </div>
-                <div id="releases-container" class="flex-1 overflow-y-auto pr-1">
-                    <!-- Injected by script.js -->
-                </div>
-            </div>
+                    <div class="flex flex-col gap-1 flex-1 overflow-y-auto">
+                        <!-- KoalaSync -->
+                        <a href="https://sync.koalastuff.net" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm">
+                            <i class="ph ph-arrows-left-right text-lg text-indigo-400/80"></i>
+                            <span class="font-medium" data-i18n="link_sync">KoalaSync</span>
+                        </a>
 
+                        <div class="h-px bg-white/5 mx-2 my-1.5"></div>
+
+                        <!-- KoalaTimer -->
+                        <a href="https://timer.koalastuff.net" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm">
+                            <i class="ph ph-timer text-lg text-purple-400/80"></i>
+                            <span class="font-medium" data-i18n="link_timer">KoalaTimer</span>
+                        </a>
+
+                        <!-- Timer Subpages (indented) -->
+                        <div class="ml-8 flex flex-col gap-0.5">
+                            <a href="https://timer.koalastuff.net/blackjack" target="_blank" rel="noopener" class="bento-link flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs text-gray-500 hover:text-gray-300">
+                                <i class="ph ph-cards text-sm text-amber-400/60"></i>
+                                <span data-i18n="link_blackjack">Blackjack</span>
+                            </a>
+                            <a href="https://timer.koalastuff.net/esports" target="_blank" rel="noopener" class="bento-link flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs text-gray-500 hover:text-gray-300">
+                                <i class="ph ph-game-controller text-sm text-rose-400/60"></i>
+                                <span data-i18n="link_esports">Esports</span>
+                            </a>
+                            <a href="https://timer.koalastuff.net/news" target="_blank" rel="noopener" class="bento-link flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs text-gray-500 hover:text-gray-300">
+                                <i class="ph ph-newspaper text-sm text-blue-400/60"></i>
+                                <span data-i18n="link_news">News</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ╔═══ 4. GitHub Releases (Full Width Bottom) ═══╗ -->
+                <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col md:col-span-2 lg:col-span-3 fade-in">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="badge-gray p-2 rounded-xl">
+                            <i class="ph ph-git-merge text-xl"></i>
+                        </div>
+                        <h3 class="text-base font-semibold" data-i18n="tile_releases">Latest Releases</h3>
+                    </div>
+                    <div id="releases-container" class="flex-1 overflow-y-auto">
+                        <!-- Injected by script.js -->
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 pb-4 pt-6 flex items-center justify-center gap-4">
+        <a href="datenschutz.html" class="footer-link" data-i18n="footer_privacy">Datenschutz</a>
+        <span class="text-gray-800">·</span>
+        <a href="impressum.html" class="footer-link" data-i18n="footer_imprint">Impressum</a>
+    </footer>
 
     <script src="script.js"></script>
 </body>
