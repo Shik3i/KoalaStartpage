@@ -12,7 +12,7 @@
 - **Dynamic Bento Box UI:** A sleek, responsive layout utilizing glassmorphism and modern CSS styling.
 - **GitHub Release Tracker:** Automatically fetches and displays the latest releases for configured repositories using the GitHub API, complete with `localStorage` caching (10-minute TTL) to respect API rate limits.
 - **Live Clock & Greeting:** Dynamic greetings based on the time of day, with full Internationalization (i18n) support (DE/EN).
-- **Service Hub:** Quick access to all active Koala projects (KoalaSync, KoalaTimer, etc.) and server management tools.
+- **Service Hub:** Quick access to all active Koala projects (KoalaSync, KoalaWeb, etc.) and server management tools.
 - **Internal Tailscale Integration:** Direct links to private infrastructure (Dockge, Grafana, Duplicati) logically grouped for Tailnet users.
 - **100% Self-Hosted Privacy:** Zero external CDNs are loaded (all fonts and icons are hosted locally), ensuring absolute GDPR/DSGVO compliance.
 - **Zero-Build Production:** The compiled, purged CSS is committed directly to Git. The production VPS only serves static files and requires no Node.js or NPM build steps.
@@ -109,7 +109,7 @@ const repositories = [
   { repo: 'Shik3i/KoalaSync',           displayName: 'KoalaSync' },
   { repo: 'Shik3i/KoalaClicker',        displayName: 'KoalaClicker' },
   { repo: 'Shik3i/FlyffUniverseHelper', displayName: 'KoalaFlyff' },
-  { repo: 'Shik3i/Antigrav',            displayName: 'KoalaTimer' },
+  { repo: 'Shik3i/Antigrav',            displayName: 'KoalaWeb' },
 ];
 ```
 

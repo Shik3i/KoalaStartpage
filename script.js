@@ -15,7 +15,7 @@ const translations = {
     tile_releases: 'Latest Releases',
     link_uptime: 'Status-Seite',
     link_sync: 'KoalaSync',
-    link_timer: 'KoalaTimer',
+    link_timer: 'KoalaWeb',
     link_blackjack: 'Blackjack',
     link_esports: 'Esports',
     link_news: 'News',
@@ -45,7 +45,7 @@ const translations = {
     tile_releases: 'Latest Releases',
     link_uptime: 'Status Page',
     link_sync: 'KoalaSync',
-    link_timer: 'KoalaTimer',
+    link_timer: 'KoalaWeb',
     link_blackjack: 'Blackjack',
     link_esports: 'Esports',
     link_news: 'News',
@@ -176,7 +176,7 @@ const repositories = [
   { repo: 'Shik3i/KoalaSync',           displayName: 'KoalaSync' },
   { repo: 'Shik3i/KoalaClicker',        displayName: 'KoalaClicker' },
   { repo: 'Shik3i/FlyffUniverseHelper', displayName: 'KoalaFlyff' },
-  { repo: 'Shik3i/Antigrav',            displayName: 'KoalaTimer', type: 'package' },
+  { repo: 'Shik3i/Antigrav',            displayName: 'KoalaWeb', type: 'package' },
 ];
 
 const CACHE_KEY = 'koala-releases-cache-v2';
