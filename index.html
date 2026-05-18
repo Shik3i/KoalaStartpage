@@ -20,9 +20,7 @@
     <meta property="og:image" content="https://start.koalastuff.net/icon.svg">
 
     <!-- Set lang class ASAP to prevent flash of wrong language -->
-    <script>
-        (function(){var s=localStorage.getItem('koala-lang');var l=s||(navigator.language.startsWith('de')?'de':'en');document.documentElement.lang=l;document.documentElement.classList.add('lang-'+l);})();
-    </script>
+    <script src="js/lang-init.js"></script>
 
     <!-- Font Preloads (Speeds up text rendering & eliminates chaining latency on mobile) -->
     <link rel="preload" href="fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
