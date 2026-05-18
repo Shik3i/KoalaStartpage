@@ -21,7 +21,7 @@
 
     <!-- Set lang class ASAP to prevent flash of wrong language -->
     <script>
-        (function(){var s=localStorage.getItem('koala-lang');var l=s||(navigator.language.startsWith('de')?'de':'en');document.documentElement.lang=l;})();
+        (function(){var s=localStorage.getItem('koala-lang');var l=s||(navigator.language.startsWith('de')?'de':'en');document.documentElement.lang=l;document.documentElement.classList.add('lang-'+l);})();
     </script>
 
     <!-- Font Preloads (Speeds up text rendering & eliminates chaining latency on mobile) -->
