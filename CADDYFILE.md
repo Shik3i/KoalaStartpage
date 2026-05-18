@@ -28,9 +28,9 @@ koalastuff.net {
         # Permissions Policy (Locks down unused browser hardware/features)
         Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), vr=()"
 
-        # Strict Content Security Policy (100% CDN-Free)
-        # Allows connection only to self and GitHub API (releases) without breaking i18n
-        Content-Security-Policy "default-src 'none'; script-src 'self' 'sha256-Ieu0B6Qtb1t4ttJ8DdxC2PMrHFMYegc+BUJhLeQmRA0=' 'sha256-MwBQOPk7JocQZyHfQoGcqLuBVwZY90cGpX0492Zp7HM='; style-src 'self' 'unsafe-inline'; font-src 'self'; worker-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' data: https://start.koalastuff.net; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none';"
+        # Strict Content Security Policy (100% CDN-Free and HASH-FREE)
+        # Allows connection only to self and GitHub API (releases) with flexible 'unsafe-inline' script handling
+        Content-Security-Policy "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; worker-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' data: https://start.koalastuff.net; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none';"
 
         # Shield Caddy version signature
         -Server
