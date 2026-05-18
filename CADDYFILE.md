@@ -46,12 +46,18 @@ koalastuff.net {
         header_up Host {upstream_hostport}
     }
 
-    # 4. Best-Practice 30-Day Browser Caching for static assets
+    # 4. Best-Practice Browser-Caching for static assets
+    # 30-Day cache for long-lived assets, excluding the Service Worker!
     @static {
         file
         path *.css *.js *.svg *.ico *.png *.jpg *.woff2
+        not path /sw.js
     }
     header @static Cache-Control "public, max-age=2592000"
+
+    # The Service Worker MUST never be cached in HTTP cache for rapid PWA updates
+    @sw file /sw.js
+    header @sw Cache-Control "no-cache, no-store, must-revalidate"
 
     # 5. Webroot and static file server
     root * /var/www/startpage
