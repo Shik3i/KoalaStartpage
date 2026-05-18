@@ -37,6 +37,15 @@
 .ph-newspaper:before { content: "\e344"; }
 .ph-package:before { content: "\e390"; }
 .ph-rocket-launch:before { content: "\e3fe"; }
+.ph-cloud:before { content: "\e1aa"; }
+.ph-cloud-fog:before { content: "\e53c"; }
+.ph-cloud-lightning:before { content: "\e1b2"; }
+.ph-cloud-rain:before { content: "\e1b4"; }
+.ph-cloud-snow:before { content: "\e1b8"; }
+.ph-cloud-sun:before { content: "\e540"; }
+.ph-snowflake:before { content: "\e5aa"; }
+.ph-sun:before { content: "\e472"; }
+.ph-wind:before { content: "\e5d2"; }
 
 
 /* ── Local Google Fonts (Inter) ───────────────── */

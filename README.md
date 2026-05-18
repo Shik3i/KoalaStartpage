@@ -21,40 +21,11 @@
 
 Because the project is entirely static, it can be deployed in seconds. We recommend using [Caddy](https://caddyserver.com/) for effortless HTTPS, Gzip/Zstandard compression, browser caching, and robust security headers.
 
-### Recommended `Caddyfile` Configuration
+### Production Caddy Server Configuration
 
-```caddyfile
-koalastuff.net {
-    # 1. Enable modern compression (Zstandard & Gzip)
-    encode zstd gzip
+For a production deployment, we recommend using Caddy for effortless HTTPS, dynamic compression, strict browser caching, and industry-leading same-origin security.
 
-    # 2. Strict Same-Origin Security Headers
-    header {
-        Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
-        X-Frame-Options "SAMEORIGIN"
-        X-Content-Type-Options "nosniff"
-        Referrer-Policy "strict-origin-when-cross-origin"
-        Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), vr=()"
-
-        # Ultra-Strict Content Security Policy (No external CDNs allowed)
-        # Whitelisted specific SHA-256 hashes of our inline i18n setup scripts to prevent execution blocks
-        Content-Security-Policy "default-src 'none'; script-src 'self' 'sha256-Ieu0B6Qtb1t4ttJ8DdxC2PMrHFMYegc+BUJhLeQmRA0=' 'sha256-MwBQOPk7JocQZyHfQoGcqLuBVwZY90cGpX0492Zp7HM='; style-src 'self' 'unsafe-inline'; font-src 'self'; worker-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' data: https://start.koalastuff.net; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none';"
-
-        -Server
-    }
-
-    # 3. Efficient 30-Day Browser Caching for static assets
-    @static {
-        file
-        path *.css *.js *.svg *.ico *.png *.jpg *.woff2
-    }
-    header @static Cache-Control "public, max-age=2592000"
-
-    # 4. Webroot and file server
-    root * /var/www/startpage
-    file_server
-}
-```
+A complete, ultra-secure production-ready `Caddyfile` template containing Hannover's exact coordinates and the privacy-first weather API reverse proxy is available in the dedicated [CADDYFILE.md](file:///Users/koala/Documents/KoalaStartpage/CADDYFILE.md) documentation.
 
 ## 🛠️ Development & Tailwind Compilation
 
