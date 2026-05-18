@@ -197,7 +197,7 @@ const repositories = [
 ];
 
 const CACHE_KEY = 'koala-releases-cache-v2';
-const CACHE_TTL = 10 * 60 * 1000; // 10 minutes
+const CACHE_TTL = 2 * 60 * 60 * 1000; // 2 hours (safeguards against GitHub API rate-limiting)
 
 async function fetchGitHubReleases() {
   const container = document.getElementById('releases-container');
