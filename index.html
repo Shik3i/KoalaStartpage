@@ -20,11 +20,14 @@
     <meta property="og:image" content="https://start.koalastuff.net/icon.svg">
 
     <!-- Set lang class ASAP to prevent flash of wrong language -->
-    <script src="js/lang-init.js"></script>
+    <script>
+        (function(){var s=localStorage.getItem('koala-lang');var l=s||(navigator.language.startsWith('de')?'de':'en');document.documentElement.lang=l;})();
+    </script>
 
     <!-- Font Preloads (Speeds up text rendering & eliminates chaining latency on mobile) -->
-    <link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/inter-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/Phosphor.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Custom Styles (Includes compiled local fonts and icons) -->
@@ -211,6 +214,6 @@
         </a>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>

@@ -75,12 +75,29 @@ function t(key) {
 }
 
 // ── Init ────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  initLangToggle();
-  applyLanguage();
-  initClock();
-  fetchGitHubReleases();
-});
+initLangToggle();
+applyLanguage();
+initClock();
+
+// Defer GitHub API calls to idle time to free up CPU/network for initial paint
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(() => fetchGitHubReleases(), { timeout: 2000 });
+} else {
+  setTimeout(fetchGitHubReleases, 800);
+}
+
+// Register Service Worker for offline capability (PWA) asynchronously
+if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(registration) {
+        console.log('[Service Worker] Registered successfully with scope:', registration.scope);
+      })
+      .catch(function(err) {
+        console.log('[Service Worker] Registration failed:', err);
+      });
+  });
+}
 
 // ── Language Toggle ─────────────────────────────
 function initLangToggle() {

@@ -35,3 +35,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// Register Service Worker for offline capability (PWA) asynchronously
+if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(registration) {
+        console.log('[Service Worker] Registered successfully with scope:', registration.scope);
+      })
+      .catch(function(err) {
+        console.log('[Service Worker] Registration failed:', err);
+      });
+  });
+}

@@ -95,7 +95,6 @@ To prevent bot crawler scraping, **never write plain email addresses in raw HTML
 ├── robots.txt            # Search engine exclusion (dashboard is private/noindex)
 ├── icon.svg              # SVG branding icon (koala emoji favicon)
 ├── js/
-│   ├── lang-init.js      # Runs immediately in head to prevent FOUC and registers SW
 │   └── legal.js          # Handles legal page language toggles and email reveal click listeners
 └── fonts/
     ├── inter-*.woff2     # Self-hosted Inter font variants (300, 400, 500, 600, 700, 800)

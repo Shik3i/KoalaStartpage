@@ -6,7 +6,6 @@ const ASSETS = [
   './datenschutz.html',
   './style.css',
   './script.js',
-  './js/lang-init.js',
   './js/legal.js',
   './icon.svg',
   './manifest.json',

@@ -1,4 +1,43 @@
-@import "./fonts/phosphor.css";
+/* Optimized Phosphor Icons Helper */
+.ph {
+  font-family: "Phosphor" !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  letter-spacing: 0;
+  -webkit-font-feature-settings: "liga";
+  -moz-font-feature-settings: "liga=1";
+  -moz-font-feature-settings: "liga";
+  -ms-font-feature-settings: "liga" 1;
+  font-feature-settings: "liga";
+  -webkit-font-variant-ligatures: discretionary-ligatures;
+  font-variant-ligatures: discretionary-ligatures;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Specific unicode character mappings used across our dashboard and legal pages */
+.ph-arrow-left:before { content: "\e058"; }
+.ph-arrow-up-right:before { content: "\e092"; }
+.ph-arrows-left-right:before { content: "\e0a0"; }
+.ph-cards:before { content: "\e0f8"; }
+.ph-chart-line:before { content: "\e154"; }
+.ph-cloud-arrow-up:before { content: "\e1ae"; }
+.ph-game-controller:before { content: "\e26e"; }
+.ph-git-merge:before { content: "\e280"; }
+.ph-github-logo:before { content: "\e576"; }
+.ph-globe:before { content: "\e288"; }
+.ph-hard-drives:before { content: "\e2a0"; }
+.ph-heartbeat:before { content: "\e2ac"; }
+.ph-lightning:before { content: "\e2de"; }
+.ph-lock-key:before { content: "\e2fe"; }
+.ph-newspaper:before { content: "\e344"; }
+.ph-package:before { content: "\e390"; }
+.ph-rocket-launch:before { content: "\e3fe"; }
+
 
 /* ── Local Google Fonts (Inter) ───────────────── */
 @font-face {

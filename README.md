@@ -37,8 +37,8 @@ koalastuff.net {
         Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=(), vr=()"
 
         # Ultra-Strict Content Security Policy (No external CDNs allowed)
-        # 'unsafe-inline' in style-src allows password managers / browser extensions to style elements safely
-        Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; worker-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' data: https://start.koalastuff.net; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none';"
+        # Whitelisted specific SHA-256 hashes of our inline i18n setup scripts to prevent execution blocks
+        Content-Security-Policy "default-src 'none'; script-src 'self' 'sha256-Ieu0B6Qtb1t4ttJ8DdxC2PMrHFMYegc+BUJhLeQmRA0=' 'sha256-MwBQOPk7JocQZyHfQoGcqLuBVwZY90cGpX0492Zp7HM='; style-src 'self' 'unsafe-inline'; font-src 'self'; worker-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' data: https://start.koalastuff.net; manifest-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none';"
 
         -Server
     }

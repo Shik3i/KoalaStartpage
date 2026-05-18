@@ -8,13 +8,15 @@
     <title>Impressum — Koala Startpage</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐨</text></svg>">
     <!-- Font Preloads (Speeds up text rendering & eliminates chaining latency on mobile) -->
-    <link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/Phosphor.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Custom Styles (Includes compiled local fonts and icons) -->
     <link rel="stylesheet" href="style.css">
-    <script src="js/lang-init.js"></script>
+    <script>
+        (function(){var s=localStorage.getItem('koala-lang');var l=s||(navigator.language.startsWith('de')?'de':'en');document.documentElement.lang=l;document.documentElement.classList.add('lang-'+l);})();
+    </script>
 </head>
 <body class="min-h-screen">
     <div class="bg-mesh" aria-hidden="true"></div>
