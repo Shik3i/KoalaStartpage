@@ -9,12 +9,12 @@
 **Koala Startpage** is a modern, static, high-performance bento-box dashboard serving as the central landing hub for Koala projects (KoalaSync, KoalaWeb, KoalaClicker), service uptimes, internal Tailnet (Tailscale) home server interfaces, and system monitoring tools.
 
 ### Key Features
-1. **Dynamic Bento Box UI**: Sleek, glassmorphic card layout utilizing responsive Tailwind CSS and custom micro-animations.
+1. **Dynamic Bento Box UI**: Sleek, glassmorphic card layout utilizing responsive Tailwind CSS and custom micro-animations. Features a silky-smooth, GPU-accelerated spotlight coordinate transition (`--x`, `--y`) to prevent snapping on mouse hover enter/leave.
 2. **GitHub Release Tracker**: Asynchronously fetches latest releases or package tags using the GitHub REST API. Features a 10-minute TTL `localStorage` cache to respect GitHub API rate limits.
 3. **Live Clock & Greeting**: Dynamic local greeting system based on the time of day with a live ticking clock (including seconds).
 4. **100% Self-Hosted GDPR/DSGVO Privacy**: Absolutely no external CDNs. All assets (fonts like Inter, icons like Phosphor) are served locally.
 5. **Zero-Build Production**: All optimized, purged CSS is committed directly to Git. The production VPS serves static files purely (e.g., via Caddy) and requires no Node.js or NPM build steps on deployment.
-6. **Bilingual i18n Support**: Full German (DE) and English (EN) toggle, preserving language state in `localStorage`.
+6. **Bilingual i18n Support**: Full German (DE) and English (EN) toggle, preserving language state in `localStorage`. Includes a premium, fully keyboard-accessible WAI-ARIA listbox theme selection dropdown.
 
 ---
 
@@ -26,7 +26,7 @@
   - **Source CSS**: `style.src.css` (contains `@tailwind` directives, `@font-face` definitions, and custom CSS components).
   - **Scanned Files**: `www/index.html`, `www/impressum.html`, `www/datenschutz.html`, `www/script.js`.
   - **Compiled CSS**: `www/style.css` (purged and minified for production).
-- **Service Worker**: `www/sw.js` registers a caching strategy for PWA support and offline resilience.
+- **Service Worker**: `www/sw.js` registers a **Network-First falling back to Cache** strategy for PWA support and offline resilience. This ensures that updates to the dashboard (HTML/JS/CSS changes) are served immediately upon page refresh when online, while still providing robust offline availability.
 
 ---
 
@@ -105,7 +105,7 @@ To prevent bot crawler scraping, **never write plain email addresses in raw HTML
     ├── impressum.html    # Multilingual Imprint / Legal page (voluntary DDG compliance)
     ├── datenschutz.html  # Multilingual Privacy Policy (GDPR/DSGVO compliant)
     ├── script.js         # Core clock, i18n toggles, relative times, and GitHub tracker
-    ├── sw.js             # Service worker (PWA cache strategy)
+    ├── sw.js             # Service worker (Network-First PWA caching strategy)
     ├── style.css         # Compiled, minified, and purged stylesheet (DO NOT EDIT directly)
     ├── manifest.json     # PWA Manifest configuration
     ├── robots.txt        # Search engine exclusion (dashboard is private/noindex)
