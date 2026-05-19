@@ -31,6 +31,8 @@
 .ph-gift:before { content: "\e276"; }
 .ph-git-merge:before { content: "\e280"; }
 .ph-github-logo:before { content: "\e576"; }
+.ph-google-chrome-logo:before { content: "\e976"; }
+.ph-firefox-logo:before { content: "\e288"; }
 .ph-globe:before { content: "\e288"; }
 .ph-grid-four:before { content: "\e296"; }
 .ph-hard-drives:before { content: "\e2a0"; }

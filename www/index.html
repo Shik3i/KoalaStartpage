@@ -92,23 +92,62 @@
                     </div>
                 </div>
 
-                <!-- ╔═══ 2. Quick Links ═══╗ -->
+                <!-- ╔═══ 2. Extensions ═══╗ -->
                 <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col fade-in">
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="badge-amber p-2 rounded-xl">
-                            <i class="ph ph-lightning text-xl"></i>
+                        <div class="badge-blue p-2 rounded-xl">
+                            <i class="ph ph-package text-xl"></i>
                         </div>
-                        <h3 class="text-base font-semibold" data-i18n="tile_quicklinks">Quick Links</h3>
+                        <h3 class="text-base font-semibold" data-i18n="tile_extensions">Extensions</h3>
                     </div>
-                    <div class="flex flex-col gap-1.5 flex-1 justify-center">
-                        <a href="https://github.com/Shik3i" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="github.com/Shik3i">
-                            <i class="ph ph-github-logo text-lg text-gray-400"></i>
-                            <span class="font-medium">GitHub</span>
-                        </a>
-                        <a href="https://status.koalastuff.net" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="status.koalastuff.net">
-                            <i class="ph ph-heartbeat text-lg text-emerald-400/80"></i>
-                            <span class="font-medium" data-i18n="link_uptime">Status-Seite</span>
-                        </a>
+                    <div class="flex flex-col gap-3 flex-1 justify-center">
+                        <!-- KoalaFlyff -->
+                        <div class="flex items-center justify-between p-2 rounded-xl bg-white/[0.01] hover:bg-white/[0.03] transition-colors">
+                            <div class="flex items-center gap-3">
+                                <i class="ph ph-game-controller text-lg text-rose-400/80"></i>
+                                <span class="font-medium text-sm text-gray-300">KoalaFlyff</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <a href="https://chromewebstore.google.com" target="_blank" rel="noopener" class="p-1.5 rounded-lg text-gray-500 hover:text-white hover:bg-white/10 transition-all flex" title="Chrome Web Store">
+                                    <i class="ph ph-google-chrome-logo text-base text-amber-400/80 hover:text-amber-300"></i>
+                                </a>
+                                <a href="https://addons.mozilla.org" target="_blank" rel="noopener" class="p-1.5 rounded-lg text-gray-500 hover:text-white hover:bg-white/10 transition-all flex" title="Firefox Add-ons">
+                                    <i class="ph ph-firefox-logo text-base text-orange-400/80 hover:text-orange-300"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- KoalaClicker -->
+                        <div class="flex items-center justify-between p-2 rounded-xl bg-white/[0.01] hover:bg-white/[0.03] transition-colors">
+                            <div class="flex items-center gap-3">
+                                <i class="ph ph-hand-pointing text-lg text-amber-400/80"></i>
+                                <span class="font-medium text-sm text-gray-300">KoalaClicker</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <a href="https://chromewebstore.google.com" target="_blank" rel="noopener" class="p-1.5 rounded-lg text-gray-500 hover:text-white hover:bg-white/10 transition-all flex" title="Chrome Web Store">
+                                    <i class="ph ph-google-chrome-logo text-base text-amber-400/80 hover:text-amber-300"></i>
+                                </a>
+                                <a href="https://addons.mozilla.org" target="_blank" rel="noopener" class="p-1.5 rounded-lg text-gray-500 hover:text-white hover:bg-white/10 transition-all flex" title="Firefox Add-ons">
+                                    <i class="ph ph-firefox-logo text-base text-orange-400/80 hover:text-orange-300"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- KoalaSync -->
+                        <div class="flex items-center justify-between p-2 rounded-xl bg-white/[0.01] hover:bg-white/[0.03] transition-colors">
+                            <div class="flex items-center gap-3">
+                                <i class="ph ph-arrows-left-right text-lg text-indigo-400/80"></i>
+                                <span class="font-medium text-sm text-gray-300">KoalaSync</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <a href="https://chromewebstore.google.com" target="_blank" rel="noopener" class="p-1.5 rounded-lg text-gray-500 hover:text-white hover:bg-white/10 transition-all flex" title="Chrome Web Store">
+                                    <i class="ph ph-google-chrome-logo text-base text-amber-400/80 hover:text-amber-300"></i>
+                                </a>
+                                <a href="https://addons.mozilla.org" target="_blank" rel="noopener" class="p-1.5 rounded-lg text-gray-500 hover:text-white hover:bg-white/10 transition-all flex" title="Firefox Add-ons">
+                                    <i class="ph ph-firefox-logo text-base text-orange-400/80 hover:text-orange-300"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -121,6 +160,14 @@
                         <h3 class="text-base font-semibold" data-i18n="tile_services">Services</h3>
                     </div>
                     <div class="flex flex-col gap-1 flex-1">
+                        <!-- Uptime / Status -->
+                        <a href="https://status.koalastuff.net" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="status.koalastuff.net">
+                            <i class="ph ph-heartbeat text-lg text-emerald-400/80"></i>
+                            <span class="font-medium" data-i18n="link_uptime">Status-Seite</span>
+                        </a>
+
+                        <div class="h-px bg-white/5 mx-2 my-1.5"></div>
+
                         <!-- KoalaSync -->
                         <a href="https://sync.koalastuff.net" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="sync.koalastuff.net">
                             <i class="ph ph-arrows-left-right text-lg text-indigo-400/80"></i>
@@ -174,11 +221,17 @@
 
                 <!-- ╔═══ 4. GitHub Releases ═══╗ -->
                 <div class="bento-tile rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col md:col-span-2 lg:col-span-2 fade-in">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="badge-gray p-2 rounded-xl">
-                            <i class="ph ph-git-merge text-xl"></i>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="badge-gray p-2 rounded-xl">
+                                <i class="ph ph-git-merge text-xl"></i>
+                            </div>
+                            <h3 class="text-base font-semibold" data-i18n="tile_releases">Latest Releases</h3>
                         </div>
-                        <h3 class="text-base font-semibold" data-i18n="tile_releases">Latest Releases</h3>
+                        <a href="https://github.com/Shik3i" target="_blank" rel="noopener" class="text-xs text-gray-500 hover:text-gray-300 transition-colors flex items-center gap-1.5 py-1.5 px-3 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.05]" title="GitHub Profile">
+                            <i class="ph ph-github-logo text-sm"></i>
+                            <span>GitHub</span>
+                        </a>
                     </div>
                     <div id="releases-container" class="flex-1 md:max-h-[300px] md:overflow-y-auto">
                         <!-- Injected by script.js -->
