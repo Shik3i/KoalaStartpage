@@ -17,7 +17,20 @@
     <script src="js/lang-init.js"></script>
 </head>
 <body class="min-h-screen">
-    <div class="bg-mesh" aria-hidden="true"></div>
+    <div class="bg-mesh" aria-hidden="true">
+        <div class="bg-orb bg-orb--1"></div>
+        <div class="bg-orb bg-orb--2"></div>
+        <div class="bg-orb bg-orb--3"></div>
+        <div class="bg-orb bg-orb--4"></div>
+    </div>
+
+    <!-- Premium Noise Overlay for high-end physical texture -->
+    <svg class="pointer-events-none fixed inset-0 z-50 opacity-[0.015]" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch"/>
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+    </svg>
 
     <div class="relative z-10 legal-page">
         <!-- Top bar: Back link + Language toggle -->
@@ -27,9 +40,16 @@
                 <span lang="de">Zurück zur Startseite</span>
                 <span lang="en">Back to Startpage</span>
             </a>
-            <div class="lang-toggle rounded-full flex items-center p-0.5 gap-0.5">
-                <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-de" aria-label="Sprache auf Deutsch umstellen">DE</button>
-                <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-en" aria-label="Switch language to English">EN</button>
+            <div class="lang-toggle rounded-full flex items-center p-0.5 pl-3 gap-2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-gray-500" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <div class="flex items-center gap-0.5">
+                    <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-de" aria-label="Sprache auf Deutsch umstellen">DE</button>
+                    <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-en" aria-label="Switch language to English">EN</button>
+                </div>
             </div>
         </div>
 
@@ -42,11 +62,11 @@
             <span lang="en">1. Hosting & Logfiles</span>
         </h2>
         <p lang="de">
-            Diese Seite wird auf einem privaten Server gehostet. Zur Gewährleistung der Stabilität werden standardmäßige Server-Logs
+            Diese Seite wird auf einer Hetzner Cloud VPS mit Serverstandort in Helsinki (Finnland) gehostet. Zur Gewährleistung der Stabilität werden standardmäßige Server-Logs
             (IP-Adresse, Browser-Kennung, Zeitpunkt) erhoben, aber nicht mit Personen verknüpft und nach 7 Tagen automatisch gelöscht.
         </p>
         <p lang="en">
-            This site is hosted on a private server. To ensure stability, standard server logs (IP address, browser identifier, time)
+            This site is hosted on a Hetzner Cloud VPS with server location in Helsinki (Finland). To ensure stability, standard server logs (IP address, browser identifier, time)
             are collected, but not linked to individuals and are automatically deleted after 7 days.
         </p>
 

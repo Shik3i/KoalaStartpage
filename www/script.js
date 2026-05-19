@@ -3,6 +3,23 @@
    i18n, Clock, GitHub Releases
    ═══════════════════════════════════════════════ */
 
+// Safe localStorage wrapper to prevent crash in strict privacy environments
+const storage = (function() {
+  try {
+    const test = '__storage_test__';
+    window.localStorage.setItem(test, test);
+    window.localStorage.removeItem(test);
+    return window.localStorage;
+  } catch (e) {
+    const mem = {};
+    return {
+      getItem: (key) => mem[key] || null,
+      setItem: (key, val) => { mem[key] = String(val); },
+      removeItem: (key) => { delete mem[key]; }
+    };
+  }
+})();
+
 // ── i18n Translations ───────────────────────────
 const translations = {
   de: {
@@ -15,6 +32,7 @@ const translations = {
     tile_releases: 'Latest Releases',
     link_uptime: 'Status-Seite',
     link_sync: 'KoalaSync',
+    link_blog: 'KoalaBlog',
     link_timer: 'KoalaWeb',
     link_sub_timer: 'Timer',
     link_esports: 'Esports',
@@ -38,6 +56,44 @@ const translations = {
     time_days_ago: 'vor {n} Tagen',
     time_weeks_ago: 'vor {n} Wochen',
     time_months_ago: 'vor {n} Monaten',
+    search_placeholder_google: 'Google Suche...',
+    search_placeholder_duckduckgo: 'DuckDuckGo Suche...',
+    search_placeholder_youtube: 'YouTube Suche...',
+    // Tooltips (DE)
+    open_on_github: 'auf GitHub öffnen',
+    tooltip_timer: 'KoalaWeb Timer — Online-Stoppuhr & Wecker',
+    tooltip_esports: 'KoalaWeb Esports — Livestreams & Turniere',
+    tooltip_news: 'KoalaWeb News — Aktuelle Nachrichten',
+    tooltip_wordle: 'KoalaWeb Wordle — Das tägliche Worträtsel',
+    tooltip_colorsync: 'KoalaWeb Color Sync — Farbpaletten-Generator',
+    tooltip_lotto: 'KoalaWeb Lotto — Glückszahlen-Generator',
+    tooltip_scratchcards: 'KoalaWeb Rubbellose — Virtueller Rubbelspaß',
+    tooltip_github: 'GitHub-Profil von Shik3i besuchen',
+    tooltip_uptime: 'Status-Seite der Services anzeigen',
+    tooltip_sync: 'KoalaSync-App öffnen',
+    tooltip_blog: 'KoalaBlog lesen',
+    tooltip_legal_privacy: 'Datenschutzerklärung lesen',
+    tooltip_legal_imprint: 'Impressum lesen',
+    tooltip_source_code: 'Quellcode auf GitHub ansehen',
+    tooltip_lang_de: 'Sprache auf Deutsch umstellen',
+    tooltip_lang_en: 'Sprache auf Englisch umstellen',
+    tooltip_search_engine: 'Suchmaschine wechseln',
+    tooltip_dockge: 'Dockge — Container-Verwaltung öffnen',
+    tooltip_grafana: 'Grafana — Server-Metriken & Monitoring',
+    tooltip_duplicati_hetzner: 'Duplicati — HetznerBox Backup-Verwaltung',
+    tooltip_duplicati_unraid: 'Duplicati — UnraidBox Backup-Verwaltung',
+    tooltip_unraid: 'Unraid Web-Oberfläche öffnen',
+    tooltip_cstore: 'Im Chrome Web Store ansehen',
+    tooltip_addons: 'Als Firefox-Addon ansehen',
+    btn_design: 'Design',
+    theme_midnight: 'Midnight Aurora',
+    theme_sunset: 'Sunset Rose',
+    theme_emerald: 'Emerald Glass',
+    theme_obsidian: 'Classic Obsidian',
+    theme_frost: 'Nordic Frost',
+    theme_cyberpunk: 'Cyberpunk Neon',
+    theme_solar: 'Solar Amber',
+    tooltip_change_theme: 'Design wechseln',
   },
   en: {
     greeting_morning: 'Good Morning',
@@ -49,6 +105,7 @@ const translations = {
     tile_releases: 'Latest Releases',
     link_uptime: 'Status Page',
     link_sync: 'KoalaSync',
+    link_blog: 'KoalaBlog',
     link_timer: 'KoalaWeb',
     link_sub_timer: 'Timer',
     link_esports: 'Esports',
@@ -72,10 +129,67 @@ const translations = {
     time_days_ago: '{n}d ago',
     time_weeks_ago: '{n}w ago',
     time_months_ago: '{n}mo ago',
+    search_placeholder_google: 'Search Google...',
+    search_placeholder_duckduckgo: 'Search DuckDuckGo...',
+    search_placeholder_youtube: 'Search YouTube...',
+    // Tooltips (EN)
+    open_on_github: 'open on GitHub',
+    tooltip_timer: 'KoalaWeb Timer — Online Stopwatch & Alarm',
+    tooltip_esports: 'KoalaWeb Esports — Livestreams & Tournaments',
+    tooltip_news: 'KoalaWeb News — Daily News Feed',
+    tooltip_wordle: 'KoalaWeb Wordle — Daily Word Puzzle',
+    tooltip_colorsync: 'KoalaWeb Color Sync — Color Palette Generator',
+    tooltip_lotto: 'KoalaWeb Lotto — Lucky Numbers Generator',
+    tooltip_scratchcards: 'KoalaWeb Scratchcards — Virtual Scratchcards',
+    tooltip_github: 'Visit Shik3i\'s GitHub profile',
+    tooltip_uptime: 'View services status page',
+    tooltip_sync: 'Open KoalaSync app',
+    tooltip_blog: 'Read KoalaBlog',
+    tooltip_legal_privacy: 'Read Privacy Policy',
+    tooltip_legal_imprint: 'Read Imprint',
+    tooltip_source_code: 'View source code on GitHub',
+    tooltip_lang_de: 'Switch language to German',
+    tooltip_lang_en: 'Switch language to English',
+    tooltip_search_engine: 'Change search engine',
+    tooltip_dockge: 'Open Dockge — Container Management',
+    tooltip_grafana: 'Grafana — Server Metrics & Monitoring',
+    tooltip_duplicati_hetzner: 'Duplicati — HetznerBox Backup Management',
+    tooltip_duplicati_unraid: 'Duplicati — UnraidBox Backup Management',
+    tooltip_unraid: 'Open Unraid Web Interface',
+    tooltip_cstore: 'View in Chrome Web Store',
+    tooltip_addons: 'View in Firefox Add-ons',
+    btn_design: 'Design',
+    theme_midnight: 'Midnight Aurora',
+    theme_sunset: 'Sunset Rose',
+    theme_emerald: 'Emerald Glass',
+    theme_obsidian: 'Classic Obsidian',
+    theme_frost: 'Nordic Frost',
+    theme_cyberpunk: 'Cyberpunk Neon',
+    theme_solar: 'Solar Amber',
+    tooltip_change_theme: 'Change design theme',
   }
 };
 
-let currentLang = localStorage.getItem('koala-lang') || 'de';
+// ── Search Engine Configurations ────────────────
+const engineConfigs = {
+  google: {
+    action: 'https://www.google.com/search',
+    name: 'q',
+    placeholder: 'search_placeholder_google'
+  },
+  duckduckgo: {
+    action: 'https://duckduckgo.com/',
+    name: 'q',
+    placeholder: 'search_placeholder_duckduckgo'
+  },
+  youtube: {
+    action: 'https://www.youtube.com/results',
+    name: 'search_query',
+    placeholder: 'search_placeholder_youtube'
+  }
+};
+
+let currentLang = storage.getItem('koala-lang') || (navigator.language.startsWith('de') ? 'de' : 'en');
 let cachedReleases = null;
 let cachedWeatherData = null;
 
@@ -86,7 +200,13 @@ function t(key) {
 // ── Init ────────────────────────────────────────
 initLangToggle();
 applyLanguage();
+initThemeSwitcher();
 initClock();
+initSearchShortcut();
+initTileTilt();
+initTooltips();
+
+
 
 // Defer GitHub API and Weather calls to idle time to free up CPU/network for initial paint
 if ('requestIdleCallback' in window) {
@@ -126,14 +246,14 @@ function initLangToggle() {
 
   btnDE.addEventListener('click', () => {
     currentLang = 'de';
-    localStorage.setItem('koala-lang', 'de');
+    storage.setItem('koala-lang', 'de');
     setActive();
     applyLanguage();
   });
 
   btnEN.addEventListener('click', () => {
     currentLang = 'en';
-    localStorage.setItem('koala-lang', 'en');
+    storage.setItem('koala-lang', 'en');
     setActive();
     applyLanguage();
   });
@@ -142,9 +262,39 @@ function initLangToggle() {
 }
 
 function applyLanguage() {
+  // Sync root element attributes for clean DOM and multilingual CSS rules
+  document.documentElement.lang = currentLang;
+  document.documentElement.classList.remove('lang-de', 'lang-en');
+  document.documentElement.classList.add('lang-' + currentLang);
+
   document.querySelectorAll('[data-i18n]').forEach(el => {
     el.textContent = t(el.dataset.i18n);
   });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    el.placeholder = t(el.dataset.i18nPlaceholder);
+  });
+
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const translation = t(el.dataset.i18nTitle);
+    if (el.dataset.tooltip !== undefined) {
+      el.dataset.tooltip = translation;
+    } else {
+      el.setAttribute('title', translation);
+    }
+  });
+
+
+  // Update search hotkey badge dynamically depending on OS and Language
+  const shortcutBadge = document.getElementById('search-shortcut-badge');
+  if (shortcutBadge) {
+    const isMac = navigator.userAgent.includes('Mac');
+    if (isMac) {
+      shortcutBadge.textContent = '⌘K';
+    } else {
+      shortcutBadge.textContent = currentLang === 'de' ? 'Strg+K' : 'Ctrl+K';
+    }
+  }
 
   if (typeof updateClock === 'function') updateClock();
 
@@ -224,7 +374,7 @@ async function fetchGitHubReleases() {
 
   // Check cache first
   try {
-    const cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+    const cached = JSON.parse(storage.getItem(CACHE_KEY));
     if (cached && (Date.now() - cached.timestamp) < CACHE_TTL) {
       // Restore date objects from ISO strings
       cachedReleases = cached.data.map(r => ({ ...r, date: r.date ? new Date(r.date) : null }));
@@ -314,7 +464,7 @@ async function fetchGitHubReleases() {
     const allFailed = releases.every(r => r.status === 'error');
     if (allFailed) {
       try {
-        const stale = JSON.parse(localStorage.getItem(CACHE_KEY));
+        const stale = JSON.parse(storage.getItem(CACHE_KEY));
         if (stale && stale.data) {
           cachedReleases = stale.data.map(r => ({ ...r, date: r.date ? new Date(r.date) : null }));
           renderReleases(cachedReleases, container);
@@ -334,7 +484,7 @@ async function fetchGitHubReleases() {
 
     // Save to cache
     try {
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: releases }));
+      storage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: releases }));
     } catch (e) { /* storage full */ }
 
     renderReleases(releases, container);
@@ -364,6 +514,7 @@ function renderReleases(releases, container) {
     item.target = '_blank';
     item.rel = 'noopener';
     item.className = 'bento-link flex items-center justify-between p-3 rounded-xl mb-1.5 last:mb-0 text-gray-200 no-underline group';
+    item.setAttribute('title', `${rel.displayName} — ${t('open_on_github')}`);
 
     item.innerHTML = `
       <div class="flex items-center gap-3">
@@ -387,31 +538,81 @@ function renderReleases(releases, container) {
 const WEATHER_CACHE_KEY = 'koala-weather-cache';
 const WEATHER_CACHE_TTL = 60 * 60 * 1000; // 1 hour (weather is highly stable)
 
+const weatherSVGs = {
+  sun: `<svg class="svg-weather svg-weather--sun w-5 h-5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="4" fill="currentColor"></circle>
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+  </svg>`,
+  
+  cloud: `<svg class="svg-weather svg-weather--cloud w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M17.5 19H9a3.5 3.5 0 0 1 0-7h.5A5 5 0 0 1 19 13a3.5 3.5 0 0 1-1.5 6z" fill="currentColor" fill-opacity="0.15"></path>
+  </svg>`,
+  
+  'cloud-sun': `<svg class="svg-weather svg-weather--cloud-sun w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <g class="sun-group text-amber-400">
+      <circle cx="12" cy="10" r="3" fill="currentColor"></circle>
+      <path d="M12 5v1M12 14v1M8.46 6.46l.7.7M14.83 12.83l.7.7M5 10h1M18 10h1M6.46 13.54l.7-.7M16.95 6.46l-.7.7"></path>
+    </g>
+    <path class="cloud-path text-gray-400" d="M17.5 19H9a3.5 3.5 0 0 1 0-7h.5A5 5 0 0 1 19 13a3.5 3.5 0 0 1-1.5 6z" fill="currentColor" fill-opacity="0.15"></path>
+  </svg>`,
+  
+  rain: `<svg class="svg-weather svg-weather--rain w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path class="cloud-path text-gray-400" d="M17 17H9a3 3 0 0 1 0-6h.4A4.29 4.29 0 0 1 18 12a3 3 0 0 1-1 5z" fill="currentColor" fill-opacity="0.15"></path>
+    <g class="rain-group text-sky-400">
+      <line class="rain-drop rain-drop--1" x1="9" y1="17" x2="9" y2="21"></line>
+      <line class="rain-drop rain-drop--2" x1="12" y1="18" x2="12" y2="22"></line>
+      <line class="rain-drop rain-drop--3" x1="15" y1="17" x2="15" y2="21"></line>
+    </g>
+  </svg>`,
+  
+  snow: `<svg class="svg-weather svg-weather--snow w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path class="cloud-path text-gray-400" d="M17 17H9a3 3 0 0 1 0-6h.4A4.29 4.29 0 0 1 18 12a3 3 0 0 1-1 5z" fill="currentColor" fill-opacity="0.15"></path>
+    <g class="snow-group text-sky-200">
+      <circle class="snowflake snowflake--1" cx="9" cy="18" r="0.8" fill="currentColor"></circle>
+      <circle class="snowflake snowflake--2" cx="12" cy="20" r="0.8" fill="currentColor"></circle>
+      <circle class="snowflake snowflake--3" cx="15" cy="18" r="0.8" fill="currentColor"></circle>
+    </g>
+  </svg>`,
+  
+  lightning: `<svg class="svg-weather svg-weather--lightning w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path class="cloud-path text-gray-400" d="M17 17H9a3 3 0 0 1 0-6h.4A4.29 4.29 0 0 1 18 12a3 3 0 0 1-1 5z" fill="currentColor" fill-opacity="0.15"></path>
+    <polygon class="lightning-bolt text-yellow-400" points="13 15 9 19 12 19 11 23 15 19 12 19 13 15" fill="currentColor"></polygon>
+  </svg>`,
+  
+  fog: `<svg class="svg-weather svg-weather--fog w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path class="cloud-path" d="M17 14.5H9a3 3 0 0 1 0-6h.4A4.29 4.29 0 0 1 18 9.5a3 3 0 0 1-1 5z" fill="currentColor" fill-opacity="0.15"></path>
+    <g class="fog-lines text-gray-500">
+      <line class="fog-line fog-line--1" x1="6" y1="17.5" x2="18" y2="17.5"></line>
+      <line class="fog-line fog-line--2" x1="8" y1="20.5" x2="16" y2="20.5"></line>
+    </g>
+  </svg>`
+};
+
 const weatherMap = {
-  0: { icon: 'ph-sun', text: { de: 'Sonnig', en: 'Sunny' } },
-  1: { icon: 'ph-cloud-sun', text: { de: 'Leicht bewölkt', en: 'Mainly Clear' } },
-  2: { icon: 'ph-cloud-sun', text: { de: 'Teils bewölkt', en: 'Partly Cloudy' } },
-  3: { icon: 'ph-cloud', text: { de: 'Bedeckt', en: 'Overcast' } },
-  45: { icon: 'ph-cloud-fog', text: { de: 'Nebel', en: 'Fog' } },
-  48: { icon: 'ph-cloud-fog', text: { de: 'Raureifnebel', en: 'Depositing Rime Fog' } },
-  51: { icon: 'ph-cloud-rain', text: { de: 'Leichter Niesel', en: 'Light Drizzle' } },
-  53: { icon: 'ph-cloud-rain', text: { de: 'Nieselregen', en: 'Moderate Drizzle' } },
-  55: { icon: 'ph-cloud-rain', text: { de: 'Starker Niesel', en: 'Dense Drizzle' } },
-  61: { icon: 'ph-cloud-rain', text: { de: 'Leichter Regen', en: 'Slight Rain' } },
-  63: { icon: 'ph-cloud-rain', text: { de: 'Regen', en: 'Moderate Rain' } },
-  65: { icon: 'ph-cloud-rain', text: { de: 'Starker Regen', en: 'Heavy Rain' } },
-  71: { icon: 'ph-cloud-snow', text: { de: 'Leichter Schneefall', en: 'Slight Snow' } },
-  73: { icon: 'ph-cloud-snow', text: { de: 'Schneefall', en: 'Moderate Snow' } },
-  75: { icon: 'ph-cloud-snow', text: { de: 'Starker Schneefall', en: 'Heavy Snow' } },
-  77: { icon: 'ph-snowflake', text: { de: 'Schneegriesel', en: 'Snow Grains' } },
-  80: { icon: 'ph-cloud-rain', text: { de: 'Regenschauer', en: 'Slight Showers' } },
-  81: { icon: 'ph-cloud-rain', text: { de: 'Starke Schauer', en: 'Moderate Showers' } },
-  82: { icon: 'ph-cloud-rain', text: { de: 'Heftige Schauer', en: 'Violent Showers' } },
-  85: { icon: 'ph-cloud-snow', text: { de: 'Schneeschauer', en: 'Slight Snow Showers' } },
-  86: { icon: 'ph-cloud-snow', text: { de: 'Starke Schneeschauer', en: 'Heavy Snow Showers' } },
-  95: { icon: 'ph-cloud-lightning', text: { de: 'Gewitter', en: 'Thunderstorm' } },
-  96: { icon: 'ph-cloud-lightning', text: { de: 'Gewitter mit Hagel', en: 'Thunderstorm with Hail' } },
-  99: { icon: 'ph-cloud-lightning', text: { de: 'Schweres Gewitter mit Hagel', en: 'Heavy Thunderstorm with Hail' } }
+  0: { icon: 'sun', text: { de: 'Sonnig', en: 'Sunny' } },
+  1: { icon: 'cloud-sun', text: { de: 'Leicht bewölkt', en: 'Mainly Clear' } },
+  2: { icon: 'cloud-sun', text: { de: 'Teils bewölkt', en: 'Partly Cloudy' } },
+  3: { icon: 'cloud', text: { de: 'Bedeckt', en: 'Overcast' } },
+  45: { icon: 'fog', text: { de: 'Nebel', en: 'Fog' } },
+  48: { icon: 'fog', text: { de: 'Raureifnebel', en: 'Depositing Rime Fog' } },
+  51: { icon: 'rain', text: { de: 'Leichter Niesel', en: 'Light Drizzle' } },
+  53: { icon: 'rain', text: { de: 'Nieselregen', en: 'Moderate Drizzle' } },
+  55: { icon: 'rain', text: { de: 'Starker Niesel', en: 'Dense Drizzle' } },
+  61: { icon: 'rain', text: { de: 'Leichter Regen', en: 'Slight Rain' } },
+  63: { icon: 'rain', text: { de: 'Regen', en: 'Moderate Rain' } },
+  65: { icon: 'rain', text: { de: 'Starker Regen', en: 'Heavy Rain' } },
+  71: { icon: 'snow', text: { de: 'Leichter Schneefall', en: 'Slight Snow' } },
+  73: { icon: 'snow', text: { de: 'Schneefall', en: 'Moderate Snow' } },
+  75: { icon: 'snow', text: { de: 'Starker Schneefall', en: 'Heavy Snow' } },
+  77: { icon: 'snow', text: { de: 'Schneegriesel', en: 'Snow Grains' } },
+  80: { icon: 'rain', text: { de: 'Regenschauer', en: 'Slight Showers' } },
+  81: { icon: 'rain', text: { de: 'Starke Schauer', en: 'Moderate Showers' } },
+  82: { icon: 'rain', text: { de: 'Heftige Schauer', en: 'Violent Showers' } },
+  85: { icon: 'snow', text: { de: 'Schneeschauer', en: 'Slight Snow Showers' } },
+  86: { icon: 'snow', text: { de: 'Starke Schneeschauer', en: 'Heavy Snow Showers' } },
+  95: { icon: 'lightning', text: { de: 'Gewitter', en: 'Thunderstorm' } },
+  96: { icon: 'lightning', text: { de: 'Gewitter mit Hagel', en: 'Thunderstorm with Hail' } },
+  99: { icon: 'lightning', text: { de: 'Schweres Gewitter mit Hagel', en: 'Heavy Thunderstorm with Hail' } }
 };
 
 function getWeekday(dateString, lang) {
@@ -431,9 +632,27 @@ async function fetchWeather() {
 
   if (!widget || !tempEl || !iconEl || !forecastEl) return;
 
+  // Realistic mock data as a robust fallback for offline or local Python server testing
+  const MOCK_WEATHER = {
+    current: {
+      temperature_2m: 19.5,
+      weather_code: 0
+    },
+    daily: {
+      time: [
+        new Date().toISOString().split('T')[0],
+        new Date(Date.now() + 86400000).toISOString().split('T')[0],
+        new Date(Date.now() + 172800000).toISOString().split('T')[0]
+      ],
+      temperature_2m_max: [22, 24, 21],
+      temperature_2m_min: [11, 12, 10],
+      weather_code: [0, 1, 2]
+    }
+  };
+
   // Try loading cache first
   try {
-    const cached = JSON.parse(localStorage.getItem(WEATHER_CACHE_KEY));
+    const cached = JSON.parse(storage.getItem(WEATHER_CACHE_KEY));
     if (cached && (Date.now() - cached.timestamp) < WEATHER_CACHE_TTL) {
       renderWeather(cached.data);
       return;
@@ -447,19 +666,24 @@ async function fetchWeather() {
     
     // Save to cache
     try {
-      localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data }));
+      storage.setItem(WEATHER_CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data }));
     } catch (e) { /* storage full */ }
 
     renderWeather(data);
   } catch (error) {
-    console.error('Failed to fetch weather:', error);
+    console.warn('Failed to fetch real-time weather, attempting cached/mock fallback:', error);
     // Fallback to stale cache if API failed
     try {
-      const stale = JSON.parse(localStorage.getItem(WEATHER_CACHE_KEY));
+      const stale = JSON.parse(storage.getItem(WEATHER_CACHE_KEY));
       if (stale && stale.data) {
         renderWeather(stale.data);
+        return;
       }
     } catch (e) { /* no stale cache */ }
+
+    // If both live and cache failed, display premium mock weather (perfect for local python -m http.server dev environments)
+    console.log('[Weather] Displaying fallback local mock weather data');
+    renderWeather(MOCK_WEATHER);
   }
 }
 
@@ -478,10 +702,11 @@ function renderWeather(data) {
   // Render current weather
   const currentTemp = Math.round(current.temperature_2m);
   const currentCode = current.weather_code;
-  const currentCondition = weatherMap[currentCode] || { icon: 'ph-sun', text: { de: 'Sonnig', en: 'Sunny' } };
+  const currentCondition = weatherMap[currentCode] || { icon: 'sun', text: { de: 'Sonnig', en: 'Sunny' } };
 
   tempEl.textContent = `${currentTemp}°C`;
-  iconEl.className = `ph ${currentCondition.icon} text-amber-400 text-lg`;
+  iconEl.className = 'flex items-center justify-center';
+  iconEl.innerHTML = weatherSVGs[currentCondition.icon] || weatherSVGs['sun'];
   tempEl.title = currentCondition.text[currentLang];
   cachedWeatherData = data;
 
@@ -492,7 +717,7 @@ function renderWeather(data) {
     const maxTemp = Math.round(daily.temperature_2m_max[i]);
     const minTemp = Math.round(daily.temperature_2m_min[i]);
     const code = daily.weather_code[i];
-    const condition = weatherMap[code] || { icon: 'ph-sun', text: { de: 'Sonnig', en: 'Sunny' } };
+    const condition = weatherMap[code] || { icon: 'sun', text: { de: 'Sonnig', en: 'Sunny' } };
     
     let dayLabel = '';
     if (i === 0) {
@@ -505,7 +730,9 @@ function renderWeather(data) {
     dayCol.className = 'flex flex-col items-center min-w-[45px]';
     dayCol.innerHTML = `
       <span class="text-gray-500 font-medium mb-0.5">${dayLabel}</span>
-      <i class="ph ${condition.icon} text-indigo-400/80 my-0.5 text-xs" title="${condition.text[currentLang]}"></i>
+      <span class="flex items-center justify-center my-0.5 text-xs" title="${condition.text[currentLang]}">
+        ${weatherSVGs[condition.icon] || weatherSVGs['sun']}
+      </span>
       <span class="text-white font-semibold">${maxTemp}°<span class="text-gray-600 font-normal text-[8px]">${minTemp}°</span></span>
     `;
     forecastEl.appendChild(dayCol);
@@ -517,3 +744,318 @@ function renderWeather(data) {
   widget.classList.remove('opacity-0');
   widget.classList.add('opacity-100');
 }
+
+// ── Centralized Search Bar & Search Engine Selector ───
+
+function initSearchShortcut() {
+  const searchForm = document.getElementById('search-form');
+  const searchInput = document.getElementById('search-input');
+  const engineBtn = document.getElementById('engine-btn');
+  const engineBtnIcon = document.getElementById('engine-btn-icon');
+  const engineDropdown = document.getElementById('engine-dropdown');
+
+  if (!searchInput || !searchForm || !engineBtn || !engineDropdown) return;
+
+  // Extract SVGs dynamically from the static HTML dropdown menu to eliminate data duplication (DRY)
+  Object.keys(engineConfigs).forEach(key => {
+    const btn = engineDropdown.querySelector(`button[data-engine="${key}"]`);
+    if (btn) {
+      const svgEl = btn.querySelector('svg');
+      if (svgEl) {
+        engineConfigs[key].svg = svgEl.outerHTML;
+      }
+    }
+  });
+
+  // Restore saved search engine or default to google
+  let currentEngine = storage.getItem('koala-search-engine') || 'google';
+  if (!engineConfigs[currentEngine]) currentEngine = 'google';
+
+  function applyEngine(engineKey) {
+    const config = engineConfigs[engineKey];
+    if (!config) return;
+
+    currentEngine = engineKey;
+    storage.setItem('koala-search-engine', engineKey);
+
+    // Update Form details
+    searchForm.action = config.action;
+    searchInput.name = config.name;
+    searchInput.dataset.i18nPlaceholder = config.placeholder;
+    searchInput.placeholder = t(config.placeholder);
+
+    // Swap icon SVG
+    engineBtn.innerHTML = config.svg;
+  }
+
+  // Initial load
+  applyEngine(currentEngine);
+
+  // Toggle Dropdown Menu
+  engineBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    engineDropdown.classList.toggle('active');
+  });
+
+  // Dropdown options click
+  engineDropdown.querySelectorAll('[data-engine]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const selected = btn.dataset.engine;
+      applyEngine(selected);
+      engineDropdown.classList.remove('active');
+      searchInput.focus();
+    });
+  });
+
+  // Close dropdown on click outside
+  document.addEventListener('click', () => {
+    engineDropdown.classList.remove('active');
+  });
+
+  // Hotkey handlers
+  window.addEventListener('keydown', e => {
+    // Cmd + K or Ctrl + K opens/focuses search
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+    }
+    // Escape blurs search / closes dropdown
+    if (e.key === 'Escape') {
+      if (engineDropdown.classList.contains('active')) {
+        engineDropdown.classList.remove('active');
+      } else if (document.activeElement === searchInput) {
+        searchInput.blur();
+      }
+    }
+  });
+}
+
+// ── Elegant 2D Bento Tile Hover Spotlight Glare ────────────────────
+function initTileTilt() {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.innerWidth < 768;
+  
+  if (prefersReduced || isMobile) {
+    return;
+  }
+
+  const tiles = document.querySelectorAll('.bento-tile');
+
+  tiles.forEach(tile => {
+    tile.addEventListener('mousemove', e => {
+      const rect = tile.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // Feed mouse coordinates to CSS for dynamic glassmorphic glare/sheen tracking
+      tile.style.setProperty('--x', `${x}px`);
+      tile.style.setProperty('--y', `${y}px`);
+    });
+    
+    tile.addEventListener('mouseleave', () => {
+      // Smoothly reset glare spotlight coordinates back to center
+      tile.style.removeProperty('--x');
+      tile.style.removeProperty('--y');
+    });
+  });
+}
+
+// ── Custom Glassmorphic Tooltip System ─────────────────────────────
+function initTooltips() {
+  const tooltip = document.createElement('div');
+  tooltip.id = 'custom-tooltip';
+  tooltip.className = 'custom-tooltip';
+  document.body.appendChild(tooltip);
+
+  let activeElement = null;
+
+  document.addEventListener('mouseover', e => {
+    const target = e.target.closest('[title], [data-tooltip], [data-i18n-title], [aria-label]');
+    if (!target) return;
+
+    // Check redundancy: skip if target is a simple text element and its aria-label matches its text content
+    if (!target.hasAttribute('title') && !target.dataset.tooltip && !target.dataset.i18nTitle && target.hasAttribute('aria-label')) {
+      const ariaText = target.getAttribute('aria-label').trim().toLowerCase();
+      const visibleText = target.textContent.trim().toLowerCase();
+      if (ariaText === visibleText || visibleText.includes(ariaText)) {
+        return; // Skip redundant tooltip
+      }
+    }
+
+    // Skip elements with empty attributes
+    if (target.hasAttribute('title') && target.getAttribute('title').trim() === '') return;
+    if (target.dataset.tooltip && target.dataset.tooltip.trim() === '') return;
+    if (target.hasAttribute('aria-label') && target.getAttribute('aria-label').trim() === '') return;
+
+    // Migrate standard title to data-tooltip to prevent native browser tooltips
+    if (target.hasAttribute('title')) {
+      target.dataset.tooltip = target.getAttribute('title');
+      target.removeAttribute('title');
+    }
+
+    // Resolve tooltip content
+    const text = target.dataset.tooltip || target.getAttribute('aria-label');
+    if (!text) return;
+
+    activeElement = target;
+    tooltip.textContent = text;
+    tooltip.classList.add('visible');
+
+    positionTooltip();
+  });
+
+  document.addEventListener('mouseout', e => {
+    if (!activeElement) return;
+
+    const related = e.relatedTarget;
+    if (related && activeElement.contains(related)) return;
+
+    // Restore title attribute if migrated
+    if (activeElement.dataset.tooltip) {
+      activeElement.setAttribute('title', activeElement.dataset.tooltip);
+    }
+
+    tooltip.classList.remove('visible');
+    activeElement = null;
+  });
+
+  // Re-position tooltip on window actions
+  window.addEventListener('scroll', positionTooltip, { passive: true });
+  window.addEventListener('resize', positionTooltip, { passive: true });
+
+  function positionTooltip() {
+    if (!activeElement) return;
+
+    const rect = activeElement.getBoundingClientRect();
+    const tooltipRect = tooltip.getBoundingClientRect();
+
+    // Center horizontally above the element
+    let left = rect.left + (rect.width - tooltipRect.width) / 2;
+    let top = rect.top - tooltipRect.height - 8; // 8px margin above
+
+    // Boundaries checking
+    if (left < 8) left = 8;
+    if (left + tooltipRect.width > window.innerWidth - 8) {
+      left = window.innerWidth - tooltipRect.width - 8;
+    }
+    if (top < 8) {
+      // Place below target if no space above
+      top = rect.bottom + 8;
+    }
+
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
+  }
+}
+
+// ── Design Theme Switcher ──────────────────────────
+function initThemeSwitcher() {
+  const container = document.getElementById('design-container');
+  const btn = document.getElementById('design-btn');
+  const dropdown = document.getElementById('design-dropdown');
+  const items = document.querySelectorAll('.design-item');
+
+  if (!container || !btn || !dropdown) return;
+
+  const THEMES = ['midnight', 'sunset', 'emerald', 'obsidian', 'frost', 'cyberpunk', 'solar'];
+  let currentTheme = storage.getItem('koala-theme') || 'midnight';
+  if (!THEMES.includes(currentTheme)) currentTheme = 'midnight';
+
+  // Apply a specific theme
+  function applyTheme(themeName) {
+    currentTheme = themeName;
+    storage.setItem('koala-theme', themeName);
+
+    // Remove all theme classes and set the new one on <html>
+    THEMES.forEach(t => document.documentElement.classList.remove(`theme-${t}`));
+    document.documentElement.classList.add(`theme-${themeName}`);
+
+    // Update checkmark visibilities, item active status, and ARIA attributes
+    items.forEach(item => {
+      const itemTheme = item.dataset.theme;
+      const check = item.querySelector('.check-icon');
+      const isActive = itemTheme === themeName;
+      
+      item.classList.toggle('active', isActive);
+      item.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      if (check) {
+        check.classList.toggle('hidden', !isActive);
+      }
+    });
+
+    // Update Aria attributes
+    btn.setAttribute('aria-expanded', 'false');
+  }
+
+  // Set initial active state
+  applyTheme(currentTheme);
+
+  let hoverTimeout = null;
+  let closeTimeout = null;
+
+  // Premium hover behavior with hover bridge delay
+  container.addEventListener('mouseenter', () => {
+    clearTimeout(closeTimeout);
+    hoverTimeout = setTimeout(() => {
+      dropdown.classList.add('active');
+      btn.setAttribute('aria-expanded', 'true');
+    }, 180); // 180ms delay to avoid accidental triggers
+  });
+
+  container.addEventListener('mouseleave', () => {
+    clearTimeout(hoverTimeout);
+    closeTimeout = setTimeout(() => {
+      dropdown.classList.remove('active');
+      btn.setAttribute('aria-expanded', 'false');
+    }, 350); // 350ms bridge delay to let cursor move to dropdown smoothly
+  });
+
+  // Click opens dropdown (only opens, does not close to prevent conflicts with hover bridge)
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    if (!dropdown.classList.contains('active')) {
+      dropdown.classList.add('active');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  // Theme items click selection
+  items.forEach(item => {
+    item.addEventListener('click', e => {
+      e.stopPropagation();
+      const themeName = item.dataset.theme;
+      applyTheme(themeName);
+      dropdown.classList.remove('active');
+    });
+  });
+
+  // Close dropdown on click outside
+  document.addEventListener('click', e => {
+    if (!container.contains(e.target)) {
+      dropdown.classList.remove('active');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Close dropdown when keyboard focus leaves the container (Accessibility improvement)
+  container.addEventListener('focusout', () => {
+    setTimeout(() => {
+      if (!container.contains(document.activeElement)) {
+        dropdown.classList.remove('active');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    }, 50);
+  });
+
+  // Support escape key
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      dropdown.classList.remove('active');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+
