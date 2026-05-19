@@ -519,6 +519,18 @@ body {
   --shadow-blur: 48px;
 }
 
+@property --x {
+  syntax: '<length-percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+
+@property --y {
+  syntax: '<length-percentage>';
+  inherits: false;
+  initial-value: 50%;
+}
+
 /* Dynamic Mouse-Tracking Glassmorphic Glare/Spotlight Overlay (Extremely subtle, elegant sheen) */
 .bento-tile::before {
   content: '';
@@ -533,7 +545,9 @@ body {
   z-index: 1;
   pointer-events: none; /* Let clicks bypass to links/inputs */
   opacity: 0;
-  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              --x 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              --y 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: background, opacity;
 }
 
@@ -675,6 +689,7 @@ body {
   pointer-events: auto !important;
   opacity: 1 !important;
   transform: scale(1) !important;
+  visibility: visible !important;
 }
 
 /* Custom styles for theme selection items */
