@@ -60,7 +60,9 @@ koalastuff.net {
     header @sw Cache-Control "no-cache, no-store, must-revalidate"
 
     # 5. Webroot and static file server
-    root * /var/www/startpage
+    # Set this to /var/www/startpage/www if checking out the Git repo directly,
+    # or /var/www/startpage if only copying the contents of the www/ directory.
+    root * /var/www/startpage/www
     file_server
 }
 ```

@@ -15,11 +15,11 @@
 - **Service Hub:** Quick access to all active Koala projects (KoalaSync, KoalaWeb, etc.) and server management tools.
 - **Internal Tailscale Integration:** Direct links to private infrastructure (Dockge, Grafana, Duplicati) logically grouped for Tailnet users.
 - **100% Self-Hosted Privacy:** Zero external CDNs are loaded (all fonts and icons are hosted locally), ensuring absolute GDPR/DSGVO compliance.
-- **Zero-Build Production:** The compiled, purged CSS is committed directly to Git. The production VPS only serves static files and requires no Node.js or NPM build steps.
+- **Zero-Build Production:** The compiled, purged CSS is committed directly to Git in the `www/` folder. The production VPS only serves static files from `www/` and requires no Node.js or NPM build steps.
 
 ## 🚀 Deployment
 
-Because the project is entirely static, it can be deployed in seconds. We recommend using [Caddy](https://caddyserver.com/) for effortless HTTPS, Gzip/Zstandard compression, browser caching, and robust security headers.
+Because the project is entirely static, it can be deployed in seconds by **simply copying the contents of the `www/` directory to your web server root**. We recommend using [Caddy](https://caddyserver.com/) for effortless HTTPS, Gzip/Zstandard compression, browser caching, and robust security headers.
 
 ### Production Caddy Server Configuration
 
@@ -33,9 +33,9 @@ To maintain maximum performance (100/100 PageSpeed scores) and support highly se
 
 The source files consist of:
 - `style.src.css` — Contains Tailwind base directives and all custom CSS styles.
-- `index.html` / `impressum.html` / `datenschutz.html` — Scanned by Tailwind to identify utilized classes.
+- `www/index.html` / `www/impressum.html` / `www/datenschutz.html` — Scanned by Tailwind inside `www/` to identify utilized classes.
 
-The final output is compiled into `style.css` (minified and purged), which is tracked in Git to preserve a **zero-build deployment** on the VPS.
+The final output is compiled into `www/style.css` (minified and purged), which is tracked in Git to preserve a **zero-build deployment** on the VPS.
 
 ### Local Development Setup
 

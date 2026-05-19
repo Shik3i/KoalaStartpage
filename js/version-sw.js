@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const swPath = path.join(__dirname, '../sw.js');
+const swPath = path.join(__dirname, '../www/sw.js');
 if (!fs.existsSync(swPath)) {
   console.error('[SW Versioning] sw.js not found!');
   process.exit(1);

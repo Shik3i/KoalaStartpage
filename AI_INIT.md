@@ -24,9 +24,9 @@
 - **Styling**: Tailwind CSS v3 (using static utility classes) integrated with custom HSL gradient overlays and glassmorphism.
 - **Build Pipeline**: Tailwind CSS CLI.
   - **Source CSS**: `style.src.css` (contains `@tailwind` directives, `@font-face` definitions, and custom CSS components).
-  - **Scanned Files**: `index.html`, `impressum.html`, `datenschutz.html`, `script.js`.
-  - **Compiled CSS**: `style.css` (purged and minified for production).
-- **Service Worker**: `sw.js` registers a caching strategy for PWA support and offline resilience.
+  - **Scanned Files**: `www/index.html`, `www/impressum.html`, `www/datenschutz.html`, `www/script.js`.
+  - **Compiled CSS**: `www/style.css` (purged and minified for production).
+- **Service Worker**: `www/sw.js` registers a caching strategy for PWA support and offline resilience.
 
 ---
 
@@ -90,25 +90,35 @@ To prevent bot crawler scraping, **never write plain email addresses in raw HTML
 ## 📂 Project Directory Structure
 
 ```yaml
-/
-├── index.html            # Primary bento-box dashboard & link hub
-├── impressum.html        # Multilingual Imprint / Legal page (voluntary DDG compliance)
-├── datenschutz.html      # Multilingual Privacy Policy (GDPR/DSGVO compliant)
-├── script.js             # Core clock, i18n toggles, relative times, and GitHub tracker
-├── sw.js                 # Service worker (PWA cache strategy)
-├── style.src.css         # Source CSS containing Tailwind components and custom styles
-├── style.css             # Compiled, minified, and purged stylesheet (DO NOT EDIT directly)
-├── manifest.json         # PWA Manifest configuration
-├── package.json          # Node scripts for CSS compilation (devDependencies only)
-├── tailwind.config.js    # Tailwind scanner paths and config
-├── robots.txt            # Search engine exclusion (dashboard is private/noindex)
-├── icon.svg              # SVG branding icon (koala emoji favicon)
+/ (Root)
+├── AI_INIT.md            # AI initialization guidelines
+├── CADDYFILE.md          # Production Caddyfile guidelines
+├── README.md             # Development & local setup guidelines
+├── package.json          # npm compile scripts & devDependencies
+├── package-lock.json     
+├── tailwind.config.js    # Tailwind configuration (updated scan paths)
+├── style.src.css         # Source CSS containing Tailwind components
 ├── js/
-│   └── legal.js          # Handles legal page language toggles and email reveal click listeners
-└── fonts/
-    ├── inter-*.woff2     # Self-hosted Inter font variants (300, 400, 500, 600, 700, 800)
-    ├── phosphor.css      # Phosphor Icons utility stylesheet
-    └── Phosphor.woff2    # Self-hosted Phosphor font file
+│   └── version-sw.js     # Build script to update sw.js version cache
+└── www/                  # PRODUCTION STATIC WEB ROOT (Deploy only this folder to the VPS!)
+    ├── index.html        # Primary bento-box dashboard & link hub
+    ├── impressum.html    # Multilingual Imprint / Legal page (voluntary DDG compliance)
+    ├── datenschutz.html  # Multilingual Privacy Policy (GDPR/DSGVO compliant)
+    ├── script.js         # Core clock, i18n toggles, relative times, and GitHub tracker
+    ├── sw.js             # Service worker (PWA cache strategy)
+    ├── style.css         # Compiled, minified, and purged stylesheet (DO NOT EDIT directly)
+    ├── manifest.json     # PWA Manifest configuration
+    ├── robots.txt        # Search engine exclusion (dashboard is private/noindex)
+    ├── icon.svg          # SVG branding icon (koala emoji favicon)
+    ├── js/
+    │   ├── legal.js      # Handles legal page language toggles and email reveal click listeners
+    │   └── lang-init.js  # Language initializer (no flash)
+    ├── fonts/
+    │   ├── inter-*.woff2 # Self-hosted Inter font variants (300, 400, 500, 600, 700, 800)
+    │   ├── phosphor.css  # Phosphor Icons utility stylesheet
+    │   └── Phosphor.woff2# Self-hosted Phosphor font file
+    └── api/
+        └── weather       # Mock weather JSON (rewritten in production by Caddy)
 ```
 
 ---
