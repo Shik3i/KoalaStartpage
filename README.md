@@ -56,6 +56,16 @@ If you are developing on a new machine or running a new coding agent, follow the
    ```
    *This automatically recompiles and purges `style.css` in real-time as you edit HTML or JS files.*
 
+> [!IMPORTANT]
+> **Local Testing & Browser Security:**
+> Modern browser security policies block direct file access (`file:///` protocol) for loading local fonts, icons, or modules. When testing or running browser subagents, **do not open the HTML files directly.** 
+>
+> You **must** serve the project using a local web server, for example:
+> ```bash
+> npx http-server -p 8080
+> ```
+> Then navigate to `http://localhost:8080` in your browser.
+
 > [!NOTE]
 > The `node_modules` folder is excluded from Git via `.gitignore`. The production web server (e.g. Caddy) only serves the optimized static assets. You do **not** need to install npm packages on your production VPS.
 

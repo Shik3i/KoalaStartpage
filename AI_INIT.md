@@ -47,12 +47,21 @@ Since Tailwind classes are purged:
   npm run watch
   ```
 
-### 3. 🛡️ Strict GDPR & Content Security Policy (CSP)
+### 3. 🌐 Local Testing & Browser Security (CRITICAL FOR AGENTS)
+- **DO NOT attempt to open `file:///` URLs in the browser subagent.** Modern browser security policies block direct local file access, causing browser tests to fail with "access blocked" errors.
+- To inspect or test the dashboard locally, **you MUST spin up a local development web server first** and navigate to `http://localhost:<port>` (e.g. `http://localhost:8080`):
+  ```bash
+  npx http-server -p 8080
+  ```
+- Once the server is running, let the browser subagent visit `http://localhost:8080`.
+- **Always terminate the web server process** (e.g., using standard input `CTRL-C` or terminating the command) after completing your visual checks to avoid orphaned processes.
+
+### 4. 🛡️ Strict GDPR & Content Security Policy (CSP)
 - **NO external script/style CDNs** are allowed.
 - All fonts (`fonts/inter-*.woff2`) and icons (`fonts/Phosphor.woff2`) are committed in the `/fonts` directory. Do not load fonts from Google Fonts API or icons from unpkg/jsdelivr.
 - Connect-src is locked strictly to `'self'` and `https://api.github.com`.
 
-### 4. 🌐 Multilingual i18n Strategy
+### 5. 🌐 Multilingual i18n Strategy
 The project uses a dual approach for localization:
 1. **Dynamic Dashboard Translations (`index.html` / `script.js`)**:
    - Element tags in `index.html` are decorated with `data-i18n="translation_key"`.
@@ -68,7 +77,7 @@ The project uses a dual approach for localization:
      ```
    - Language toggles on legal pages trigger `setLegalLang(lang)` inside `js/legal.js`.
 
-### 5. 🔒 Spam Protection & Email Obfuscation
+### 6. 🔒 Spam Protection & Email Obfuscation
 To prevent bot crawler scraping, **never write plain email addresses in raw HTML**.
 - Use the class `.email-trigger` combined with `data-user` and `data-domain` attributes:
   ```html
