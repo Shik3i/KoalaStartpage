@@ -85,6 +85,10 @@ To prevent bot crawler scraping, **never write plain email addresses in raw HTML
   ```
 - `js/legal.js` attaches event listeners that reconstruct the address upon an active user click event.
 
+### 7. 🏷️ GitHub Tagging & Versioning (CRITICAL)
+- **NEVER automatically create, tag, or push release versions to GitHub** (e.g., tags like `v1.1`, `v1.2`, etc.).
+- Creating tags or versioned releases must **ONLY occur on explicit user request**. Do not propose or perform automatic version generation or tag creation without direct confirmation and instruction from the user.
+
 ---
 
 ## 📂 Project Directory Structure
