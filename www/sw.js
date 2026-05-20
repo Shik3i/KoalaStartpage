@@ -1,4 +1,4 @@
-const CACHE_NAME = 'koala-startpage-v202605201143';
+const CACHE_NAME = 'koala-startpage-v202605201147';
 const ASSETS = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const ASSETS = [
   './js/legal.js',
   './js/lang-init.js',
   './icon.svg',
+  './apple-touch-icon.png',
   './manifest.json',
   './fonts/inter-300.woff2',
   './fonts/inter-400.woff2',
