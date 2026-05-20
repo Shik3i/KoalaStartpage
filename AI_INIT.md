@@ -59,6 +59,7 @@ Since Tailwind classes are purged:
 ### 4. 🛡️ Strict GDPR & Content Security Policy (CSP)
 - **NO external script/style CDNs** are allowed.
 - All fonts (`fonts/inter-*.woff2`) and icons (`fonts/Phosphor.woff2`) are committed in the `/fonts` directory. Do not load fonts from Google Fonts API or icons from unpkg/jsdelivr.
+- **NO INLINE SCRIPTS (CRITICAL)**: Do NOT inline external JavaScript files (like `js/lang-init.js` or `js/legal.js`) directly into HTML `<script>` tags, even if page speed audit tools suggest doing so to reduce HTTP requests. The production server enforces a strict Content Security Policy (`script-src 'self'`) which blocks all inline scripts. Inlining scripts will break the dashboard completely unless SHA-256 hashes are manually updated and maintained in the Caddyfile. To avoid this high maintenance overhead, all JavaScript must remain in external `.js` files.
 - Connect-src is locked strictly to `'self'` and `https://api.github.com`.
 
 ### 5. 🌐 Multilingual i18n Strategy
