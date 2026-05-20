@@ -113,7 +113,15 @@ These rules preserve the LCP score and prevent forced layout reflows:
 
 - **Bento Tile Headings are `<h2>`**: All section titles inside bento tiles use `<h2>` (not `<h3>`) to maintain a correct heading hierarchy after the single `<h1>` (the clock). Do not downgrade them to `<h3>`.
 
-- **Font Preloads**: All 6 Inter font weights (300–800) and `Phosphor.woff2` must be declared with `<link rel="preload">` in `index.html`. Critical weights (400, 600, 700, Phosphor) must appear first. `fetchpriority="high"` must be set on `<script src="js/lang-init.js">`.
+- **Font Preloads**: All 6 Inter font weights (300–800) and `Phosphor.woff2` must be declared with `<link rel="preload">` in `index.html`, `impressum.html`, and `datenschutz.html`. Critical weights (400, 600, 700, Phosphor) must appear first. `fetchpriority="high"` must be set on `<script src="js/lang-init.js">` on all three pages.
+
+- **`phosphor.css` has been deleted**: `www/fonts/phosphor.css` was a 77 KB dead file (the icon CSS is compiled directly into `style.css` via `style.src.css`). Do NOT re-add it.
+
+- **`<noscript>` fallback is required**: All HTML pages (`index.html`, `impressum.html`, `datenschutz.html`) include a `<noscript>` block immediately after `<body>` that displays a bilingual message when JavaScript is disabled. Preserve this in future edits.
+
+- **Dynamic `theme-color` Meta Tag**: `applyTheme()` in `script.src.js` updates `<meta name="theme-color">` on every theme switch using a `themeColors` map (one hex per theme). If you add a new theme to the `THEMES` array, also add its background color to this map.
+
+- **`preconnect` implies `dns-prefetch`**: Do not add redundant `<link rel="dns-prefetch">` next to an existing `<link rel="preconnect">` for the same host. One `preconnect` is sufficient.
 
 ---
 

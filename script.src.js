@@ -762,9 +762,10 @@ function renderWeather(data) {
 
   // Smoothly fade in the widget
   widget.classList.remove('hidden');
-  void widget.offsetWidth; // Reflow
-  widget.classList.remove('opacity-0');
-  widget.classList.add('opacity-100');
+  requestAnimationFrame(() => {
+    widget.classList.remove('opacity-0');
+    widget.classList.add('opacity-100');
+  });
 }
 
 // ── Centralized Search Bar & Search Engine Selector ───
@@ -1002,6 +1003,14 @@ function initThemeSwitcher() {
     // Remove all theme classes and set the new one on <html>
     THEMES.forEach(t => document.documentElement.classList.remove(`theme-${t}`));
     document.documentElement.classList.add(`theme-${themeName}`);
+
+    // Sync the PWA theme-color meta tag to match the active theme's background
+    const themeColors = {
+      midnight: '#09090b', sunset: '#0b0709', emerald: '#050806',
+      obsidian: '#030303', frost:   '#05090e', cyberpunk: '#0c020b', solar: '#0f0702'
+    };
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) metaTheme.setAttribute('content', themeColors[themeName] || '#09090b');
 
     // Update checkmark visibilities, item active status, and ARIA attributes
     items.forEach(item => {

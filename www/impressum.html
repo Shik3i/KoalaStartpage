@@ -7,16 +7,33 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Impressum — Koala Startpage</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐨</text></svg>">
-    <!-- Font Preloads (Speeds up text rendering & eliminates chaining latency on mobile) -->
-    <link rel="preload" href="fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Font Preloads: critical weights first -->
+    <link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/inter-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/Phosphor.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Secondary weights -->
+    <link rel="preload" href="fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Custom Styles (Includes compiled local fonts and icons) -->
     <link rel="stylesheet" href="style.css">
-    <script src="js/lang-init.js"></script>
+    <script src="js/lang-init.js" fetchpriority="high"></script>
 </head>
 <body class="min-h-screen">
+
+    <!-- Fallback for users with JavaScript disabled -->
+    <noscript>
+        <style>
+            body { display: flex; align-items: center; justify-content: center; min-height: 100vh;
+                   background: #09090b; font-family: sans-serif; }
+            .noscript-msg { text-align: center; color: #94a3b8; padding: 2rem; }
+            .noscript-msg h1 { font-size: 1.5rem; color: #e2e8f0; margin-bottom: 0.75rem; }
+        </style>
+        <div class="noscript-msg">
+            <h1>🐨 Koala Startpage</h1>
+            <p>Diese Seite benötigt JavaScript zum Laden.<br>This page requires JavaScript to function.</p>
+        </div>
+    </noscript>
     <div class="bg-mesh" aria-hidden="true">
         <div class="bg-orb bg-orb--1"></div>
         <div class="bg-orb bg-orb--2"></div>
