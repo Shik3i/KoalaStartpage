@@ -187,7 +187,7 @@ applyLanguage();
 initThemeSwitcher();
 initClock();
 initSearchShortcut();
-initTileTilt();
+initTileSpotlight();
 initTooltips();
 if ('requestIdleCallback' in window) {
 requestIdleCallback(() => {
@@ -705,7 +705,7 @@ searchInput.blur();
 }
 });
 }
-function initTileTilt() {
+function initTileSpotlight() {
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const isMobile = window.innerWidth < 768;
 if (prefersReduced || isMobile) {

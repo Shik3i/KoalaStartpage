@@ -203,7 +203,7 @@ applyLanguage();
 initThemeSwitcher();
 initClock();
 initSearchShortcut();
-initTileTilt();
+initTileSpotlight();
 initTooltips();
 
 
@@ -855,7 +855,7 @@ function initSearchShortcut() {
 }
 
 // ── Elegant 2D Bento Tile Hover Spotlight Glare ────────────────────
-function initTileTilt() {
+function initTileSpotlight() {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isMobile = window.innerWidth < 768;
   
