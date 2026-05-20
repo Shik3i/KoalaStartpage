@@ -310,6 +310,47 @@ body {
   transition: background-color 0.8s ease;
 }
 
+/* Ultra-subtle grid pattern for spatial depth perception */
+.bg-mesh::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.012) 0px,
+      transparent 1px,
+      transparent 80px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.012) 0px,
+      transparent 1px,
+      transparent 80px
+    );
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Slow diagonal ambient light sweep for atmospheric life */
+.bg-mesh::after {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    135deg,
+    transparent 40%,
+    rgba(var(--orb-1-color), 0.02) 48%,
+    rgba(var(--orb-2-color), 0.015) 52%,
+    transparent 60%
+  );
+  animation: ambientSweep 25s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
 .bg-orb {
   position: absolute;
   border-radius: 50%;
@@ -357,31 +398,45 @@ body {
 }
 
 @keyframes floatOrb1 {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(10%, 8%, 0) scale(1.1); }
-  100% { transform: translate3d(-5%, 4%, 0) scale(0.9); }
+  0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 0.75; }
+  25%  { transform: translate3d(6%, 4%, 0) scale(1.05); opacity: 0.85; }
+  50%  { transform: translate3d(10%, 8%, 0) scale(1.1); opacity: 0.7; }
+  75%  { transform: translate3d(3%, 10%, 0) scale(1.02); opacity: 0.8; }
+  100% { transform: translate3d(-5%, 4%, 0) scale(0.9); opacity: 0.75; }
 }
 
 @keyframes floatOrb2 {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(-8%, -10%, 0) scale(0.9); }
-  100% { transform: translate3d(6%, 6%, 0) scale(1.15); }
+  0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 0.75; }
+  30%  { transform: translate3d(-4%, -6%, 0) scale(0.95); opacity: 0.65; }
+  50%  { transform: translate3d(-8%, -10%, 0) scale(0.9); opacity: 0.8; }
+  80%  { transform: translate3d(2%, -2%, 0) scale(1.05); opacity: 0.7; }
+  100% { transform: translate3d(6%, 6%, 0) scale(1.15); opacity: 0.75; }
 }
 
 @keyframes floatOrb3 {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(6%, -8%, 0) scale(1.1); }
-  100% { transform: translate3d(-6%, 6%, 0) scale(0.95); }
+  0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 0.75; }
+  35%  { transform: translate3d(3%, -5%, 0) scale(1.05); opacity: 0.65; }
+  50%  { transform: translate3d(6%, -8%, 0) scale(1.1); opacity: 0.8; }
+  70%  { transform: translate3d(-2%, -3%, 0) scale(0.98); opacity: 0.7; }
+  100% { transform: translate3d(-6%, 6%, 0) scale(0.95); opacity: 0.75; }
 }
 
 @keyframes floatOrb4 {
-  0% { transform: translate3d(0, 0, 0) scale(1); }
-  50% { transform: translate3d(-12%, 6%, 0) scale(1.15); }
-  100% { transform: translate3d(6%, -6%, 0) scale(0.85); }
+  0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 0.75; }
+  20%  { transform: translate3d(-6%, 3%, 0) scale(1.08); opacity: 0.6; }
+  50%  { transform: translate3d(-12%, 6%, 0) scale(1.15); opacity: 0.85; }
+  80%  { transform: translate3d(-3%, -2%, 0) scale(0.95); opacity: 0.7; }
+  100% { transform: translate3d(6%, -6%, 0) scale(0.85); opacity: 0.75; }
+}
+
+@keyframes ambientSweep {
+  0%   { transform: translate3d(-10%, -10%, 0) rotate(0deg); }
+  100% { transform: translate3d(10%, 10%, 0) rotate(3deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .bg-orb,
+  .bg-mesh::after,
   #weather-widget .ph-sun,
   #weather-widget .ph-cloud,
   #weather-widget .ph-cloud-fog,
