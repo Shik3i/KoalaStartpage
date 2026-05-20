@@ -873,6 +873,8 @@ function initTileSpotlight() {
       rect = tile.getBoundingClientRect();
     });
 
+    let rafId = null;
+
     tile.addEventListener('mousemove', e => {
       if (!rect) {
         rect = tile.getBoundingClientRect();
@@ -880,9 +882,12 @@ function initTileSpotlight() {
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       
-      // Feed mouse coordinates to CSS for dynamic glassmorphic glare/sheen tracking
-      tile.style.setProperty('--x', `${x}px`);
-      tile.style.setProperty('--y', `${y}px`);
+      // Batch mouse coordinate writes in rAF to prevent frame accumulation (AI_INIT Directive 8)
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        tile.style.setProperty('--x', `${x}px`);
+        tile.style.setProperty('--y', `${y}px`);
+      });
     });
     
     tile.addEventListener('mouseleave', () => {

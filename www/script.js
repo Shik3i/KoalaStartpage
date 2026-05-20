@@ -718,14 +718,18 @@ let rect = null;
 tile.addEventListener('mouseenter', () => {
 rect = tile.getBoundingClientRect();
 });
+let rafId = null;
 tile.addEventListener('mousemove', e => {
 if (!rect) {
 rect = tile.getBoundingClientRect();
 }
 const x = e.clientX - rect.left;
 const y = e.clientY - rect.top;
+cancelAnimationFrame(rafId);
+rafId = requestAnimationFrame(() => {
 tile.style.setProperty('--x', `${x}px`);
 tile.style.setProperty('--y', `${y}px`);
+});
 });
 tile.addEventListener('mouseleave', () => {
 tile.style.removeProperty('--x');

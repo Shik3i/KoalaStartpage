@@ -14,6 +14,8 @@
     <link rel="preload" href="fonts/Phosphor.woff2" as="font" type="font/woff2" crossorigin>
     <!-- Secondary weights -->
     <link rel="preload" href="fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/inter-800.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Custom Styles (Includes compiled local fonts and icons) -->
     <link rel="stylesheet" href="style.css">
@@ -70,8 +72,24 @@
             </div>
         </div>
 
-        <h1 lang="de">Datenschutzerklärung</h1>
-        <h1 lang="en">Privacy Policy</h1>
+        <h1>
+            <span lang="de">Datenschutzerklärung</span>
+            <span lang="en">Privacy Policy</span>
+        </h1>
+
+        <!-- 0. Verantwortlicher -->
+        <h2>
+            <span lang="de">Verantwortlicher</span>
+            <span lang="en">Data Controller</span>
+        </h2>
+        <p lang="de">
+            Verantwortlich im Sinne der DSGVO ist der im <a href="impressum.html">Impressum</a> genannte Betreiber.
+            Rechtsgrundlage für die Datenverarbeitung ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am sicheren Betrieb der Website).
+        </p>
+        <p lang="en">
+            The data controller under GDPR is the operator named in the <a href="impressum.html">Legal Notice</a>.
+            The legal basis for data processing is Art. 6(1)(f) GDPR (legitimate interest in the secure operation of the website).
+        </p>
 
         <!-- 1. Hosting -->
         <h2>
@@ -122,11 +140,13 @@
             <span lang="en">3. Local Storage</span>
         </h2>
         <p lang="de">
-            Die Seite speichert Ihre Sprachpräferenz (DE/EN) sowie einen temporären Cache der GitHub-Release-Daten im <code class="text-indigo-400">localStorage</code>
+            Die Seite speichert Ihre Sprachpräferenz (DE/EN), Ihre Design-Theme-Auswahl und Ihre Suchmaschinen-Einstellung
+            sowie temporäre Caches der GitHub-Release- und Wetterdaten im <code class="text-indigo-400">localStorage</code>
             Ihres Browsers. Diese Daten verlassen Ihr Gerät nicht und können jederzeit über die Browser-Einstellungen gelöscht werden.
         </p>
         <p lang="en">
-            The site stores your language preference (DE/EN) and a temporary cache of GitHub release data in your browser's <code class="text-indigo-400">localStorage</code>.
+            The site stores your language preference (DE/EN), your design theme selection, and your search engine preference,
+            as well as temporary caches of GitHub release and weather data, in your browser's <code class="text-indigo-400">localStorage</code>.
             This data never leaves your device and can be deleted at any time via your browser settings.
         </p>
 
@@ -163,8 +183,8 @@
             You have the right to information, correction, or deletion of your data.
             However, since we do not store any personal data permanently, linking data to your person is technically impossible in most cases.
         </p>
-        <p lang="de">Kontakt bei Fragen: <span class="email-trigger text-indigo-400 cursor-pointer underline hover:text-indigo-300 transition-colors" data-user="admin" data-domain="koalastuff.net">[E-Mail anzeigen]</span></p>
-        <p lang="en">Contact for questions: <span class="email-trigger text-indigo-400 cursor-pointer underline hover:text-indigo-300 transition-colors" data-user="admin" data-domain="koalastuff.net">[Show Email]</span></p>
+        <p lang="de">Kontakt bei Fragen: <span class="email-trigger text-indigo-400 cursor-pointer underline hover:text-indigo-300 transition-colors" role="button" tabindex="0" data-user="admin" data-domain="koalastuff.net">[E-Mail anzeigen]</span></p>
+        <p lang="en">Contact for questions: <span class="email-trigger text-indigo-400 cursor-pointer underline hover:text-indigo-300 transition-colors" role="button" tabindex="0" data-user="admin" data-domain="koalastuff.net">[Show Email]</span></p>
     </div>
 
     <script src="js/legal.js" defer></script>
