@@ -182,6 +182,12 @@ let cachedWeatherData = null;
 function t(key) {
 return translations[currentLang]?.[key] || translations.de[key] || key;
 }
+function escapeHTML(str) {
+if (!str) return '';
+const div = document.createElement('div');
+div.textContent = str;
+return div.innerHTML;
+}
 initLangToggle();
 applyLanguage();
 initThemeSwitcher();
@@ -448,12 +454,12 @@ item.innerHTML = `
 <div class="flex items-center gap-3">
 <i class="ph ph-github-logo text-xl ${iconColor} opacity-70 group-hover:opacity-100 transition-opacity"></i>
 <div class="flex flex-col">
-<span class="font-medium text-sm text-gray-300 group-hover:text-white transition-colors">${rel.displayName}</span>
-<span class="text-xs ${tagColor}">${tagText}</span>
+<span class="font-medium text-sm text-gray-300 group-hover:text-white transition-colors">${escapeHTML(rel.displayName)}</span>
+<span class="text-xs ${tagColor}">${escapeHTML(tagText)}</span>
 </div>
 </div>
 <div class="text-xs text-gray-600 flex items-center gap-2 group-hover:text-gray-400 transition-colors">
-<span>${timeAgo}</span>
+<span>${escapeHTML(timeAgo)}</span>
 <i class="ph ph-arrow-up-right text-xs"></i>
 </div>
 `;
@@ -690,6 +696,43 @@ searchInput.focus();
 });
 document.addEventListener('click', () => {
 engineDropdown.classList.remove('active');
+});
+const engineItems = Array.from(engineDropdown.querySelectorAll('[data-engine]'));
+engineBtn.addEventListener('keydown', e => {
+if (e.key === 'ArrowDown') {
+e.preventDefault();
+if (!engineDropdown.classList.contains('active')) {
+engineDropdown.classList.add('active');
+}
+engineItems[0]?.focus();
+}
+});
+engineDropdown.addEventListener('keydown', e => {
+const currentIndex = engineItems.indexOf(document.activeElement);
+if (currentIndex === -1) return;
+if (e.key === 'ArrowDown') {
+e.preventDefault();
+engineItems[(currentIndex + 1) % engineItems.length].focus();
+} else if (e.key === 'ArrowUp') {
+e.preventDefault();
+engineItems[(currentIndex - 1 + engineItems.length) % engineItems.length].focus();
+} else if (e.key === 'Home') {
+e.preventDefault();
+engineItems[0].focus();
+} else if (e.key === 'End') {
+e.preventDefault();
+engineItems[engineItems.length - 1].focus();
+} else if (e.key === 'Escape') {
+e.preventDefault();
+engineDropdown.classList.remove('active');
+engineBtn.focus();
+} else if (e.key === 'Enter' || e.key === ' ') {
+e.preventDefault();
+const selected = engineItems[currentIndex].dataset.engine;
+applyEngine(selected);
+engineDropdown.classList.remove('active');
+searchInput.focus();
+}
 });
 window.addEventListener('keydown', e => {
 if ((e.metaKey || e.ctrlKey) && e.key === 'k') {

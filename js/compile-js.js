@@ -10,11 +10,27 @@ try {
   // 1. Remove multi-line comments /* ... */
   content = content.replace(/\/\*[\s\S]*?\*\//g, '');
 
-  // 2. Remove single-line comments // (ignoring http:// or https://)
-  // We match // except where it is preceded by a colon (:) or is inside quotes.
-  // A safe approach for our specific file is replacing lines ending with // comments,
-  // making sure not to touch protocol strings like http:// or https://.
-  content = content.replace(/(^|[^:])\/\/.*$/gm, '$1');
+  // 2. Remove single-line comments // while respecting strings and protocols
+  // Line-by-line string-aware parser (handles '', "", `` and escaped chars)
+  content = content.split(/\r?\n/).map(line => {
+    let inStr = false;
+    let strChar = '';
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (inStr) {
+        if (ch === '\\') { i++; continue; }
+        if (ch === strChar) inStr = false;
+      } else {
+        if (ch === '"' || ch === "'" || ch === '`') {
+          inStr = true;
+          strChar = ch;
+        } else if (ch === '/' && line[i + 1] === '/') {
+          return line.substring(0, i).trimEnd();
+        }
+      }
+    }
+    return line;
+  }).join('\n');
 
   // 3. Compress lines (trim, remove empty lines)
   const minifiedLines = content
