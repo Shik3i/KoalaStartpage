@@ -315,7 +315,7 @@ body {
   border-radius: 50%;
   filter: blur(120px);
   opacity: 0.75;
-  will-change: transform, background, opacity;
+  will-change: transform;
   pointer-events: none;
   transition: background 0.8s ease, opacity 0.8s ease;
 }
@@ -479,7 +479,7 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   
   overflow: hidden;
-  will-change: transform, border-color, box-shadow;
+  will-change: transform;
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
               border-color 0.35s ease,
               box-shadow 0.35s ease;
@@ -518,19 +518,6 @@ body {
   --shadow-opacity: 0.12;
   --shadow-blur: 48px;
 }
-
-@property --x {
-  syntax: '<length-percentage>';
-  inherits: false;
-  initial-value: 50%;
-}
-
-@property --y {
-  syntax: '<length-percentage>';
-  inherits: false;
-  initial-value: 50%;
-}
-
 /* Dynamic Mouse-Tracking Glassmorphic Glare/Spotlight Overlay (Extremely subtle, elegant sheen) */
 .bento-tile::before {
   content: '';
@@ -545,10 +532,7 @@ body {
   z-index: 1;
   pointer-events: none; /* Let clicks bypass to links/inputs */
   opacity: 0;
-  transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-              --x 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-              --y 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: background, opacity;
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .bento-tile:hover::before {
@@ -874,7 +858,6 @@ html.theme-obsidian .svg-weather line {
 .svg-weather {
   display: inline-block;
   vertical-align: middle;
-  will-change: transform;
 }
 
 /* Explicit size overrides for improved visibility & contrast */
