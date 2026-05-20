@@ -447,7 +447,7 @@ const tagColor = rel.status === 'ok' ? 'text-gray-400' : (rel.status === 'error'
 const item = document.createElement('a');
 item.href = rel.url;
 item.target = '_blank';
-item.rel = 'noopener';
+item.rel = 'noopener noreferrer';
 item.className = 'bento-link flex items-center justify-between p-3 rounded-xl mb-1.5 last:mb-0 text-gray-200 no-underline group';
 item.setAttribute('title', `${rel.displayName} — ${t('open_on_github')}`);
 item.innerHTML = `
@@ -638,7 +638,7 @@ const dayCol = document.createElement('div');
 dayCol.className = 'flex flex-col items-center min-w-[45px]';
 dayCol.innerHTML = `
 <span class="text-gray-500 font-medium mb-0.5">${dayLabel}</span>
-<span class="flex items-center justify-center my-0.5 text-xs" title="${condition.text[currentLang]}">
+<span class="flex items-center justify-center my-0.5 text-xs" title="${escapeHTML(condition.text[currentLang])}">
 ${weatherSVGs[condition.icon] || weatherSVGs['sun']}
 </span>
 <span class="text-white font-semibold">${maxTemp}°<span class="text-gray-600 font-normal text-[8px]">${minTemp}°</span></span>

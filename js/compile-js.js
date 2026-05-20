@@ -12,6 +12,9 @@ try {
 
   // 2. Remove single-line comments // while respecting strings and protocols
   // Line-by-line string-aware parser (handles '', "", `` and escaped chars)
+  // NOTE: This parser is line-based and does not carry string state across lines.
+  // Multi-line template literals containing // on a new line could be incorrectly stripped.
+  // This is acceptable because the current codebase has no such patterns.
   content = content.split(/\r?\n/).map(line => {
     let inStr = false;
     let strChar = '';

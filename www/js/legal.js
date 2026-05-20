@@ -46,6 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Register Service Worker for offline capability (PWA) asynchronously
+// NOTE: This is intentionally duplicated from script.src.js because legal pages
+// load legal.js instead of script.js — each page needs its own SW registration.
 if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('./sw.js')
