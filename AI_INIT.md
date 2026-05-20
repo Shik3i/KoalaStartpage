@@ -10,7 +10,7 @@
 
 ### Key Features
 1. **Dynamic Bento Box UI**: Sleek, glassmorphic card layout utilizing responsive Tailwind CSS and custom micro-animations. Features a silky-smooth, GPU-accelerated spotlight coordinate transition (`--x`, `--y`) to prevent snapping on mouse hover enter/leave.
-2. **GitHub Release Tracker**: Asynchronously fetches latest releases or package tags using the GitHub REST API. Features a 10-minute TTL `localStorage` cache to respect GitHub API rate limits.
+2. **GitHub Release Tracker**: Asynchronously fetches latest releases or package tags using the GitHub REST API. Features a **2-hour TTL** `localStorage` cache to respect GitHub API rate limits.
 3. **Live Clock & Greeting**: Dynamic local greeting system based on the time of day with a live ticking clock (including seconds).
 4. **100% Self-Hosted GDPR/DSGVO Privacy**: Absolutely no external CDNs. All assets (fonts like Inter, icons like Phosphor) are served locally.
 5. **Zero-Build Production**: All optimized, purged CSS is committed directly to Git. The production VPS serves static files purely (e.g., via Caddy) and requires no Node.js or NPM build steps on deployment.
@@ -89,6 +89,31 @@ To prevent bot crawler scraping, **never write plain email addresses in raw HTML
 ### 7. 🏷️ GitHub Tagging & Versioning (CRITICAL)
 - **NEVER automatically create, tag, or push release versions to GitHub** (e.g., tags like `v1.1`, `v1.2`, etc.).
 - Creating tags or versioned releases must **ONLY occur on explicit user request**. Do not propose or perform automatic version generation or tag creation without direct confirmation and instruction from the user.
+
+### 8. ⚡ Performance Patterns (MANDATORY)
+These rules preserve the LCP score and prevent forced layout reflows:
+
+- **LCP Hero Tile — Never hide with opacity:0**: The `.bento-tile--hero` (the clock/greeting tile) uses a special `fadeInHero` animation that starts at `opacity: 1`. Do **NOT** apply the generic `.fade-in` class behavior (which starts at `opacity: 0`) to this tile, as it would delay the browser's LCP measurement by ~3 seconds. The override is defined in `style.src.css` as `.bento-tile--hero.fade-in { opacity: 1; }`.
+
+- **No `void element.offsetWidth` (Forced Reflow forbidden)**: Never use `void el.offsetWidth`, `el.getBoundingClientRect()` immediately followed by a style write, or similar forced-reflow patterns to trigger CSS transitions. Always use `requestAnimationFrame()` instead:
+  ```javascript
+  // ✅ Correct — no forced reflow:
+  el.classList.remove('hidden');
+  requestAnimationFrame(() => {
+    el.classList.remove('opacity-0');
+    el.classList.add('opacity-100');
+  });
+  // ❌ Wrong — forces synchronous layout recalculation:
+  el.classList.remove('hidden');
+  void el.offsetWidth; // FORBIDDEN
+  el.classList.remove('opacity-0');
+  ```
+
+- **rAF for mousemove DOM writes**: Any DOM style mutations inside `mousemove` handlers (e.g., CSS Custom Properties like `--x`, `--y`) must be batched inside `requestAnimationFrame`. Always cancel pending rAF with `cancelAnimationFrame(rafId)` before scheduling a new one to prevent frame accumulation.
+
+- **Bento Tile Headings are `<h2>`**: All section titles inside bento tiles use `<h2>` (not `<h3>`) to maintain a correct heading hierarchy after the single `<h1>` (the clock). Do not downgrade them to `<h3>`.
+
+- **Font Preloads**: All 6 Inter font weights (300–800) and `Phosphor.woff2` must be declared with `<link rel="preload">` in `index.html`. Critical weights (400, 600, 700, Phosphor) must appear first. `fetchpriority="high"` must be set on `<script src="js/lang-init.js">`.
 
 ---
 

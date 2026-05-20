@@ -20,13 +20,17 @@
     <meta property="og:image" content="https://start.koalastuff.net/icon.svg">
 
     <!-- Set lang class ASAP to prevent flash of wrong language -->
-    <script src="js/lang-init.js"></script>
+    <script src="js/lang-init.js" fetchpriority="high"></script>
 
     <!-- Font Preloads (Speeds up text rendering & eliminates chaining latency on mobile) -->
+    <!-- Critical weights first (used in hero + main UI) -->
     <link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/inter-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/Phosphor.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Secondary weights -->
+    <link rel="preload" href="fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Connection Hints (Speeds up background API connection to GitHub) -->
     <link rel="preconnect" href="https://api.github.com" crossorigin>
@@ -225,7 +229,7 @@
                         <div class="badge-blue p-2 rounded-xl">
                             <i class="ph ph-package text-xl"></i>
                         </div>
-                        <h3 class="text-base font-semibold" data-i18n="tile_extensions">Extensions</h3>
+                        <h2 class="text-base font-semibold" data-i18n="tile_extensions">Extensions</h2>
                     </div>
                     <div class="flex flex-col gap-3 flex-1 justify-center">
                         <!-- KoalaFlyff -->
@@ -284,7 +288,7 @@
                         <div class="badge-blue p-2 rounded-xl">
                             <i class="ph ph-rocket-launch text-xl"></i>
                         </div>
-                        <h3 class="text-base font-semibold" data-i18n="tile_services">Websites</h3>
+                        <h2 class="text-base font-semibold" data-i18n="tile_services">Websites</h2>
                     </div>
                     <div class="flex flex-col gap-1 flex-1">
                         <!-- Uptime / Status -->
@@ -361,7 +365,7 @@
                             <div class="badge-gray p-2 rounded-xl">
                                 <i class="ph ph-git-merge text-xl"></i>
                             </div>
-                            <h3 class="text-base font-semibold" data-i18n="tile_releases">Latest Releases</h3>
+                            <h2 class="text-base font-semibold" data-i18n="tile_releases">Latest Releases</h2>
                         </div>
                         <a href="https://github.com/Shik3i" target="_blank" rel="noopener" class="text-xs text-gray-500 hover:text-gray-300 transition-colors flex items-center gap-1.5 py-1.5 px-3 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.05]" title="GitHub Profile" data-i18n-title="tooltip_github">
                             <i class="ph ph-github-logo text-sm"></i>
@@ -379,7 +383,7 @@
                         <div class="badge-purple p-2 rounded-xl">
                             <i class="ph ph-lock-key text-xl"></i>
                         </div>
-                        <h3 class="text-base font-semibold" data-i18n="tile_internal">Internal</h3>
+                        <h2 class="text-base font-semibold" data-i18n="tile_internal">Internal</h2>
                     </div>
                     <div class="flex flex-col gap-1.5 flex-1 justify-center">
                         <a href="http://100.68.158.76:5001" target="_blank" rel="noopener" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="Dockge — Container Management" data-i18n-title="tooltip_dockge">

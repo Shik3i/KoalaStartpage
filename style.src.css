@@ -62,7 +62,7 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 300;
-  font-display: swap;
+  font-display: optional; /* Non-critical weight: use system font if not yet cached */
   src: url('./fonts/inter-300.woff2') format('woff2');
 }
 @font-face {
@@ -97,7 +97,7 @@
   font-family: 'Inter';
   font-style: normal;
   font-weight: 800;
-  font-display: swap;
+  font-display: optional; /* Non-critical weight: use system font if not yet cached */
   src: url('./fonts/inter-800.woff2') format('woff2');
 }
 
@@ -479,7 +479,7 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   
   overflow: hidden;
-  will-change: transform;
+  will-change: auto; /* GPU layer only on hover, not permanently for all tiles */
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
               border-color 0.35s ease,
               box-shadow 0.35s ease;
@@ -491,6 +491,7 @@ body {
   --shadow-y: 12px;
   --shadow-opacity: 0.3;
   --shadow-blur: 60px;
+  will-change: transform; /* Promote to GPU layer only when needed */
 }
 
 /* Theme-specific accent shadow color & border tokens on hover */
@@ -593,6 +594,21 @@ body {
 .fade-in:nth-child(4) { animation-delay: 0.26s; }
 .fade-in:nth-child(5) { animation-delay: 0.33s; }
 .fade-in:nth-child(6) { animation-delay: 0.40s; }
+
+/* ── LCP-Fix: Hero-Tile is immediately visible ──
+   The hero clock tile (h1 + LCP element) must NOT start at opacity:0.
+   We override .fade-in for .bento-tile--hero so the browser can measure
+   its LCP candidate immediately instead of waiting for animation-delay. */
+.bento-tile--hero.fade-in {
+  opacity: 1;          /* Immediately visible — enables browser to register LCP */
+  transform: none;     /* No initial offset either */
+  animation: fadeInHero 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeInHero {
+  from { transform: translateY(8px); }
+  to   { transform: translateY(0); }
+}
 
 /* ── Clock Pulse ──────────────────────────────── */
 .clock-colon {
