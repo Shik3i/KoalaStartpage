@@ -153,8 +153,7 @@ These rules preserve the LCP score and prevent forced layout reflows:
     │   └── lang-init.js  # Language initializer (no flash)
     ├── fonts/
     │   ├── inter-*.woff2 # Self-hosted Inter font variants (300, 400, 500, 600, 700, 800)
-    │   ├── phosphor.css  # Phosphor Icons utility stylesheet
-    │   └── Phosphor.woff2# Self-hosted Phosphor font file
+    │   └── Phosphor.woff2# Self-hosted Phosphor font file (icon CSS is compiled into style.css)
     └── api/
         └── weather       # Mock weather JSON (rewritten in production by Caddy)
 ```
