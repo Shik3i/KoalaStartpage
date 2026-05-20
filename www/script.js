@@ -373,13 +373,23 @@ async function fetchGitHubReleases() {
   const container = document.getElementById('releases-container');
 
   // Check cache first
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const isDataSaver = connection && (connection.saveData || connection.effectiveType === '2g');
+
   try {
     const cached = JSON.parse(storage.getItem(CACHE_KEY));
-    if (cached && (Date.now() - cached.timestamp) < CACHE_TTL) {
-      // Restore date objects from ISO strings
+    if (cached) {
       cachedReleases = cached.data.map(r => ({ ...r, date: r.date ? new Date(r.date) : null }));
       renderReleases(cachedReleases, container);
-      return;
+      
+      const isExpired = (Date.now() - cached.timestamp) >= CACHE_TTL;
+      if (isDataSaver && isExpired) {
+        console.log('[Data-Saver] Using expired releases cache to save bandwidth.');
+        return;
+      }
+      if (!isExpired) {
+        return;
+      }
     }
   } catch (e) { /* ignore corrupt cache */ }
 
@@ -651,11 +661,22 @@ async function fetchWeather() {
   };
 
   // Try loading cache first
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const isDataSaver = connection && (connection.saveData || connection.effectiveType === '2g');
+
   try {
     const cached = JSON.parse(storage.getItem(WEATHER_CACHE_KEY));
-    if (cached && (Date.now() - cached.timestamp) < WEATHER_CACHE_TTL) {
+    if (cached) {
       renderWeather(cached.data);
-      return;
+      
+      const isExpired = (Date.now() - cached.timestamp) >= WEATHER_CACHE_TTL;
+      if (isDataSaver && isExpired) {
+        console.log('[Data-Saver] Using expired weather cache to save bandwidth.');
+        return;
+      }
+      if (!isExpired) {
+        return;
+      }
     }
   } catch (e) { /* ignore corrupt cache */ }
 
