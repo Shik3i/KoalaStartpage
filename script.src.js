@@ -374,7 +374,7 @@ const repositories = [
   { repo: 'Shik3i/KoalaClicker',        displayName: 'KoalaClicker' },
   { repo: 'Shik3i/FlyffUniverseHelper', displayName: 'KoalaFlyff' },
   { repo: 'Shik3i/Antigrav',            displayName: 'KoalaWeb', type: 'package' },
-  { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets' },
+  { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets', type: 'package' },
   { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
 ];
 
