@@ -1,4 +1,4 @@
-const CACHE_NAME = 'koala-startpage-v202605201147';
+const CACHE_NAME = 'koala-startpage-v202605210119';
 const ASSETS = [
   './',
   './index.html',

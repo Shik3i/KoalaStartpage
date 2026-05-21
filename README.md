@@ -27,15 +27,38 @@ For a production deployment, we recommend using Caddy for effortless HTTPS, dyna
 
 A complete, ultra-secure production-ready `Caddyfile` template containing Hannover's exact coordinates and the privacy-first weather API reverse proxy is available in the dedicated [CADDYFILE.md](file:///Users/koala/Documents/KoalaStartpage/CADDYFILE.md) documentation.
 
-## 🛠️ Development & Tailwind Compilation
+## 🛠️ Development, Build Pipeline & Icons
 
 To maintain maximum performance (100/100 PageSpeed scores) and support highly secure Content Security Policies (CSP) without requiring `'unsafe-inline'` or `'unsafe-eval'`, this project uses static Tailwind CSS compilation.
 
 The source files consist of:
-- `style.src.css` — Contains Tailwind base directives and all custom CSS styles.
-- `www/index.html` / `www/impressum.html` / `www/datenschutz.html` — Scanned by Tailwind inside `www/` to identify utilized classes.
+- `style.src.css` — Contains Tailwind base directives, all custom CSS styles, and an auto-managed Phosphor icon block
+- `script.src.js` — Source JS with comments (minified to `www/script.js` on build)
+- `www/index.html` / `www/impressum.html` / `www/datenschutz.html` — Scanned by Tailwind to identify utilized classes
 
 The final output is compiled into `www/style.css` (minified and purged), which is tracked in Git to preserve a **zero-build deployment** on the VPS.
+
+### 🎨 Phosphor Icon System
+
+The project uses a **self-hosted Phosphor icon font** (`www/fonts/Phosphor.woff2`) with automatic icon extraction — no external CDN, fully GDPR-compliant.
+
+**To use a new icon:**
+1. Add `class="ph ph-your-icon"` anywhere in the HTML or JS source
+2. Run `npm run build`
+3. Done — the build system finds it automatically and includes it
+
+The full Phosphor icon library (1530 icons) lives at `js/phosphor-full.css` as a **build-time-only** source file. The `js/compile-icons.js` script scans source files, extracts only the used icons, and injects them into `style.src.css` before Tailwind compiles it. See [`js/PHOSPHOR_ICONS.md`](js/PHOSPHOR_ICONS.md) for full details.
+
+> [!IMPORTANT]
+> **Do NOT delete `js/phosphor-full.css`** — it is the icon lookup source for the build pipeline. Without it, adding any new icon requires manually looking up Unicode codepoints.
+
+### Build Pipeline
+
+`npm run build` runs four steps in sequence:
+1. `compile-icons.js` — auto-extracts used `ph-*` icon rules into `style.src.css`
+2. `tailwindcss` — compiles & purges `style.src.css` → `www/style.css`
+3. `compile-js.js` — minifies `script.src.js` → `www/script.js`
+4. `version-sw.js` — bumps the Service Worker cache version
 
 ### Local Development Setup
 
@@ -54,7 +77,7 @@ If you are developing on a new machine or running a new coding agent, follow the
    ```bash
    npm run watch
    ```
-   *This automatically recompiles and purges `style.css` in real-time as you edit HTML or JS files.*
+   *This automatically recompiles and purges `style.css` in real-time as you edit HTML or JS files. Note: watch mode only runs Tailwind, not the full pipeline. Run `npm run build` for a complete build.*
 
 > [!IMPORTANT]
 > **Local Testing & Browser Security:**

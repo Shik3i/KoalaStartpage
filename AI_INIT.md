@@ -35,17 +35,24 @@
 ### 1. 🔒 Git Branch Hygiene (CRITICAL)
 Before executing edits or terminal commands, **always run `git status` and `git branch`**. Ensure you are on the `main` branch (unless instructed otherwise by the user) and pull latest commits. 
 
-### 2. ⚡ Tailwind Recompilation Protocol (MANDATORY)
-Since Tailwind classes are purged:
-- Whenever you add, change, or remove CSS classes in `index.html`, `impressum.html`, `datenschutz.html`, or `script.js`, **you MUST run the compilation build command**:
-  ```bash
-  npm run build
-  ```
-- Failure to run this command will result in newly used Tailwind classes not being compiled into `style.css`, causing broken styling in production.
-- During active development, you can also spin up watch mode:
-  ```bash
-  npm run watch
-  ```
+### 2. ⚡ Build Protocol (MANDATORY)
+The `npm run build` command runs **four steps in sequence**:
+1. **`compile-icons.js`** — scans all source files for used `ph-*` Phosphor icon classes and auto-generates the icon CSS block in `style.src.css`
+2. **`tailwindcss`** — compiles and purges `style.src.css` → `www/style.css`
+3. **`compile-js.js`** — strips comments and minifies `script.src.js` → `www/script.js`
+4. **`version-sw.js`** — bumps the Service Worker cache version
+
+Run it whenever you touch HTML, JS or CSS source files:
+```bash
+npm run build
+```
+
+**Tailwind class purging:** Only classes that appear in `www/index.html`, `www/impressum.html`, `www/datenschutz.html`, and `www/script.js` are kept in `style.css`. Failure to rebuild will cause missing styles in production.
+
+During active development, use watch mode (runs Tailwind only — not the full pipeline):
+```bash
+npm run watch
+```
 
 ### 3. 🌐 Local Testing & Browser Security (CRITICAL FOR AGENTS)
 - **DO NOT attempt to open `file:///` URLs in the browser subagent.** Modern browser security policies block direct local file access, causing browser tests to fail with "access blocked" errors.
@@ -115,7 +122,8 @@ These rules preserve the LCP score and prevent forced layout reflows:
 
 - **Font Preloads**: All 6 Inter font weights (300–800) and `Phosphor.woff2` must be declared with `<link rel="preload">` in `index.html`, `impressum.html`, and `datenschutz.html`. Critical weights (400, 600, 700, Phosphor) must appear first. `fetchpriority="high"` must be set on `<script src="js/lang-init.js">` on all three pages.
 
-- **`phosphor.css` has been deleted**: `www/fonts/phosphor.css` was a 77 KB dead file (the icon CSS is compiled directly into `style.css` via `style.src.css`). Do NOT re-add it.
+- **Phosphor Icon Build System (CRITICAL — do NOT break this)**: The project uses an automatic icon extraction pipeline. The full Phosphor CSS source lives at `js/phosphor-full.css` (1530 icons, build-time only, never deployed). Before each build, `js/compile-icons.js` scans all source files for used `ph-*` classes and writes only those CSS rules into a clearly marked `AUTO-ICONS:START/END` block in `style.src.css`. This block is then compiled by Tailwind into `www/style.css`. **To use any new icon, simply add it to the HTML/JS and run `npm run build` — no manual CSS editing required.** See `js/PHOSPHOR_ICONS.md` for full documentation. Do NOT delete `js/phosphor-full.css` — it is the lookup source for this pipeline.
+- **`www/fonts/phosphor.css` must NOT be re-created**: The old file at that path was deleted because the icon CSS is now compiled directly into `style.css` via the build pipeline above. Re-adding it would cause duplicate rules and break the build.
 
 - **`<noscript>` fallback is required**: All HTML pages (`index.html`, `impressum.html`, `datenschutz.html`) include a `<noscript>` block immediately after `<body>` that displays a bilingual message when JavaScript is disabled. Preserve this in future edits.
 
@@ -135,9 +143,13 @@ These rules preserve the LCP score and prevent forced layout reflows:
 ├── package.json          # npm compile scripts & devDependencies
 ├── package-lock.json     
 ├── tailwind.config.js    # Tailwind configuration (updated scan paths)
-├── style.src.css         # Source CSS containing Tailwind components
+├── style.src.css         # Source CSS (contains AUTO-ICONS block + Tailwind components)
 ├── js/
-│   └── version-sw.js     # Build script to update sw.js version cache
+│   ├── phosphor-full.css # Full Phosphor icon library — BUILD SOURCE ONLY, never deployed!
+│   ├── compile-icons.js  # Build step 1: auto-extracts used ph-* icons → style.src.css
+│   ├── compile-js.js     # Build step 3: strips comments + minifies script.src.js
+│   ├── version-sw.js     # Build step 4: bumps Service Worker cache version
+│   └── PHOSPHOR_ICONS.md # Documentation for the icon build system
 └── www/                  # PRODUCTION STATIC WEB ROOT (Deploy only this folder to the VPS!)
     ├── index.html        # Primary bento-box dashboard & link hub
     ├── impressum.html    # Multilingual Imprint / Legal page (voluntary DDG compliance)

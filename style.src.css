@@ -1,4 +1,30 @@
-/* Optimized Phosphor Icons Helper */
+/* AUTO-ICONS:START */
+/* Auto-generated — do not edit manually. Run: npm run build */
+/* NOTE: The .ph base class (font-family binding) lives BELOW this block and is NOT auto-generated. */
+.ph-arrow-left:before { content: "\e058"; }
+.ph-arrow-up-right:before { content: "\e092"; }
+.ph-arrows-left-right:before { content: "\e0a0"; }
+.ph-chart-line:before { content: "\e154"; }
+.ph-cloud-arrow-up:before { content: "\e1ae"; }
+.ph-game-controller:before { content: "\e26e"; }
+.ph-gift:before { content: "\e276"; }
+.ph-git-merge:before { content: "\e280"; }
+.ph-github-logo:before { content: "\e576"; }
+.ph-globe:before { content: "\e288"; }
+.ph-grid-four:before { content: "\e296"; }
+.ph-hand-pointing:before { content: "\e29a"; }
+.ph-hard-drives:before { content: "\e2a0"; }
+.ph-heartbeat:before { content: "\e2ac"; }
+.ph-lock-key:before { content: "\e2fe"; }
+.ph-newspaper:before { content: "\e344"; }
+.ph-package:before { content: "\e390"; }
+.ph-palette:before { content: "\e6c8"; }
+.ph-rocket-launch:before { content: "\e3fe"; }
+.ph-ticket:before { content: "\e490"; }
+.ph-timer:before { content: "\e492"; }
+/* AUTO-ICONS:END */
+
+/* Base Phosphor icon class — font binding. Managed manually, NOT auto-generated. */
 .ph {
   font-family: "Phosphor" !important;
   speak: never;
@@ -19,89 +45,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Specific unicode character mappings used across our dashboard and legal pages */
-.ph-arrow-left:before { content: "\e058"; }
-.ph-arrow-up-right:before { content: "\e092"; }
-.ph-arrows-left-right:before { content: "\e0a0"; }
-.ph-cards:before { content: "\e0f8"; }
-.ph-chart-line:before { content: "\e154"; }
-.ph-clock:before { content: "\e19a"; }
-.ph-cloud-arrow-up:before { content: "\e1ae"; }
-.ph-game-controller:before { content: "\e26e"; }
-.ph-gift:before { content: "\e276"; }
-.ph-git-merge:before { content: "\e280"; }
-.ph-github-logo:before { content: "\e576"; }
-.ph-google-chrome-logo:before { content: "\e976"; }
-.ph-firefox-logo:before { content: "\e288"; }
-.ph-globe:before { content: "\e288"; }
-.ph-grid-four:before { content: "\e296"; }
-.ph-hand-pointing:before { content: "\e29a"; }
-.ph-hard-drives:before { content: "\e2a0"; }
-.ph-heartbeat:before { content: "\e2ac"; }
-.ph-lightning:before { content: "\e2de"; }
-.ph-lock-key:before { content: "\e2fe"; }
-.ph-newspaper:before { content: "\e344"; }
-.ph-package:before { content: "\e390"; }
-.ph-palette:before { content: "\e6c8"; }
-.ph-rocket-launch:before { content: "\e3fe"; }
-.ph-cloud:before { content: "\e1aa"; }
-.ph-cloud-fog:before { content: "\e53c"; }
-.ph-cloud-lightning:before { content: "\e1b2"; }
-.ph-cloud-rain:before { content: "\e1b4"; }
-.ph-cloud-snow:before { content: "\e1b8"; }
-.ph-cloud-sun:before { content: "\e540"; }
-.ph-snowflake:before { content: "\e5aa"; }
-.ph-sun:before { content: "\e472"; }
-.ph-ticket:before { content: "\e490"; }
-.ph-timer:before { content: "\e492"; }
-.ph-wind:before { content: "\e5d2"; }
 
-
-/* ── Local Google Fonts (Inter) ───────────────── */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 300;
-  font-display: optional; /* Non-critical weight: use system font if not yet cached */
-  src: url('./fonts/inter-300.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('./fonts/inter-400.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('./fonts/inter-500.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('./fonts/inter-600.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('./fonts/inter-700.woff2') format('woff2');
-}
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 800;
-  font-display: optional; /* Non-critical weight: use system font if not yet cached */
-  src: url('./fonts/inter-800.woff2') format('woff2');
-}
-
-/* ── Local Phosphor Icons Font ───────────────── */
 @font-face {
   font-family: 'Phosphor';
   src: url('./fonts/Phosphor.woff2') format('woff2');
