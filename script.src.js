@@ -34,6 +34,7 @@ const translations = {
     link_sync: 'KoalaSync',
     link_blog: 'KoalaBlog',
     link_timer: 'KoalaWeb',
+    link_snippets: 'KoalaSnippets',
     link_sub_timer: 'Timer',
     link_esports: 'Esports',
     link_news: 'News',
@@ -107,6 +108,7 @@ const translations = {
     link_sync: 'KoalaSync',
     link_blog: 'KoalaBlog',
     link_timer: 'KoalaWeb',
+    link_snippets: 'KoalaSnippets',
     link_sub_timer: 'Timer',
     link_esports: 'Esports',
     link_news: 'News',
@@ -372,6 +374,7 @@ const repositories = [
   { repo: 'Shik3i/KoalaClicker',        displayName: 'KoalaClicker' },
   { repo: 'Shik3i/FlyffUniverseHelper', displayName: 'KoalaFlyff' },
   { repo: 'Shik3i/Antigrav',            displayName: 'KoalaWeb', type: 'package' },
+  { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets' },
   { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
 ];
 
