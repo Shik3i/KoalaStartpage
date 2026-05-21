@@ -378,7 +378,7 @@ const repositories = [
   { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
 ];
 
-const CACHE_KEY = 'koala-releases-cache-v2';
+const CACHE_KEY = 'koala-releases-cache-v3';
 const CACHE_TTL = 2 * 60 * 60 * 1000; // 2 hours (safeguards against GitHub API rate-limiting)
 
 async function fetchGitHubReleases() {

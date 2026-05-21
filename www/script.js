@@ -323,7 +323,7 @@ const repositories = [
 { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets', type: 'package' },
 { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
 ];
-const CACHE_KEY = 'koala-releases-cache-v2';
+const CACHE_KEY = 'koala-releases-cache-v3';
 const CACHE_TTL = 2 * 60 * 60 * 1000;
 async function fetchGitHubReleases() {
 const container = document.getElementById('releases-container');
