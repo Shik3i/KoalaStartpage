@@ -3,7 +3,7 @@ function setLegalLang(lang) {
     html.classList.remove('lang-en', 'lang-de');
     html.classList.add('lang-' + lang);
     html.lang = lang;
-    localStorage.setItem('koala-lang', lang);
+    try { localStorage.setItem('koala-lang', lang); } catch(e) {}
     updateLegalLangButtons(lang);
 }
 
@@ -28,15 +28,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Setup interactive email reveal click listeners (replaces inline onclick)
     const emailTriggers = document.querySelectorAll('.email-trigger');
     emailTriggers.forEach(el => {
-        el.addEventListener('click', function() {
-            const user = this.getAttribute('data-user') || 'admin';
-            const domain = this.getAttribute('data-domain') || 'koalastuff.net';
-            this.textContent = user + '@' + domain;
+        function revealEmail() {
+            const user = el.getAttribute('data-user') || 'admin';
+            const domain = el.getAttribute('data-domain') || 'koalastuff.net';
+            el.textContent = user + '@' + domain;
+            el.removeAttribute('role');
+            el.removeAttribute('tabindex');
+        }
+        el.addEventListener('click', revealEmail);
+        el.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                revealEmail();
+            }
         });
     });
 });
 
 // Register Service Worker for offline capability (PWA) asynchronously
+// NOTE: This is intentionally duplicated from script.src.js because legal pages
+// load legal.js instead of script.js — each page needs its own SW registration.
 if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('./sw.js')

@@ -47,10 +47,17 @@ koalastuff.net {
     }
 
     # 4. Best-Practice Browser-Caching for static assets
-    # 30-Day cache for long-lived assets, excluding the Service Worker!
+    # Immutable caching for local fonts (they never change)
+    @fonts {
+        file
+        path *.woff2
+    }
+    header @fonts Cache-Control "public, max-age=31536000, immutable"
+
+    # 30-Day cache for other long-lived assets, excluding the Service Worker and fonts!
     @static {
         file
-        path *.css *.js *.svg *.ico *.png *.jpg *.woff2
+        path *.css *.js *.svg *.ico *.png *.jpg
         not path /sw.js
     }
     header @static Cache-Control "public, max-age=2592000"

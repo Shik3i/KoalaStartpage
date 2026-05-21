@@ -1,6 +1,7 @@
 {
   "name": "Koala Startpage",
   "short_name": "Koala",
+  "description": "Dashboard for Koala projects, services, and system monitoring.",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#09090b",
@@ -8,9 +9,24 @@
   "icons": [
     {
       "src": "icon.svg",
-      "sizes": "192x192 512x512",
+      "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "og-preview.png",
+      "sizes": "1024x576",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Koala Startpage — Bento Box Dashboard"
     }
   ]
 }

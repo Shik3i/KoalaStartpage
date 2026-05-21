@@ -4,7 +4,7 @@
   "description": "Security and performance optimized Koala Startpage",
   "private": true,
   "scripts": {
-    "build": "tailwindcss -i ./style.src.css -o ./www/style.css --minify && node ./js/version-sw.js",
+    "build": "node ./js/compile-icons.js && tailwindcss -i ./style.src.css -o ./www/style.css --minify && node ./js/compile-js.js && node ./js/version-sw.js",
     "watch": "tailwindcss -i ./style.src.css -o ./www/style.css --watch"
   },
   "devDependencies": {

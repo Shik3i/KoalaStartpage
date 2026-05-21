@@ -1,4 +1,4 @@
-const CACHE_NAME = 'koala-startpage-v202605211934';
+const CACHE_NAME = 'koala-startpage-v202605211937';
 const ASSETS = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const ASSETS = [
   './js/legal.js',
   './js/lang-init.js',
   './icon.svg',
+  './apple-touch-icon.png',
   './manifest.json',
   './fonts/inter-300.woff2',
   './fonts/inter-400.woff2',
@@ -45,7 +46,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event: Cache First, fallback to Network
+// Fetch Event: Network First, falling back to Cache
 self.addEventListener('fetch', (event) => {
   // Only handle GET requests and skip external APIs (like GitHub releases)
   if (event.request.method !== 'GET') return;
@@ -58,11 +59,8 @@ self.addEventListener('fetch', (event) => {
   }
 
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request).then((networkResponse) => {
+    fetch(event.request)
+      .then((networkResponse) => {
         // Only cache valid, same-origin responses
         if (networkResponse && networkResponse.status === 200 && url.origin === self.location.origin) {
           const responseToCache = networkResponse.clone();
@@ -71,12 +69,18 @@ self.addEventListener('fetch', (event) => {
           });
         }
         return networkResponse;
-      }).catch(() => {
-        // Fallback for document navigation when offline
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
-        }
-      });
-    })
+      })
+      .catch(() => {
+        // Fallback to cache if network fails (offline)
+        return caches.match(event.request).then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          // Fallback for document navigation when offline and not cached
+          if (event.request.mode === 'navigate') {
+            return caches.match('./index.html');
+          }
+        });
+      })
   );
 });

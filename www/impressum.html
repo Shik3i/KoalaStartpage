@@ -7,17 +7,49 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Impressum — Koala Startpage</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐨</text></svg>">
-    <!-- Font Preloads (Speeds up text rendering & eliminates chaining latency on mobile) -->
-    <link rel="preload" href="fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Font Preloads: critical weights first -->
+    <link rel="preload" href="fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/inter-700.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/Phosphor.woff2" as="font" type="font/woff2" crossorigin>
+    <!-- Secondary weights -->
+    <link rel="preload" href="fonts/inter-300.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/inter-800.woff2" as="font" type="font/woff2" crossorigin>
 
     <!-- Custom Styles (Includes compiled local fonts and icons) -->
     <link rel="stylesheet" href="style.css">
-    <script src="js/lang-init.js"></script>
+    <script src="js/lang-init.js" fetchpriority="high"></script>
 </head>
 <body class="min-h-screen">
-    <div class="bg-mesh" aria-hidden="true"></div>
+
+    <!-- Fallback for users with JavaScript disabled -->
+    <noscript>
+        <style>
+            body { display: flex; align-items: center; justify-content: center; min-height: 100vh;
+                   background: #09090b; font-family: sans-serif; }
+            .noscript-msg { text-align: center; color: #94a3b8; padding: 2rem; }
+            .noscript-msg h1 { font-size: 1.5rem; color: #e2e8f0; margin-bottom: 0.75rem; }
+        </style>
+        <div class="noscript-msg">
+            <h1>🐨 Koala Startpage</h1>
+            <p>Diese Seite benötigt JavaScript zum Laden.<br>This page requires JavaScript to function.</p>
+        </div>
+    </noscript>
+    <div class="bg-mesh" aria-hidden="true">
+        <div class="bg-orb bg-orb--1"></div>
+        <div class="bg-orb bg-orb--2"></div>
+        <div class="bg-orb bg-orb--3"></div>
+        <div class="bg-orb bg-orb--4"></div>
+    </div>
+
+    <!-- Premium Noise Overlay for high-end physical texture -->
+    <svg class="pointer-events-none fixed inset-0 z-50 opacity-[0.015]" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <filter id="noiseFilter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch"/>
+        </filter>
+        <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
+    </svg>
 
     <div class="relative z-10 legal-page">
         <!-- Top bar: Back link + Language toggle -->
@@ -27,14 +59,23 @@
                 <span lang="de">Zurück zur Startseite</span>
                 <span lang="en">Back to Startpage</span>
             </a>
-            <div class="lang-toggle rounded-full flex items-center p-0.5 gap-0.5">
-                <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-de" aria-label="Sprache auf Deutsch umstellen">DE</button>
-                <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-en" aria-label="Switch language to English">EN</button>
+            <div class="lang-toggle rounded-full flex items-center p-0.5 pl-3 gap-2">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 text-gray-500" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <div class="flex items-center gap-0.5">
+                    <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-de" aria-label="Sprache auf Deutsch umstellen">DE</button>
+                    <button class="lang-btn px-3 py-1.5 rounded-full text-xs font-medium text-gray-400" id="legal-lang-en" aria-label="Switch language to English">EN</button>
+                </div>
             </div>
         </div>
 
-        <h1 lang="de">Impressum</h1>
-        <h1 lang="en">Legal Notice</h1>
+        <h1>
+            <span lang="de">Impressum</span>
+            <span lang="en">Legal Notice</span>
+        </h1>
 
         <h2>
             <span lang="de">Betreiber & Kontakt</span>
@@ -42,8 +83,8 @@
         </h2>
         <p lang="de">Administrator KoalaStuff (Privatperson)</p>
         <p lang="en">Administrator KoalaStuff (Private Individual)</p>
-        <p lang="de">E-Mail: <span class="email-trigger text-indigo-400 cursor-pointer underline hover:text-indigo-300 transition-colors" data-user="admin" data-domain="koalastuff.net">[E-Mail anzeigen]</span></p>
-        <p lang="en">Email: <span class="email-trigger text-indigo-400 cursor-pointer underline hover:text-indigo-300 transition-colors" data-user="admin" data-domain="koalastuff.net">[Show Email]</span></p>
+        <p lang="de">E-Mail: <span class="email-trigger text-indigo-400 cursor-pointer underline hover:text-indigo-300 transition-colors" role="button" tabindex="0" data-user="admin" data-domain="koalastuff.net">[E-Mail anzeigen]</span></p>
+        <p lang="en">Email: <span class="email-trigger text-indigo-400 cursor-pointer underline hover:text-indigo-300 transition-colors" role="button" tabindex="0" data-user="admin" data-domain="koalastuff.net">[Show Email]</span></p>
 
         <div class="bg-white/[0.03] border border-white/[0.06] rounded-xl p-5 my-6 opacity-85">
             <p lang="de" class="m-0 text-sm">

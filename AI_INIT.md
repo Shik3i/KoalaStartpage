@@ -9,12 +9,12 @@
 **Koala Startpage** is a modern, static, high-performance bento-box dashboard serving as the central landing hub for Koala projects (KoalaSync, KoalaWeb, KoalaClicker), service uptimes, internal Tailnet (Tailscale) home server interfaces, and system monitoring tools.
 
 ### Key Features
-1. **Dynamic Bento Box UI**: Sleek, glassmorphic card layout utilizing responsive Tailwind CSS and custom micro-animations.
-2. **GitHub Release Tracker**: Asynchronously fetches latest releases or package tags using the GitHub REST API. Features a 10-minute TTL `localStorage` cache to respect GitHub API rate limits.
+1. **Dynamic Bento Box UI**: Sleek, glassmorphic card layout utilizing responsive Tailwind CSS and custom micro-animations. Features a silky-smooth, GPU-accelerated spotlight coordinate transition (`--x`, `--y`) to prevent snapping on mouse hover enter/leave.
+2. **GitHub Release Tracker**: Asynchronously fetches latest releases or package tags using the GitHub REST API. Features a **2-hour TTL** `localStorage` cache to respect GitHub API rate limits.
 3. **Live Clock & Greeting**: Dynamic local greeting system based on the time of day with a live ticking clock (including seconds).
 4. **100% Self-Hosted GDPR/DSGVO Privacy**: Absolutely no external CDNs. All assets (fonts like Inter, icons like Phosphor) are served locally.
 5. **Zero-Build Production**: All optimized, purged CSS is committed directly to Git. The production VPS serves static files purely (e.g., via Caddy) and requires no Node.js or NPM build steps on deployment.
-6. **Bilingual i18n Support**: Full German (DE) and English (EN) toggle, preserving language state in `localStorage`.
+6. **Bilingual i18n Support**: Full German (DE) and English (EN) toggle, preserving language state in `localStorage`. Includes a premium, fully keyboard-accessible WAI-ARIA listbox theme selection dropdown.
 
 ---
 
@@ -26,7 +26,7 @@
   - **Source CSS**: `style.src.css` (contains `@tailwind` directives, `@font-face` definitions, and custom CSS components).
   - **Scanned Files**: `www/index.html`, `www/impressum.html`, `www/datenschutz.html`, `www/script.js`.
   - **Compiled CSS**: `www/style.css` (purged and minified for production).
-- **Service Worker**: `www/sw.js` registers a caching strategy for PWA support and offline resilience.
+- **Service Worker**: `www/sw.js` registers a **Network-First falling back to Cache** strategy for PWA support and offline resilience. This ensures that updates to the dashboard (HTML/JS/CSS changes) are served immediately upon page refresh when online, while still providing robust offline availability.
 
 ---
 
@@ -35,17 +35,24 @@
 ### 1. 🔒 Git Branch Hygiene (CRITICAL)
 Before executing edits or terminal commands, **always run `git status` and `git branch`**. Ensure you are on the `main` branch (unless instructed otherwise by the user) and pull latest commits. 
 
-### 2. ⚡ Tailwind Recompilation Protocol (MANDATORY)
-Since Tailwind classes are purged:
-- Whenever you add, change, or remove CSS classes in `index.html`, `impressum.html`, `datenschutz.html`, or `script.js`, **you MUST run the compilation build command**:
-  ```bash
-  npm run build
-  ```
-- Failure to run this command will result in newly used Tailwind classes not being compiled into `style.css`, causing broken styling in production.
-- During active development, you can also spin up watch mode:
-  ```bash
-  npm run watch
-  ```
+### 2. ⚡ Build Protocol (MANDATORY)
+The `npm run build` command runs **four steps in sequence**:
+1. **`compile-icons.js`** — scans all source files for used `ph-*` Phosphor icon classes and auto-generates the icon CSS block in `style.src.css`
+2. **`tailwindcss`** — compiles and purges `style.src.css` → `www/style.css`
+3. **`compile-js.js`** — strips comments and minifies `script.src.js` → `www/script.js`
+4. **`version-sw.js`** — bumps the Service Worker cache version
+
+Run it whenever you touch HTML, JS or CSS source files:
+```bash
+npm run build
+```
+
+**Tailwind class purging:** Only classes that appear in `www/index.html`, `www/impressum.html`, `www/datenschutz.html`, and `www/script.js` are kept in `style.css`. Failure to rebuild will cause missing styles in production.
+
+During active development, use watch mode (runs Tailwind only — not the full pipeline):
+```bash
+npm run watch
+```
 
 ### 3. 🌐 Local Testing & Browser Security (CRITICAL FOR AGENTS)
 - **DO NOT attempt to open `file:///` URLs in the browser subagent.** Modern browser security policies block direct local file access, causing browser tests to fail with "access blocked" errors.
@@ -59,6 +66,7 @@ Since Tailwind classes are purged:
 ### 4. 🛡️ Strict GDPR & Content Security Policy (CSP)
 - **NO external script/style CDNs** are allowed.
 - All fonts (`fonts/inter-*.woff2`) and icons (`fonts/Phosphor.woff2`) are committed in the `/fonts` directory. Do not load fonts from Google Fonts API or icons from unpkg/jsdelivr.
+- **NO INLINE SCRIPTS (CRITICAL)**: Do NOT inline external JavaScript files (like `js/lang-init.js` or `js/legal.js`) directly into HTML `<script>` tags, even if page speed audit tools suggest doing so to reduce HTTP requests. The production server enforces a strict Content Security Policy (`script-src 'self'`) which blocks all inline scripts. Inlining scripts will break the dashboard completely unless SHA-256 hashes are manually updated and maintained in the Caddyfile. To avoid this high maintenance overhead, all JavaScript must remain in external `.js` files.
 - Connect-src is locked strictly to `'self'` and `https://api.github.com`.
 
 ### 5. 🌐 Multilingual i18n Strategy
@@ -85,6 +93,44 @@ To prevent bot crawler scraping, **never write plain email addresses in raw HTML
   ```
 - `js/legal.js` attaches event listeners that reconstruct the address upon an active user click event.
 
+### 7. 🏷️ GitHub Tagging & Versioning (CRITICAL)
+- **NEVER automatically create, tag, or push release versions to GitHub** (e.g., tags like `v1.1`, `v1.2`, etc.).
+- Creating tags or versioned releases must **ONLY occur on explicit user request**. Do not propose or perform automatic version generation or tag creation without direct confirmation and instruction from the user.
+
+### 8. ⚡ Performance Patterns (MANDATORY)
+These rules preserve the LCP score and prevent forced layout reflows:
+
+- **LCP Hero Tile — Never hide with opacity:0**: The `.bento-tile--hero` (the clock/greeting tile) uses a special `fadeInHero` animation that starts at `opacity: 1`. Do **NOT** apply the generic `.fade-in` class behavior (which starts at `opacity: 0`) to this tile, as it would delay the browser's LCP measurement by ~3 seconds. The override is defined in `style.src.css` as `.bento-tile--hero.fade-in { opacity: 1; }`.
+
+- **No `void element.offsetWidth` (Forced Reflow forbidden)**: Never use `void el.offsetWidth`, `el.getBoundingClientRect()` immediately followed by a style write, or similar forced-reflow patterns to trigger CSS transitions. Always use `requestAnimationFrame()` instead:
+  ```javascript
+  // ✅ Correct — no forced reflow:
+  el.classList.remove('hidden');
+  requestAnimationFrame(() => {
+    el.classList.remove('opacity-0');
+    el.classList.add('opacity-100');
+  });
+  // ❌ Wrong — forces synchronous layout recalculation:
+  el.classList.remove('hidden');
+  void el.offsetWidth; // FORBIDDEN
+  el.classList.remove('opacity-0');
+  ```
+
+- **rAF for mousemove DOM writes**: Any DOM style mutations inside `mousemove` handlers (e.g., CSS Custom Properties like `--x`, `--y`) must be batched inside `requestAnimationFrame`. Always cancel pending rAF with `cancelAnimationFrame(rafId)` before scheduling a new one to prevent frame accumulation.
+
+- **Bento Tile Headings are `<h2>`**: All section titles inside bento tiles use `<h2>` (not `<h3>`) to maintain a correct heading hierarchy after the single `<h1>` (the clock). Do not downgrade them to `<h3>`.
+
+- **Font Preloads**: All 6 Inter font weights (300–800) and `Phosphor.woff2` must be declared with `<link rel="preload">` in `index.html`, `impressum.html`, and `datenschutz.html`. Critical weights (400, 600, 700, Phosphor) must appear first. `fetchpriority="high"` must be set on `<script src="js/lang-init.js">` on all three pages.
+
+- **Phosphor Icon Build System (CRITICAL — do NOT break this)**: The project uses an automatic icon extraction pipeline. The full Phosphor CSS source lives at `js/phosphor-full.css` (1530 icons, build-time only, never deployed). Before each build, `js/compile-icons.js` scans all source files for used `ph-*` classes and writes only those CSS rules into a clearly marked `AUTO-ICONS:START/END` block in `style.src.css`. This block is then compiled by Tailwind into `www/style.css`. **To use any new icon, simply add it to the HTML/JS and run `npm run build` — no manual CSS editing required.** See `js/PHOSPHOR_ICONS.md` for full documentation. Do NOT delete `js/phosphor-full.css` — it is the lookup source for this pipeline.
+- **`www/fonts/phosphor.css` must NOT be re-created**: The old file at that path was deleted because the icon CSS is now compiled directly into `style.css` via the build pipeline above. Re-adding it would cause duplicate rules and break the build.
+
+- **`<noscript>` fallback is required**: All HTML pages (`index.html`, `impressum.html`, `datenschutz.html`) include a `<noscript>` block immediately after `<body>` that displays a bilingual message when JavaScript is disabled. Preserve this in future edits.
+
+- **Dynamic `theme-color` Meta Tag**: `applyTheme()` in `script.src.js` updates `<meta name="theme-color">` on every theme switch using a `themeColors` map (one hex per theme). If you add a new theme to the `THEMES` array, also add its background color to this map.
+
+- **`preconnect` implies `dns-prefetch`**: Do not add redundant `<link rel="dns-prefetch">` next to an existing `<link rel="preconnect">` for the same host. One `preconnect` is sufficient.
+
 ---
 
 ## 📂 Project Directory Structure
@@ -97,15 +143,19 @@ To prevent bot crawler scraping, **never write plain email addresses in raw HTML
 ├── package.json          # npm compile scripts & devDependencies
 ├── package-lock.json     
 ├── tailwind.config.js    # Tailwind configuration (updated scan paths)
-├── style.src.css         # Source CSS containing Tailwind components
+├── style.src.css         # Source CSS (contains AUTO-ICONS block + Tailwind components)
 ├── js/
-│   └── version-sw.js     # Build script to update sw.js version cache
+│   ├── phosphor-full.css # Full Phosphor icon library — BUILD SOURCE ONLY, never deployed!
+│   ├── compile-icons.js  # Build step 1: auto-extracts used ph-* icons → style.src.css
+│   ├── compile-js.js     # Build step 3: strips comments + minifies script.src.js
+│   ├── version-sw.js     # Build step 4: bumps Service Worker cache version
+│   └── PHOSPHOR_ICONS.md # Documentation for the icon build system
 └── www/                  # PRODUCTION STATIC WEB ROOT (Deploy only this folder to the VPS!)
     ├── index.html        # Primary bento-box dashboard & link hub
     ├── impressum.html    # Multilingual Imprint / Legal page (voluntary DDG compliance)
     ├── datenschutz.html  # Multilingual Privacy Policy (GDPR/DSGVO compliant)
     ├── script.js         # Core clock, i18n toggles, relative times, and GitHub tracker
-    ├── sw.js             # Service worker (PWA cache strategy)
+    ├── sw.js             # Service worker (Network-First PWA caching strategy)
     ├── style.css         # Compiled, minified, and purged stylesheet (DO NOT EDIT directly)
     ├── manifest.json     # PWA Manifest configuration
     ├── robots.txt        # Search engine exclusion (dashboard is private/noindex)
@@ -115,8 +165,7 @@ To prevent bot crawler scraping, **never write plain email addresses in raw HTML
     │   └── lang-init.js  # Language initializer (no flash)
     ├── fonts/
     │   ├── inter-*.woff2 # Self-hosted Inter font variants (300, 400, 500, 600, 700, 800)
-    │   ├── phosphor.css  # Phosphor Icons utility stylesheet
-    │   └── Phosphor.woff2# Self-hosted Phosphor font file
+    │   └── Phosphor.woff2# Self-hosted Phosphor font file (icon CSS is compiled into style.css)
     └── api/
         └── weather       # Mock weather JSON (rewritten in production by Caddy)
 ```
