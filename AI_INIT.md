@@ -2,6 +2,13 @@
 
 **MANDATORY FIRST READ.** This document outlines the architecture, layout rules, build constraints, and development guidelines for the **Koala Startpage** dashboard. Future AI agents must strictly adhere to these instructions to maintain the site's performance, zero-dependency privacy compliance, and build integrity.
 
+> [!IMPORTANT]
+> **SOURCE vs COMPILED FILES — CRITICAL:**
+> - **EDIT** `script.src.js` (root) — this is the JavaScript source file.
+> - **EDIT** `style.src.css` (root) — this is the CSS source file.
+> - **NEVER EDIT** `www/script.js` or `www/style.css` directly — these are compiled outputs and will be overwritten on the next `npm run build`.
+> - After any change to source files, **ALWAYS run `npm run build`** to compile into the `www/` directory.
+
 ---
 
 ## 🏗️ Project Overview & Persona
@@ -24,8 +31,10 @@
 - **Styling**: Tailwind CSS v3 (using static utility classes) integrated with custom HSL gradient overlays and glassmorphism.
 - **Build Pipeline**: Tailwind CSS CLI.
   - **Source CSS**: `style.src.css` (contains `@tailwind` directives, `@font-face` definitions, and custom CSS components).
-  - **Scanned Files**: `www/index.html`, `www/impressum.html`, `www/datenschutz.html`, `www/script.js`.
+  - **Source JS**: `script.src.js` (contains all application logic, i18n, clock, GitHub tracker, weather).
+  - **Scanned Files**: `www/index.html`, `www/impressum.html`, `www/datenschutz.html`, `script.src.js`.
   - **Compiled CSS**: `www/style.css` (purged and minified for production).
+  - **Compiled JS**: `www/script.js` (minified output — DO NOT EDIT directly).
 - **Service Worker**: `www/sw.js` registers a **Network-First falling back to Cache** strategy for PWA support and offline resilience. This ensures that updates to the dashboard (HTML/JS/CSS changes) are served immediately upon page refresh when online, while still providing robust offline availability.
 
 ---
@@ -71,9 +80,9 @@ npm run watch
 
 ### 5. 🌐 Multilingual i18n Strategy
 The project uses a dual approach for localization:
-1. **Dynamic Dashboard Translations (`index.html` / `script.js`)**:
+1. **Dynamic Dashboard Translations (`index.html` / `script.src.js`)**:
    - Element tags in `index.html` are decorated with `data-i18n="translation_key"`.
-   - Translations are defined in the `translations` object inside `script.js`.
+   - Translations are defined in the `translations` object inside `script.src.js`.
    - When the user changes language, `applyLanguage()` runs, querying all elements and substituting text.
 2. **Static Document Translations (`impressum.html` / `datenschutz.html`)**:
    - Legal pages utilize direct double markup structure inside the HTML.
@@ -154,7 +163,8 @@ These rules preserve the LCP score and prevent forced layout reflows:
     ├── index.html        # Primary bento-box dashboard & link hub
     ├── impressum.html    # Multilingual Imprint / Legal page (voluntary DDG compliance)
     ├── datenschutz.html  # Multilingual Privacy Policy (GDPR/DSGVO compliant)
-    ├── script.js         # Core clock, i18n toggles, relative times, and GitHub tracker
+    ├── script.js         # Compiled JS output (minified — DO NOT EDIT directly)
+    ├── script.src.js     # Source JS (all application logic — EDIT THIS FILE)
     ├── sw.js             # Service worker (Network-First PWA caching strategy)
     ├── style.css         # Compiled, minified, and purged stylesheet (DO NOT EDIT directly)
     ├── manifest.json     # PWA Manifest configuration
@@ -175,17 +185,19 @@ These rules preserve the LCP score and prevent forced layout reflows:
 ## ⚙️ How to Add Tracked Repositories
 
 To append or modify tracked projects in the GitHub Release widget:
-1. Open `script.js`.
-2. Locate the `repositories` array (~line 175).
+1. Open `script.src.js` (NOT `www/script.js` — that is the compiled output).
+2. Locate the `repositories` array.
 3. Add a new configuration object:
    ```javascript
    const repositories = [
      { repo: 'Shik3i/KoalaSync',           displayName: 'KoalaSync' },
-     { repo: 'Shik3i/Antigrav',            displayName: 'KoalaWeb', type: 'package' }, // Uses Tag release checks
+     { repo: 'Shik3i/Antigrav',            displayName: 'KoalaWeb', type: 'package' },
+     { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets' },
      { repo: 'Owner/YourNewRepo',          displayName: 'FriendlyName' }
    ];
    ```
 4. Standard repositories retrieve latest tag names via GitHub Releases API.
 5. If the project publishes a package rather than a standard release, specify `type: 'package'` to crawl tags instead.
+6. **ALWAYS run `npm run build` after editing `script.src.js`** to compile the changes into `www/script.js`.
 
 **By maintaining the structural patterns, strict GDPR assets, and build flows outlined above, you ensure this dashboard remains the fastest, safest, and most beautiful entry page in the Koala ecosystem.**

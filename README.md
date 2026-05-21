@@ -106,7 +106,7 @@ No build commands or server restarts are required.
 
 ### Tracked Repositories
 
-To modify the GitHub repositories tracked in the "Latest Releases" widget, edit the `repositories` array in `script.js`:
+To modify the GitHub repositories tracked in the "Latest Releases" widget, edit the `repositories` array in `script.src.js` (NOT `www/script.js`):
 
 ```javascript
 const repositories = [
@@ -114,8 +114,12 @@ const repositories = [
   { repo: 'Shik3i/KoalaClicker',        displayName: 'KoalaClicker' },
   { repo: 'Shik3i/FlyffUniverseHelper', displayName: 'KoalaFlyff' },
   { repo: 'Shik3i/Antigrav',            displayName: 'KoalaWeb' },
+  { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets' },
+  { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
 ];
 ```
+
+After editing, run `npm run build` to compile the changes.
 
 *Note: The `displayName` parameter controls the frontend label, allowing you to use friendly names regardless of the actual GitHub repository slug.*
 
