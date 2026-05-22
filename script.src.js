@@ -13,7 +13,7 @@ const storage = (function() {
   } catch (e) {
     const mem = {};
     return {
-      getItem: (key) => mem.hasOwnProperty(key) ? mem[key] : null,
+      getItem: (key) => Object.prototype.hasOwnProperty.call(mem, key) ? mem[key] : null,
       setItem: (key, val) => { mem[key] = String(val); },
       removeItem: (key) => { delete mem[key]; }
     };
@@ -225,6 +225,15 @@ function escapeHTML(str) {
   return div.innerHTML;
 }
 
+// ── View Transitions Helper ─────────────────────
+function withViewTransition(updateFn) {
+  if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    updateFn();
+    return;
+  }
+  document.startViewTransition(updateFn);
+}
+
 // ── Init ────────────────────────────────────────
 initLangToggle();
 applyLanguage();
@@ -277,15 +286,19 @@ function initLangToggle() {
   btnDE.addEventListener('click', () => {
     currentLang = 'de';
     try { storage.setItem('koala-lang', 'de'); } catch (e) { /* ignore */ }
-    setActive();
-    applyLanguage();
+    withViewTransition(() => {
+      setActive();
+      applyLanguage();
+    });
   });
 
   btnEN.addEventListener('click', () => {
     currentLang = 'en';
     try { storage.setItem('koala-lang', 'en'); } catch (e) { /* ignore */ }
-    setActive();
-    applyLanguage();
+    withViewTransition(() => {
+      setActive();
+      applyLanguage();
+    });
   });
 
   setActive();
@@ -1231,14 +1244,16 @@ function initThemeSwitcher() {
   items.forEach(item => {
     item.addEventListener('click', e => {
       e.stopPropagation();
-      if (item.dataset.theme) {
-        applyTheme(item.dataset.theme);
-      } else if (item.dataset.bg) {
-        applyBgStyle(item.dataset.bg);
-      } else if (item.dataset.layout) {
-        applyLayout(item.dataset.layout);
-      }
-      dropdown.classList.remove('active');
+      withViewTransition(() => {
+        if (item.dataset.theme) {
+          applyTheme(item.dataset.theme);
+        } else if (item.dataset.bg) {
+          applyBgStyle(item.dataset.bg);
+        } else if (item.dataset.layout) {
+          applyLayout(item.dataset.layout);
+        }
+        dropdown.classList.remove('active');
+      });
     });
   });
 

@@ -7,7 +7,7 @@ return window.localStorage;
 } catch (e) {
 const mem = {};
 return {
-getItem: (key) => mem.hasOwnProperty(key) ? mem[key] : null,
+getItem: (key) => Object.prototype.hasOwnProperty.call(mem, key) ? mem[key] : null,
 setItem: (key, val) => { mem[key] = String(val); },
 removeItem: (key) => { delete mem[key]; }
 };
@@ -208,6 +208,13 @@ const div = document.createElement('div');
 div.textContent = str;
 return div.innerHTML;
 }
+function withViewTransition(updateFn) {
+if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+updateFn();
+return;
+}
+document.startViewTransition(updateFn);
+}
 initLangToggle();
 applyLanguage();
 initThemeSwitcher();
@@ -249,14 +256,18 @@ btnEN.classList.toggle('active', currentLang === 'en');
 btnDE.addEventListener('click', () => {
 currentLang = 'de';
 try { storage.setItem('koala-lang', 'de'); } catch (e) {  }
+withViewTransition(() => {
 setActive();
 applyLanguage();
+});
 });
 btnEN.addEventListener('click', () => {
 currentLang = 'en';
 try { storage.setItem('koala-lang', 'en'); } catch (e) {  }
+withViewTransition(() => {
 setActive();
 applyLanguage();
+});
 });
 setActive();
 }
@@ -998,6 +1009,7 @@ btn.setAttribute('aria-expanded', 'true');
 items.forEach(item => {
 item.addEventListener('click', e => {
 e.stopPropagation();
+withViewTransition(() => {
 if (item.dataset.theme) {
 applyTheme(item.dataset.theme);
 } else if (item.dataset.bg) {
@@ -1006,6 +1018,7 @@ applyBgStyle(item.dataset.bg);
 applyLayout(item.dataset.layout);
 }
 dropdown.classList.remove('active');
+});
 });
 });
 document.addEventListener('click', e => {
