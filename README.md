@@ -8,7 +8,7 @@
 <p align="center">
   <a href="https://github.com/Shik3i/KoalaStartpage/releases"><img src="https://img.shields.io/github/v/release/Shik3i/KoalaStartpage?color=blue" alt="Latest Release"></a>
   <img src="https://img.shields.io/badge/lighthouse-100%2F100-brightgreen" alt="Lighthouse Score">
-  <img src="https://img.shields.io/badge/self--hosted-GDPR_compliant-success" alt="Self-Hosted & GDPR Compliant">
+  <img src="https://img.shields.io/badge/license-MIT-blue" alt="License: MIT">
   <img src="https://img.shields.io/badge/observatory-A%2B-blue" alt="Mozilla Observatory Rating">
 </p>
 
