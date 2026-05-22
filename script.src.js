@@ -13,7 +13,7 @@ const storage = (function() {
   } catch (e) {
     const mem = {};
     return {
-      getItem: (key) => mem[key] || null,
+      getItem: (key) => mem.hasOwnProperty(key) ? mem[key] : null,
       setItem: (key, val) => { mem[key] = String(val); },
       removeItem: (key) => { delete mem[key]; }
     };
@@ -95,6 +95,12 @@ const translations = {
     theme_cyberpunk: 'Cyberpunk Neon',
     theme_solar: 'Solar Amber',
     tooltip_change_theme: 'Design wechseln',
+    bg_label: 'Hintergrund',
+    bg_aurora: 'Aurora Blobs',
+    bg_wave: 'Farbwelle',
+    bg_stars: 'Sternenfeld',
+    bg_mesh: 'Feines Gitter',
+    bg_solid: 'Einfarbig Dunkel',
   },
   en: {
     greeting_morning: 'Good Morning',
@@ -169,6 +175,12 @@ const translations = {
     theme_cyberpunk: 'Cyberpunk Neon',
     theme_solar: 'Solar Amber',
     tooltip_change_theme: 'Change design theme',
+    bg_label: 'Background',
+    bg_aurora: 'Aurora Blobs',
+    bg_wave: 'Gradient Wave',
+    bg_stars: 'Starfield',
+    bg_mesh: 'Subtle Mesh',
+    bg_solid: 'Solid Dark',
   }
 };
 
@@ -248,6 +260,7 @@ if ('serviceWorker' in navigator && window.location.protocol.startsWith('http'))
 function initLangToggle() {
   const btnDE = document.getElementById('lang-de');
   const btnEN = document.getElementById('lang-en');
+  if (!btnDE || !btnEN) return;
 
   function setActive() {
     btnDE.classList.toggle('active', currentLang === 'de');
@@ -256,14 +269,14 @@ function initLangToggle() {
 
   btnDE.addEventListener('click', () => {
     currentLang = 'de';
-    storage.setItem('koala-lang', 'de');
+    try { storage.setItem('koala-lang', 'de'); } catch (e) { /* ignore */ }
     setActive();
     applyLanguage();
   });
 
   btnEN.addEventListener('click', () => {
     currentLang = 'en';
-    storage.setItem('koala-lang', 'en');
+    try { storage.setItem('koala-lang', 'en'); } catch (e) { /* ignore */ }
     setActive();
     applyLanguage();
   });
@@ -307,7 +320,7 @@ function applyLanguage() {
   }
 
   if (typeof updateClock === 'function') updateClock();
-
+  // Re-render cached data on language change without re-fetching
   if (cachedReleases) {
     const container = document.getElementById('releases-container');
     renderReleases(cachedReleases, container);
@@ -323,6 +336,7 @@ function updateClock() {
   const timeEl = document.getElementById('current-time');
   const dateEl = document.getElementById('current-date');
   const greetEl = document.getElementById('greeting');
+  if (!timeEl || !dateEl || !greetEl) return;
 
   const now = new Date();
 
@@ -354,6 +368,7 @@ function relativeTime(date) {
   if (!date) return '—';
   const now = new Date();
   const diffMs = now - date;
+  if (isNaN(diffMs)) return '—';
   const diffMins = Math.floor(diffMs / 60000);
   const diffHours = Math.floor(diffMs / 3600000);
   const diffDays = Math.floor(diffMs / 86400000);
@@ -383,6 +398,7 @@ const CACHE_TTL = 2 * 60 * 60 * 1000; // 2 hours (safeguards against GitHub API 
 
 async function fetchGitHubReleases() {
   const container = document.getElementById('releases-container');
+  if (!container) return;
 
   // Check cache first
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
@@ -465,7 +481,7 @@ async function fetchGitHubReleases() {
             
             if (!date) {
               try {
-                const refRes = await fetch(`https://api.github.com/repos/${item.repo}/commits?sha=${encodeURIComponent(latestTag.name)}&per_page=1`);
+                const refRes = await fetch(`https://api.github.com/repos/${item.repo}/commits?sha=${encodeURIComponent(latestTag.name || latestTag.commit.sha)}&per_page=1`);
                 if (refRes.ok) {
                   const commits = await refRes.json();
                   if (Array.isArray(commits) && commits.length > 0 && commits[0].commit && commits[0].commit.author) {
@@ -749,7 +765,7 @@ function renderWeather(data) {
   if (!current || !daily) return;
 
   // Render current weather
-  const currentTemp = Math.round(current.temperature_2m);
+  const currentTemp = Math.round(current.temperature_2m ?? 0);
   const currentCode = current.weather_code;
   const currentCondition = weatherMap[currentCode] || { icon: 'sun', text: { de: 'Sonnig', en: 'Sunny' } };
 
@@ -761,10 +777,11 @@ function renderWeather(data) {
 
   // Render 3-day forecast
   forecastEl.innerHTML = '';
-  for (let i = 0; i < 3; i++) {
+  const daysAvailable = daily.time ? daily.time.length : 0;
+  for (let i = 0; i < Math.min(3, daysAvailable); i++) {
     const dateStr = daily.time[i];
-    const maxTemp = Math.round(daily.temperature_2m_max[i]);
-    const minTemp = Math.round(daily.temperature_2m_min[i]);
+    const maxTemp = Math.round(daily.temperature_2m_max[i] ?? 0);
+    const minTemp = Math.round(daily.temperature_2m_min[i] ?? 0);
     const code = daily.weather_code[i];
     const condition = weatherMap[code] || { icon: 'sun', text: { de: 'Sonnig', en: 'Sunny' } };
     
@@ -826,7 +843,7 @@ function initSearchShortcut() {
     if (!config) return;
 
     currentEngine = engineKey;
-    storage.setItem('koala-search-engine', engineKey);
+    try { storage.setItem('koala-search-engine', engineKey); } catch (e) { /* ignore */ }
 
     // Update Form details
     searchForm.action = config.action;
@@ -835,7 +852,7 @@ function initSearchShortcut() {
     searchInput.placeholder = t(config.placeholder);
 
     // Swap icon SVG
-    engineBtn.innerHTML = config.svg;
+    engineBtn.innerHTML = config.svg || engineBtn.innerHTML;
   }
 
   // Initial load
@@ -1076,7 +1093,7 @@ function initThemeSwitcher() {
   // Apply a specific theme
   function applyTheme(themeName) {
     currentTheme = themeName;
-    storage.setItem('koala-theme', themeName);
+    try { storage.setItem('koala-theme', themeName); } catch (e) { /* ignore */ }
 
     // Remove all theme classes and set the new one on <html>
     THEMES.forEach(t => document.documentElement.classList.remove(`theme-${t}`));
@@ -1110,7 +1127,7 @@ function initThemeSwitcher() {
 
   function applyBgStyle(styleName) {
     currentBgStyle = styleName;
-    storage.setItem('koala-bg-style', styleName);
+    try { storage.setItem('koala-bg-style', styleName); } catch (e) { /* ignore */ }
     document.documentElement.setAttribute('data-bg-style', styleName);
 
     items.forEach(item => {
@@ -1240,6 +1257,11 @@ function initThemeSwitcher() {
       if (isOpen && isItemFocused) {
         e.preventDefault();
         items[items.length - 1].focus();
+      }
+    } else if (e.key === 'Enter' || e.key === ' ') {
+      if (isOpen && isItemFocused) {
+        e.preventDefault();
+        activeEl.click();
       }
     }
   });

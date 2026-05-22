@@ -7,7 +7,7 @@ return window.localStorage;
 } catch (e) {
 const mem = {};
 return {
-getItem: (key) => mem[key] || null,
+getItem: (key) => mem.hasOwnProperty(key) ? mem[key] : null,
 setItem: (key, val) => { mem[key] = String(val); },
 removeItem: (key) => { delete mem[key]; }
 };
@@ -86,6 +86,12 @@ theme_frost: 'Nordic Frost',
 theme_cyberpunk: 'Cyberpunk Neon',
 theme_solar: 'Solar Amber',
 tooltip_change_theme: 'Design wechseln',
+bg_label: 'Hintergrund',
+bg_aurora: 'Aurora Blobs',
+bg_wave: 'Farbwelle',
+bg_stars: 'Sternenfeld',
+bg_mesh: 'Feines Gitter',
+bg_solid: 'Einfarbig Dunkel',
 },
 en: {
 greeting_morning: 'Good Morning',
@@ -159,6 +165,12 @@ theme_frost: 'Nordic Frost',
 theme_cyberpunk: 'Cyberpunk Neon',
 theme_solar: 'Solar Amber',
 tooltip_change_theme: 'Change design theme',
+bg_label: 'Background',
+bg_aurora: 'Aurora Blobs',
+bg_wave: 'Gradient Wave',
+bg_stars: 'Starfield',
+bg_mesh: 'Subtle Mesh',
+bg_solid: 'Solid Dark',
 }
 };
 const engineConfigs = {
@@ -222,19 +234,20 @@ console.log('[Service Worker] Registration failed:', err);
 function initLangToggle() {
 const btnDE = document.getElementById('lang-de');
 const btnEN = document.getElementById('lang-en');
+if (!btnDE || !btnEN) return;
 function setActive() {
 btnDE.classList.toggle('active', currentLang === 'de');
 btnEN.classList.toggle('active', currentLang === 'en');
 }
 btnDE.addEventListener('click', () => {
 currentLang = 'de';
-storage.setItem('koala-lang', 'de');
+try { storage.setItem('koala-lang', 'de'); } catch (e) {  }
 setActive();
 applyLanguage();
 });
 btnEN.addEventListener('click', () => {
 currentLang = 'en';
-storage.setItem('koala-lang', 'en');
+try { storage.setItem('koala-lang', 'en'); } catch (e) {  }
 setActive();
 applyLanguage();
 });
@@ -280,6 +293,7 @@ function updateClock() {
 const timeEl = document.getElementById('current-time');
 const dateEl = document.getElementById('current-date');
 const greetEl = document.getElementById('greeting');
+if (!timeEl || !dateEl || !greetEl) return;
 const now = new Date();
 const h = String(now.getHours()).padStart(2, '0');
 const m = String(now.getMinutes()).padStart(2, '0');
@@ -303,6 +317,7 @@ function relativeTime(date) {
 if (!date) return '—';
 const now = new Date();
 const diffMs = now - date;
+if (isNaN(diffMs)) return '—';
 const diffMins = Math.floor(diffMs / 60000);
 const diffHours = Math.floor(diffMs / 3600000);
 const diffDays = Math.floor(diffMs / 86400000);
@@ -327,6 +342,7 @@ const CACHE_KEY = 'koala-releases-cache-v4';
 const CACHE_TTL = 2 * 60 * 60 * 1000;
 async function fetchGitHubReleases() {
 const container = document.getElementById('releases-container');
+if (!container) return;
 const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 const isDataSaver = connection && (connection.saveData || connection.effectiveType === '2g');
 try {
@@ -395,7 +411,7 @@ date = new Date(commitData.commit.author.date);
 } catch (e) {  }
 if (!date) {
 try {
-const refRes = await fetch(`https://api.github.com/repos/${item.repo}/commits?sha=${encodeURIComponent(latestTag.name)}&per_page=1`);
+const refRes = await fetch(`https://api.github.com/repos/${item.repo}/commits?sha=${encodeURIComponent(latestTag.name || latestTag.commit.sha)}&per_page=1`);
 if (refRes.ok) {
 const commits = await refRes.json();
 if (Array.isArray(commits) && commits.length > 0 && commits[0].commit && commits[0].commit.author) {
@@ -631,7 +647,7 @@ if (!widget || !tempEl || !iconEl || !forecastEl) return;
 const current = data.current;
 const daily = data.daily;
 if (!current || !daily) return;
-const currentTemp = Math.round(current.temperature_2m);
+const currentTemp = Math.round(current.temperature_2m ?? 0);
 const currentCode = current.weather_code;
 const currentCondition = weatherMap[currentCode] || { icon: 'sun', text: { de: 'Sonnig', en: 'Sunny' } };
 tempEl.textContent = `${currentTemp}°C`;
@@ -640,10 +656,11 @@ iconEl.innerHTML = weatherSVGs[currentCondition.icon] || weatherSVGs['sun'];
 tempEl.title = currentCondition.text[currentLang];
 cachedWeatherData = data;
 forecastEl.innerHTML = '';
-for (let i = 0; i < 3; i++) {
+const daysAvailable = daily.time ? daily.time.length : 0;
+for (let i = 0; i < Math.min(3, daysAvailable); i++) {
 const dateStr = daily.time[i];
-const maxTemp = Math.round(daily.temperature_2m_max[i]);
-const minTemp = Math.round(daily.temperature_2m_min[i]);
+const maxTemp = Math.round(daily.temperature_2m_max[i] ?? 0);
+const minTemp = Math.round(daily.temperature_2m_min[i] ?? 0);
 const code = daily.weather_code[i];
 const condition = weatherMap[code] || { icon: 'sun', text: { de: 'Sonnig', en: 'Sunny' } };
 let dayLabel = '';
@@ -691,12 +708,12 @@ function applyEngine(engineKey) {
 const config = engineConfigs[engineKey];
 if (!config) return;
 currentEngine = engineKey;
-storage.setItem('koala-search-engine', engineKey);
+try { storage.setItem('koala-search-engine', engineKey); } catch (e) {  }
 searchForm.action = config.action;
 searchInput.name = config.name;
 searchInput.dataset.i18nPlaceholder = config.placeholder;
 searchInput.placeholder = t(config.placeholder);
-engineBtn.innerHTML = config.svg;
+engineBtn.innerHTML = config.svg || engineBtn.innerHTML;
 }
 applyEngine(currentEngine);
 engineBtn.addEventListener('click', e => {
@@ -872,7 +889,7 @@ let currentBgStyle = storage.getItem('koala-bg-style') || 'aurora';
 if (!BG_STYLES.includes(currentBgStyle)) currentBgStyle = 'aurora';
 function applyTheme(themeName) {
 currentTheme = themeName;
-storage.setItem('koala-theme', themeName);
+try { storage.setItem('koala-theme', themeName); } catch (e) {  }
 THEMES.forEach(t => document.documentElement.classList.remove(`theme-${t}`));
 document.documentElement.classList.add(`theme-${themeName}`);
 const themeColors = {
@@ -896,7 +913,7 @@ btn.setAttribute('aria-expanded', 'false');
 }
 function applyBgStyle(styleName) {
 currentBgStyle = styleName;
-storage.setItem('koala-bg-style', styleName);
+try { storage.setItem('koala-bg-style', styleName); } catch (e) {  }
 document.documentElement.setAttribute('data-bg-style', styleName);
 items.forEach(item => {
 if (item.dataset.bg) {
@@ -1008,6 +1025,11 @@ items[0].focus();
 if (isOpen && isItemFocused) {
 e.preventDefault();
 items[items.length - 1].focus();
+}
+} else if (e.key === 'Enter' || e.key === ' ') {
+if (isOpen && isItemFocused) {
+e.preventDefault();
+activeEl.click();
 }
 }
 });

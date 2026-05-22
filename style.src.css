@@ -28,7 +28,6 @@
 /* Base Phosphor icon class — font binding. Managed manually, NOT auto-generated. */
 .ph {
   font-family: "Phosphor" !important;
-  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -36,8 +35,8 @@
   line-height: 1;
   letter-spacing: 0;
   -webkit-font-feature-settings: "liga";
-  -moz-font-feature-settings: "liga=1";
   -moz-font-feature-settings: "liga";
+  -moz-font-feature-settings: "liga=1";
   -ms-font-feature-settings: "liga" 1;
   font-feature-settings: "liga";
   -webkit-font-variant-ligatures: discretionary-ligatures;
@@ -344,7 +343,6 @@ body {
   border-radius: 50%;
   filter: blur(120px);
   opacity: 0.75;
-  will-change: transform;
   pointer-events: none;
   transition: background 0.8s ease, opacity 0.8s ease;
 }
@@ -446,9 +444,6 @@ body {
 html[data-bg-style="wave"] .bg-orb { display: none; }
 html[data-bg-style="wave"] .bg-mesh::after { display: none; }
 html[data-bg-style="wave"] .bg-mesh::before {
-  content: '';
-  position: absolute;
-  inset: 0;
   background: linear-gradient(
     180deg,
     transparent 0%,
@@ -456,6 +451,7 @@ html[data-bg-style="wave"] .bg-mesh::before {
     rgba(var(--orb-2-color), 0.03) 40%,
     rgba(var(--orb-3-color), 0.04) 60%,
     rgba(var(--orb-1-color), 0.03) 80%,
+    rgba(var(--orb-4-color), 0.02) 90%,
     transparent 100%
   );
   mask-image: none;
@@ -473,9 +469,6 @@ html[data-bg-style="wave"] .bg-mesh::before {
 html[data-bg-style="stars"] .bg-orb { display: none; }
 html[data-bg-style="stars"] .bg-mesh::after { display: none; }
 html[data-bg-style="stars"] .bg-mesh::before {
-  content: '';
-  position: absolute;
-  inset: 0;
   background-image:
     radial-gradient(1.2px 1.2px at 5% 12%, rgba(255,255,255,0.18), transparent 40%),
     radial-gradient(1px 1px at 12% 28%, rgba(255,255,255,0.14), transparent 35%),
