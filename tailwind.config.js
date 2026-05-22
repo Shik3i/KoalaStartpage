@@ -4,7 +4,7 @@ module.exports = {
     "./www/index.html",
     "./www/impressum.html",
     "./www/datenschutz.html",
-    "./www/script.js",
+    "./script.src.js",
     "./www/js/**/*.js"
   ],
   theme: {

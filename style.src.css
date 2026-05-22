@@ -423,14 +423,13 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .bg-orb,
   .bg-mesh::after,
-  #weather-widget .ph-sun,
-  #weather-widget .ph-cloud,
-  #weather-widget .ph-cloud-fog,
-  #weather-widget .ph-cloud-sun,
-  #weather-widget .ph-cloud-rain,
-  #weather-widget .ph-cloud-snow,
-  #weather-widget .ph-cloud-lightning,
-  #weather-widget .ph-wind {
+  .svg-weather,
+  .svg-weather--sun,
+  .sun-group,
+  .rain-drop,
+  .snowflake,
+  .lightning-bolt,
+  .fog-line {
     animation: none !important;
     transform: none !important;
   }
@@ -515,69 +514,6 @@ html[data-bg-style="solid"] .bg-mesh {
   background-color: var(--bg-color);
   transition: background-color 0.8s ease;
 }
-
-/* ── Animated Weather Icons (Slow & Elegant) ── */
-#weather-widget .ph-sun {
-  display: inline-block;
-  transform-origin: center;
-  animation: weather-spin 26s linear infinite;
-}
-
-#weather-widget .ph-cloud,
-#weather-widget .ph-cloud-fog {
-  display: inline-block;
-  animation: weather-drift 8s ease-in-out infinite alternate;
-}
-
-#weather-widget .ph-cloud-sun {
-  display: inline-block;
-  animation: weather-drift 8s ease-in-out infinite alternate;
-}
-
-#weather-widget .ph-cloud-rain,
-#weather-widget .ph-cloud-snow {
-  display: inline-block;
-  animation: weather-drip 4s ease-in-out infinite alternate;
-}
-
-#weather-widget .ph-cloud-lightning {
-  display: inline-block;
-  animation: weather-flash 6s ease-in-out infinite;
-}
-
-#weather-widget .ph-wind {
-  display: inline-block;
-  animation: weather-sway 4s ease-in-out infinite alternate;
-}
-
-@keyframes weather-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes weather-drift {
-  0% { transform: translateY(0) translateX(0); }
-  50% { transform: translateY(-1.5px) translateX(1px); }
-  100% { transform: translateY(0) translateX(0); }
-}
-
-@keyframes weather-drip {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(1.5px); }
-  100% { transform: translateY(0); }
-}
-
-@keyframes weather-flash {
-  0%, 90%, 94%, 98%, 100% { opacity: 1; filter: drop-shadow(0 0 0px rgba(251, 191, 36, 0)); }
-  92%, 96% { opacity: 0.8; filter: drop-shadow(0 0 3px rgba(251, 191, 36, 0.35)); }
-}
-
-@keyframes weather-sway {
-  0% { transform: translateX(0) skewX(0deg); }
-  50% { transform: translateX(1.5px) skewX(2deg); }
-  100% { transform: translateX(0) skewX(0deg); }
-}
-
 
 /* ── Glassmorphism Tile ───────────────────────── */
 .bento-tile {
@@ -1130,20 +1066,6 @@ html.theme-obsidian .svg-weather line {
 @keyframes fog-drift {
   0% { transform: translateX(-2.5px); }
   100% { transform: translateX(2.5px); }
-}
-
-/* Reduced Motion Override */
-@media (prefers-reduced-motion: reduce) {
-  .svg-weather,
-  .svg-weather--sun,
-  .sun-group,
-  .rain-drop,
-  .snowflake,
-  .lightning-bolt,
-  .fog-line {
-    animation: none !important;
-    transform: none !important;
-  }
 }
 
 /* ── Layout Height Mode (Desktop only) ────────── */

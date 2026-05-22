@@ -398,6 +398,7 @@ const repositories = [
   { repo: 'Shik3i/Antigrav',            displayName: 'KoalaWeb', type: 'package' },
   { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets', type: 'package' },
   { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
+  { repo: 'Shik3i/KoalaCookies',      displayName: 'KoalaCookies' },
 ];
 
 const CACHE_KEY = 'koala-releases-cache-v4';
