@@ -51,8 +51,10 @@ I run multiple self-hosted services (KoalaSync, KoalaWeb, Docker containers, Tai
 ## ✨ Features
 
 ### 🎨 Interface
-- **Bento Box Layout** — Glassmorphic cards with GPU-accelerated `--x`/`--y` spotlight hover effects and custom micro-animations.
-- **Light/Dark Themes** — Persisted via `localStorage`, WAI-ARIA keyboard-accessible dropdown picker, dynamic `theme-color` meta tag.
+- **Bento Box Layout** — Fully responsive glassmorphic cards with GPU-accelerated `--x`/`--y` spotlight hover effects and custom micro-animations.
+- **7 Curated Design Themes** — Midnight Aurora, Sunset Rose, Emerald Glass, Classic Obsidian, Nordic Frost, Cyberpunk Neon, Solar Amber. Each with cohesive color palettes and dynamic orb animations.
+- **5 Background Styles** — Gradient Wave, Aurora Blobs, Starfield, Subtle Mesh, Solid Dark. Independently selectable from themes.
+- **Dual Layout Modes** — "Width" (default, natural scroll) or "Height" (proportional scale-to-fit the entire dashboard into a single viewport without vertical scroll, desktop only).
 - **Bilingual i18n** — Toggle between German and English on the fly, persisted across sessions.
 
 ### 📊 Data & Monitoring
