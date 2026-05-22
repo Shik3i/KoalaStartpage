@@ -69,7 +69,7 @@
     </div>
 
     <!-- Premium Noise Overlay for high-end physical texture -->
-    <svg class="pointer-events-none fixed inset-0 z-50 opacity-[0.015]" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg class="noise-overlay pointer-events-none fixed inset-0 z-50 opacity-[0.015]" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <filter id="noiseFilter">
             <feTurbulence type="fractalNoise" baseFrequency="0.6" numOctaves="3" stitchTiles="stitch"/>
         </filter>
@@ -191,6 +191,57 @@
                                     <span data-i18n="theme_solar">Solar Amber</span>
                                 </div>
                                 <svg class="check-icon w-3 h-3 text-indigo-400 hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path></svg>
+                            </button>
+
+                            <!-- Divider -->
+                            <div class="h-px bg-white/10 mx-1.5 my-1"></div>
+
+                            <!-- Background Section Label -->
+                            <div class="px-2.5 py-1 text-[9px] font-semibold text-gray-600 uppercase tracking-wider select-none">Background</div>
+
+                            <!-- Aurora Blobs (current, default) -->
+                            <button type="button" data-bg="aurora" class="design-item bg-item flex items-center justify-between w-full px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-gray-400 hover:text-white hover:bg-white/5 text-left transition-colors">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full" style="background: radial-gradient(circle, rgba(129,140,248,0.8), rgba(244,114,182,0.6));"></span>
+                                    <span>Aurora Blobs</span>
+                                </div>
+                                <svg class="bg-check-icon w-3 h-3 text-indigo-400 hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path></svg>
+                            </button>
+
+                            <!-- Gradient Wave -->
+                            <button type="button" data-bg="wave" class="design-item bg-item flex items-center justify-between w-full px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-gray-400 hover:text-white hover:bg-white/5 text-left transition-colors">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full" style="background: linear-gradient(180deg, rgba(99,102,241,0.6), rgba(52,211,153,0.4)); animation: none;"></span>
+                                    <span>Gradient Wave</span>
+                                </div>
+                                <svg class="bg-check-icon w-3 h-3 text-indigo-400 hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path></svg>
+                            </button>
+
+                            <!-- Starfield -->
+                            <button type="button" data-bg="stars" class="design-item bg-item flex items-center justify-between w-full px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-gray-400 hover:text-white hover:bg-white/5 text-left transition-colors">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full" style="background: rgba(200,210,255,0.6); box-shadow: 0 0 3px rgba(200,210,255,0.3);"></span>
+                                    <span>Starfield</span>
+                                </div>
+                                <svg class="bg-check-icon w-3 h-3 text-indigo-400 hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path></svg>
+                            </button>
+
+                            <!-- Subtle Mesh -->
+                            <button type="button" data-bg="mesh" class="design-item bg-item flex items-center justify-between w-full px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-gray-400 hover:text-white hover:bg-white/5 text-left transition-colors">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full border border-white/20 bg-transparent"></span>
+                                    <span>Subtle Mesh</span>
+                                </div>
+                                <svg class="bg-check-icon w-3 h-3 text-indigo-400 hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path></svg>
+                            </button>
+
+                            <!-- Solid Dark -->
+                            <button type="button" data-bg="solid" class="design-item bg-item flex items-center justify-between w-full px-2.5 py-1.5 rounded-lg text-[11px] font-medium text-gray-400 hover:text-white hover:bg-white/5 text-left transition-colors">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-gray-800 border border-white/10"></span>
+                                    <span>Solid Dark</span>
+                                </div>
+                                <svg class="bg-check-icon w-3 h-3 text-indigo-400 hidden" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path></svg>
                             </button>
                         </div>
                     </div>

@@ -438,6 +438,88 @@ body {
   }
 }
 
+/* ── Background Style Variants ─────────────────── */
+
+/* Aurora Blobs (default) — no overrides needed, all visible */
+
+/* Gradient Wave — single animated gradient sweep, no blur orbs */
+html[data-bg-style="wave"] .bg-orb { display: none; }
+html[data-bg-style="wave"] .bg-mesh::after { display: none; }
+html[data-bg-style="wave"] .bg-mesh::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(var(--orb-1-color), 0.04) 20%,
+    rgba(var(--orb-2-color), 0.03) 40%,
+    rgba(var(--orb-3-color), 0.04) 60%,
+    rgba(var(--orb-1-color), 0.03) 80%,
+    transparent 100%
+  );
+  mask-image: none;
+  -webkit-mask-image: none;
+  background-size: 100% 200%;
+  animation: waveShift 20s ease-in-out infinite alternate;
+}
+
+@keyframes waveShift {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 0% 100%; }
+}
+
+/* Starfield — subtle static dots with gentle twinkle, no blur */
+html[data-bg-style="stars"] .bg-orb { display: none; }
+html[data-bg-style="stars"] .bg-mesh::after { display: none; }
+html[data-bg-style="stars"] .bg-mesh::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.2px 1.2px at 5% 12%, rgba(255,255,255,0.18), transparent 40%),
+    radial-gradient(1px 1px at 12% 28%, rgba(255,255,255,0.14), transparent 35%),
+    radial-gradient(1.4px 1.4px at 22% 8%, rgba(255,255,255,0.22), transparent 45%),
+    radial-gradient(0.8px 0.8px at 30% 45%, rgba(255,255,255,0.10), transparent 30%),
+    radial-gradient(1.2px 1.2px at 38% 18%, rgba(255,255,255,0.16), transparent 40%),
+    radial-gradient(1px 1px at 48% 35%, rgba(255,255,255,0.12), transparent 35%),
+    radial-gradient(1.4px 1.4px at 55% 6%, rgba(255,255,255,0.24), transparent 50%),
+    radial-gradient(0.8px 0.8px at 62% 42%, rgba(255,255,255,0.09), transparent 30%),
+    radial-gradient(1.2px 1.2px at 70% 22%, rgba(255,255,255,0.17), transparent 40%),
+    radial-gradient(1px 1px at 78% 15%, rgba(255,255,255,0.13), transparent 35%),
+    radial-gradient(1.4px 1.4px at 85% 38%, rgba(255,255,255,0.20), transparent 45%),
+    radial-gradient(0.8px 0.8px at 92% 8%, rgba(255,255,255,0.11), transparent 30%),
+    radial-gradient(1.2px 1.2px at 15% 55%, rgba(255,255,255,0.15), transparent 40%),
+    radial-gradient(1px 1px at 28% 70%, rgba(255,255,255,0.10), transparent 35%),
+    radial-gradient(1.4px 1.4px at 42% 58%, rgba(255,255,255,0.19), transparent 45%),
+    radial-gradient(0.8px 0.8px at 55% 75%, rgba(255,255,255,0.08), transparent 30%),
+    radial-gradient(1.2px 1.2px at 68% 62%, rgba(255,255,255,0.16), transparent 40%),
+    radial-gradient(1px 1px at 80% 72%, rgba(255,255,255,0.12), transparent 35%),
+    radial-gradient(1.4px 1.4px at 93% 55%, rgba(255,255,255,0.21), transparent 45%),
+    radial-gradient(0.8px 0.8px at 10% 82%, rgba(255,255,255,0.07), transparent 30%);
+  background-size: 100% 100%;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+/* Subtle Mesh — grid pattern only, no orbs, no animation */
+html[data-bg-style="mesh"] .bg-orb { display: none; }
+html[data-bg-style="mesh"] .bg-mesh::after { display: none; }
+html[data-bg-style="mesh"] .bg-mesh::before {
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 70%);
+}
+
+/* Solid Dark — plain background color, no effects */
+html[data-bg-style="solid"] .bg-orb { display: none; }
+html[data-bg-style="solid"] .bg-mesh::before { display: none; }
+html[data-bg-style="solid"] .bg-mesh::after { display: none; }
+html[data-bg-style="solid"] .noise-overlay { display: none; }
+html[data-bg-style="solid"] .bg-mesh {
+  background-color: var(--bg-color);
+  transition: background-color 0.8s ease;
+}
+
 /* ── Animated Weather Icons (Slow & Elegant) ── */
 #weather-widget .ph-sun {
   display: inline-block;

@@ -1069,6 +1069,10 @@ function initThemeSwitcher() {
   let currentTheme = storage.getItem('koala-theme') || 'midnight';
   if (!THEMES.includes(currentTheme)) currentTheme = 'midnight';
 
+  const BG_STYLES = ['aurora', 'wave', 'stars', 'mesh', 'solid'];
+  let currentBgStyle = storage.getItem('koala-bg-style') || 'aurora';
+  if (!BG_STYLES.includes(currentBgStyle)) currentBgStyle = 'aurora';
+
   // Apply a specific theme
   function applyTheme(themeName) {
     currentTheme = themeName;
@@ -1088,6 +1092,7 @@ function initThemeSwitcher() {
 
     // Update checkmark visibilities, item active status, and ARIA attributes
     items.forEach(item => {
+      if (!item.dataset.theme) return;
       const itemTheme = item.dataset.theme;
       const check = item.querySelector('.check-icon');
       const isActive = itemTheme === themeName;
@@ -1103,8 +1108,28 @@ function initThemeSwitcher() {
     btn.setAttribute('aria-expanded', 'false');
   }
 
+  function applyBgStyle(styleName) {
+    currentBgStyle = styleName;
+    storage.setItem('koala-bg-style', styleName);
+    document.documentElement.setAttribute('data-bg-style', styleName);
+
+    items.forEach(item => {
+      if (item.dataset.bg) {
+        const itemBg = item.dataset.bg;
+        const check = item.querySelector('.bg-check-icon');
+        const isActive = itemBg === styleName;
+        item.classList.toggle('active', isActive);
+        item.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        if (check) {
+          check.classList.toggle('hidden', !isActive);
+        }
+      }
+    });
+  }
+
   // Set initial active state
   applyTheme(currentTheme);
+  applyBgStyle(currentBgStyle);
 
   let hoverTimeout = null;
   let closeTimeout = null;
@@ -1135,12 +1160,15 @@ function initThemeSwitcher() {
     }
   });
 
-  // Theme items click selection
+  // Theme & background items click selection
   items.forEach(item => {
     item.addEventListener('click', e => {
       e.stopPropagation();
-      const themeName = item.dataset.theme;
-      applyTheme(themeName);
+      if (item.dataset.theme) {
+        applyTheme(item.dataset.theme);
+      } else if (item.dataset.bg) {
+        applyBgStyle(item.dataset.bg);
+      }
       dropdown.classList.remove('active');
     });
   });
