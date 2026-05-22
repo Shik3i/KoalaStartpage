@@ -6,15 +6,20 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/Shik3i/KoalaStartpage/releases"><img src="https://img.shields.io/github/v/release/Shik3i/KoalaStartpage?color=blue" alt="Latest Release"></a>
   <img src="https://img.shields.io/badge/lighthouse-100%2F100-brightgreen" alt="Lighthouse Score">
-  <img src="https://img.shields.io/badge/GDPR-compliant-success" alt="GDPR Compliant">
-  <img src="https://img.shields.io/badge/mozilla_observatory-A%2B-blue" alt="Mozilla Observatory Rating">
-  <img src="https://img.shields.io/badge/zero-CDN-black" alt="Zero External CDNs">
+  <img src="https://img.shields.io/badge/self--hosted-GDPR_compliant-success" alt="Self-Hosted & GDPR Compliant">
+  <img src="https://img.shields.io/badge/observatory-A%2B-blue" alt="Mozilla Observatory Rating">
+</p>
+
+<p align="center">
+  <img src=".github/screenshot-new.png" alt="Koala Startpage Dashboard" width="800">
 </p>
 
 ---
 
-## 📑 Table of Contents
+<details>
+<summary><b>📑 Table of Contents</b></summary>
 
 - [Why Koala Startpage?](#-why-koala-startpage)
 - [Features](#-features)
@@ -25,6 +30,8 @@
 - [Privacy & Legal](#-privacy--legal)
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
+
+</details>
 
 ---
 
