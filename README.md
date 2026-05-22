@@ -1,4 +1,8 @@
-<h1 align="center"><img src="www/assets/logo-64x64.png" alt="" width="40" height="40" style="margin-bottom:-6px;"> Koala Startpage</h1>
+<center>
+
+# <img src="www/assets/logo-64x64.png" width="40" height="40"> Koala Startpage
+
+</center>
 
 <p align="center">
   <strong>Your self-hosted command center, served in milliseconds.</strong><br>
