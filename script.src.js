@@ -1087,8 +1087,8 @@ function initThemeSwitcher() {
   if (!THEMES.includes(currentTheme)) currentTheme = 'midnight';
 
   const BG_STYLES = ['aurora', 'wave', 'stars', 'mesh', 'solid'];
-  let currentBgStyle = storage.getItem('koala-bg-style') || 'aurora';
-  if (!BG_STYLES.includes(currentBgStyle)) currentBgStyle = 'aurora';
+  let currentBgStyle = storage.getItem('koala-bg-style') || 'wave';
+  if (!BG_STYLES.includes(currentBgStyle)) currentBgStyle = 'wave';
 
   // Apply a specific theme
   function applyTheme(themeName) {

@@ -470,26 +470,26 @@ html[data-bg-style="stars"] .bg-orb { display: none; }
 html[data-bg-style="stars"] .bg-mesh::after { display: none; }
 html[data-bg-style="stars"] .bg-mesh::before {
   background-image:
-    radial-gradient(1.2px 1.2px at 5% 12%, rgba(255,255,255,0.18), transparent 40%),
-    radial-gradient(1px 1px at 12% 28%, rgba(255,255,255,0.14), transparent 35%),
-    radial-gradient(1.4px 1.4px at 22% 8%, rgba(255,255,255,0.22), transparent 45%),
-    radial-gradient(0.8px 0.8px at 30% 45%, rgba(255,255,255,0.10), transparent 30%),
-    radial-gradient(1.2px 1.2px at 38% 18%, rgba(255,255,255,0.16), transparent 40%),
-    radial-gradient(1px 1px at 48% 35%, rgba(255,255,255,0.12), transparent 35%),
-    radial-gradient(1.4px 1.4px at 55% 6%, rgba(255,255,255,0.24), transparent 50%),
-    radial-gradient(0.8px 0.8px at 62% 42%, rgba(255,255,255,0.09), transparent 30%),
-    radial-gradient(1.2px 1.2px at 70% 22%, rgba(255,255,255,0.17), transparent 40%),
-    radial-gradient(1px 1px at 78% 15%, rgba(255,255,255,0.13), transparent 35%),
-    radial-gradient(1.4px 1.4px at 85% 38%, rgba(255,255,255,0.20), transparent 45%),
-    radial-gradient(0.8px 0.8px at 92% 8%, rgba(255,255,255,0.11), transparent 30%),
-    radial-gradient(1.2px 1.2px at 15% 55%, rgba(255,255,255,0.15), transparent 40%),
-    radial-gradient(1px 1px at 28% 70%, rgba(255,255,255,0.10), transparent 35%),
-    radial-gradient(1.4px 1.4px at 42% 58%, rgba(255,255,255,0.19), transparent 45%),
-    radial-gradient(0.8px 0.8px at 55% 75%, rgba(255,255,255,0.08), transparent 30%),
-    radial-gradient(1.2px 1.2px at 68% 62%, rgba(255,255,255,0.16), transparent 40%),
-    radial-gradient(1px 1px at 80% 72%, rgba(255,255,255,0.12), transparent 35%),
-    radial-gradient(1.4px 1.4px at 93% 55%, rgba(255,255,255,0.21), transparent 45%),
-    radial-gradient(0.8px 0.8px at 10% 82%, rgba(255,255,255,0.07), transparent 30%);
+    radial-gradient(1.6px 1.6px at 5% 12%, rgba(255,255,255,0.48), transparent 40%),
+    radial-gradient(1.2px 1.2px at 12% 28%, rgba(255,255,255,0.38), transparent 35%),
+    radial-gradient(1.8px 1.8px at 22% 8%, rgba(255,255,255,0.55), transparent 45%),
+    radial-gradient(1.0px 1.0px at 30% 45%, rgba(255,255,255,0.30), transparent 30%),
+    radial-gradient(1.4px 1.4px at 38% 18%, rgba(255,255,255,0.42), transparent 40%),
+    radial-gradient(1.2px 1.2px at 48% 35%, rgba(255,255,255,0.33), transparent 35%),
+    radial-gradient(1.8px 1.8px at 55% 8%, rgba(255,255,255,0.60), transparent 50%),
+    radial-gradient(1.0px 1.0px at 62% 42%, rgba(255,255,255,0.28), transparent 30%),
+    radial-gradient(1.4px 1.4px at 70% 22%, rgba(255,255,255,0.45), transparent 40%),
+    radial-gradient(1.2px 1.2px at 78% 15%, rgba(255,255,255,0.35), transparent 35%),
+    radial-gradient(1.6px 1.6px at 85% 38%, rgba(255,255,255,0.52), transparent 45%),
+    radial-gradient(1.0px 1.0px at 92% 8%, rgba(255,255,255,0.32), transparent 30%),
+    radial-gradient(1.4px 1.4px at 15% 55%, rgba(255,255,255,0.40), transparent 40%),
+    radial-gradient(1.2px 1.2px at 28% 70%, rgba(255,255,255,0.30), transparent 35%),
+    radial-gradient(1.8px 1.8px at 42% 58%, rgba(255,255,255,0.50), transparent 45%),
+    radial-gradient(1.0px 1.0px at 55% 75%, rgba(255,255,255,0.25), transparent 30%),
+    radial-gradient(1.4px 1.4px at 68% 62%, rgba(255,255,255,0.42), transparent 40%),
+    radial-gradient(1.2px 1.2px at 80% 72%, rgba(255,255,255,0.33), transparent 35%),
+    radial-gradient(1.8px 1.8px at 93% 55%, rgba(255,255,255,0.55), transparent 45%),
+    radial-gradient(1.0px 1.0px at 10% 82%, rgba(255,255,255,0.22), transparent 30%);
   background-size: 100% 100%;
   mask-image: none;
   -webkit-mask-image: none;
@@ -499,8 +499,11 @@ html[data-bg-style="stars"] .bg-mesh::before {
 html[data-bg-style="mesh"] .bg-orb { display: none; }
 html[data-bg-style="mesh"] .bg-mesh::after { display: none; }
 html[data-bg-style="mesh"] .bg-mesh::before {
-  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 70%);
+  background:
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.045) 0px, transparent 1px, transparent 64px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0px, transparent 1px, transparent 64px);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 40%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 40%, transparent 70%);
 }
 
 /* Solid Dark — plain background color, no effects */
