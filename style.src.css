@@ -1146,4 +1146,52 @@ html.theme-obsidian .svg-weather line {
   }
 }
 
+/* ── Layout Height Mode ───────────────────────── */
+html.layout-height {
+  font-size: 13px;
+}
+
+html.layout-height body {
+  min-height: auto;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+html.layout-height main {
+  height: 100dvh;
+  overflow: hidden;
+  padding-top: 0.5rem;
+  padding-bottom: 0.25rem;
+}
+
+html.layout-height header {
+  margin-bottom: 0.5rem;
+}
+
+html.layout-height .grid {
+  gap: 0.5rem;
+}
+
+html.layout-height .bento-tile {
+  padding: 0.75rem;
+}
+
+html.layout-height .bento-tile--hero {
+  padding: 1rem;
+}
+
+html.layout-height .bento-tile--glow-purple {
+  overflow: hidden;
+}
+
+html.layout-height #releases-container {
+  max-height: none;
+  overflow: visible;
+}
+
+html.layout-height footer {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
 

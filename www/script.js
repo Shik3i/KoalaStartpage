@@ -92,6 +92,9 @@ bg_wave: 'Farbwelle',
 bg_stars: 'Sternenfeld',
 bg_mesh: 'Feines Gitter',
 bg_solid: 'Einfarbig Dunkel',
+layout_label: 'Layout',
+layout_width: 'Breite',
+layout_height: 'Höhe',
 },
 en: {
 greeting_morning: 'Good Morning',
@@ -171,6 +174,9 @@ bg_wave: 'Gradient Wave',
 bg_stars: 'Starfield',
 bg_mesh: 'Subtle Mesh',
 bg_solid: 'Solid Dark',
+layout_label: 'Layout',
+layout_width: 'Width',
+layout_height: 'Height',
 }
 };
 const engineConfigs = {
@@ -887,6 +893,9 @@ if (!THEMES.includes(currentTheme)) currentTheme = 'midnight';
 const BG_STYLES = ['aurora', 'wave', 'stars', 'mesh', 'solid'];
 let currentBgStyle = storage.getItem('koala-bg-style') || 'wave';
 if (!BG_STYLES.includes(currentBgStyle)) currentBgStyle = 'wave';
+const LAYOUT_MODES = ['width', 'height'];
+let currentLayout = storage.getItem('koala-layout-mode') || 'width';
+if (!LAYOUT_MODES.includes(currentLayout)) currentLayout = 'width';
 function applyTheme(themeName) {
 currentTheme = themeName;
 try { storage.setItem('koala-theme', themeName); } catch (e) {  }
@@ -928,8 +937,30 @@ check.classList.toggle('hidden', !isActive);
 }
 });
 }
+function applyLayout(layoutName) {
+currentLayout = layoutName;
+try { storage.setItem('koala-layout-mode', layoutName); } catch (e) {  }
+if (layoutName === 'height') {
+document.documentElement.classList.add('layout-height');
+} else {
+document.documentElement.classList.remove('layout-height');
+}
+items.forEach(item => {
+if (item.dataset.layout) {
+const itemLayout = item.dataset.layout;
+const check = item.querySelector('.layout-check-icon');
+const isActive = itemLayout === layoutName;
+item.classList.toggle('active', isActive);
+item.setAttribute('aria-selected', isActive ? 'true' : 'false');
+if (check) {
+check.classList.toggle('hidden', !isActive);
+}
+}
+});
+}
 applyTheme(currentTheme);
 applyBgStyle(currentBgStyle);
+applyLayout(currentLayout);
 let hoverTimeout = null;
 let closeTimeout = null;
 container.addEventListener('mouseenter', () => {
@@ -960,6 +991,8 @@ if (item.dataset.theme) {
 applyTheme(item.dataset.theme);
 } else if (item.dataset.bg) {
 applyBgStyle(item.dataset.bg);
+} else if (item.dataset.layout) {
+applyLayout(item.dataset.layout);
 }
 dropdown.classList.remove('active');
 });
