@@ -233,6 +233,7 @@ initClock();
 initSearchShortcut();
 initTileSpotlight();
 initTooltips();
+initLayoutScaler();
 
 
 
@@ -592,6 +593,10 @@ function renderReleases(releases, container) {
 
     container.appendChild(item);
   });
+
+  if (typeof window._updateLayoutScale === 'function') {
+    window._updateLayoutScale();
+  }
 }
 
 // ── Weather API Reverse Proxy Fetcher ───────────
@@ -816,6 +821,10 @@ function renderWeather(data) {
     widget.classList.remove('opacity-0');
     widget.classList.add('opacity-100');
   });
+
+  if (typeof window._updateLayoutScale === 'function') {
+    window._updateLayoutScale();
+  }
 }
 
 // ── Centralized Search Bar & Search Engine Selector ───
@@ -1177,6 +1186,10 @@ function initThemeSwitcher() {
         }
       }
     });
+
+    if (typeof window._updateLayoutScale === 'function') {
+      window._updateLayoutScale();
+    }
   }
 
   // Set initial active state
@@ -1302,5 +1315,48 @@ function initThemeSwitcher() {
         activeEl.click();
       }
     }
+  });
+}
+
+// ── Layout Scaler (Height Mode) ─────────────────
+function initLayoutScaler() {
+  const scaler = document.querySelector('.layout-scaler');
+  if (!scaler) return;
+
+  function updateScale() {
+    const html = document.documentElement;
+
+    // Only scale on desktop in height mode
+    if (!html.classList.contains('layout-height') || window.innerWidth < 1024) {
+      scaler.style.transform = '';
+      return;
+    }
+
+    const viewportHeight = window.innerHeight;
+    const contentHeight = scaler.scrollHeight;
+    const padding = 24; // 1.5rem safety margin for header + footer
+
+    if (contentHeight > viewportHeight - padding) {
+      const scale = (viewportHeight - padding) / contentHeight;
+      scaler.style.transform = `scale(${scale})`;
+    } else {
+      scaler.style.transform = '';
+    }
+  }
+
+  window.addEventListener('resize', updateScale);
+
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(() => updateScale());
+    ro.observe(scaler);
+  }
+
+  // Expose for manual calls after dynamic content loads
+  window._updateLayoutScale = updateScale;
+
+  // Initial call (slight delay to ensure layout is settled)
+  requestAnimationFrame(() => {
+    updateScale();
+    setTimeout(updateScale, 100);
   });
 }

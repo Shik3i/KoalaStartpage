@@ -215,6 +215,7 @@ initClock();
 initSearchShortcut();
 initTileSpotlight();
 initTooltips();
+initLayoutScaler();
 if ('requestIdleCallback' in window) {
 requestIdleCallback(() => {
 fetchGitHubReleases();
@@ -505,6 +506,9 @@ item.innerHTML = `
 `;
 container.appendChild(item);
 });
+if (typeof window._updateLayoutScale === 'function') {
+window._updateLayoutScale();
+}
 }
 const WEATHER_CACHE_KEY = 'koala-weather-cache';
 const WEATHER_CACHE_TTL = 60 * 60 * 1000;
@@ -691,6 +695,9 @@ requestAnimationFrame(() => {
 widget.classList.remove('opacity-0');
 widget.classList.add('opacity-100');
 });
+if (typeof window._updateLayoutScale === 'function') {
+window._updateLayoutScale();
+}
 }
 function initSearchShortcut() {
 const searchForm = document.getElementById('search-form');
@@ -957,6 +964,9 @@ check.classList.toggle('hidden', !isActive);
 }
 }
 });
+if (typeof window._updateLayoutScale === 'function') {
+window._updateLayoutScale();
+}
 }
 applyTheme(currentTheme);
 applyBgStyle(currentBgStyle);
@@ -1065,5 +1075,35 @@ e.preventDefault();
 activeEl.click();
 }
 }
+});
+}
+function initLayoutScaler() {
+const scaler = document.querySelector('.layout-scaler');
+if (!scaler) return;
+function updateScale() {
+const html = document.documentElement;
+if (!html.classList.contains('layout-height') || window.innerWidth < 1024) {
+scaler.style.transform = '';
+return;
+}
+const viewportHeight = window.innerHeight;
+const contentHeight = scaler.scrollHeight;
+const padding = 24;
+if (contentHeight > viewportHeight - padding) {
+const scale = (viewportHeight - padding) / contentHeight;
+scaler.style.transform = `scale(${scale})`;
+} else {
+scaler.style.transform = '';
+}
+}
+window.addEventListener('resize', updateScale);
+if ('ResizeObserver' in window) {
+const ro = new ResizeObserver(() => updateScale());
+ro.observe(scaler);
+}
+window._updateLayoutScale = updateScale;
+requestAnimationFrame(() => {
+updateScale();
+setTimeout(updateScale, 100);
 });
 }
