@@ -323,7 +323,7 @@ const repositories = [
 { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets', type: 'package' },
 { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
 ];
-const CACHE_KEY = 'koala-releases-cache-v3';
+const CACHE_KEY = 'koala-releases-cache-v4';
 const CACHE_TTL = 2 * 60 * 60 * 1000;
 async function fetchGitHubReleases() {
 const container = document.getElementById('releases-container');
@@ -383,13 +383,28 @@ return { displayName: item.displayName, tag: null, url: fallbackUrl, date: null,
 }
 const latestTag = data[0];
 let date = null;
+if (latestTag.commit && latestTag.commit.sha) {
 try {
 const commitRes = await fetch(latestTag.commit.url);
 if (commitRes.ok) {
 const commitData = await commitRes.json();
+if (commitData.commit && commitData.commit.author) {
 date = new Date(commitData.commit.author.date);
 }
+}
 } catch (e) {  }
+if (!date) {
+try {
+const refRes = await fetch(`https://api.github.com/repos/${item.repo}/commits?sha=${encodeURIComponent(latestTag.name)}&per_page=1`);
+if (refRes.ok) {
+const commits = await refRes.json();
+if (Array.isArray(commits) && commits.length > 0 && commits[0].commit && commits[0].commit.author) {
+date = new Date(commits[0].commit.author.date);
+}
+}
+} catch (e) {  }
+}
+}
 return {
 displayName: item.displayName,
 tag: latestTag.name,
