@@ -1,4 +1,4 @@
-# 🐨 Koala Startpage — AI Initialization & Context Guide
+# <img src="www/assets/logo-64x64.png" alt="Koala" width="24" height="24" style="vertical-align: middle; margin-right: 0.25em;"> Koala Startpage — AI Initialization & Context Guide
 
 **MANDATORY FIRST READ.** This document outlines the architecture, layout rules, build constraints, and development guidelines for the **Koala Startpage** dashboard. Future AI agents must strictly adhere to these instructions to maintain the site's performance, zero-dependency privacy compliance, and build integrity.
 

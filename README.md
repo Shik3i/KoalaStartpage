@@ -1,4 +1,7 @@
-# 🐨 Koala Startpage
+<p align="center">
+  <img src="www/assets/logo-64x64.png" alt="Koala" width="48" height="48"><br>
+  <strong style="font-size: 2em;">Koala Startpage</strong>
+</p>
 
 <p align="center">
   <strong>Your self-hosted command center, served in milliseconds.</strong><br>
