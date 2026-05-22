@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1 align="center"><img src="www/assets/logo-64x64.png" alt="" width="40" height="40" style="vertical-align: middle;"> Koala Startpage</h1>
+<h1 align="center"><span style="display:inline-flex;align-items:center;vertical-align:middle;"> <img src="www/assets/logo-64x64.png" alt="" width="40" height="40" style="vertical-align:middle;"> Koala Startpage</span></h1>
 
 </div>
 
