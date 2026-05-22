@@ -1,7 +1,8 @@
-<p align="center">
-  <img src="www/assets/logo-64x64.png" alt="Koala" width="48" height="48"><br>
-  <strong style="font-size: 2em;">Koala Startpage</strong>
-</p>
+<div align="center">
+
+# <img src="www/assets/logo-64x64.png" alt="Koala" width="40" height="40" style="vertical-align: middle; margin-right: 0.25em;"> Koala Startpage
+
+</div>
 
 <p align="center">
   <strong>Your self-hosted command center, served in milliseconds.</strong><br>
