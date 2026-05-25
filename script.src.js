@@ -62,7 +62,7 @@ const translations = {
     search_placeholder_youtube: 'YouTube Suche...',
     // Tooltips (DE)
     open_on_github: 'auf GitHub öffnen',
-    tooltip_timer: 'KoalaWeb Timer — Online-Stoppuhr & Wecker',
+    tooltip_timer: 'KoalaWeb Timer — Online-Timer',
     tooltip_esports: 'KoalaWeb Esports — Livestreams & Turniere',
     tooltip_news: 'KoalaWeb News — Aktuelle Nachrichten',
     tooltip_wordle: 'KoalaWeb Wordle — Das tägliche Worträtsel',
@@ -87,6 +87,7 @@ const translations = {
     tooltip_unraid: 'Unraid Web-Oberfläche öffnen',
     tooltip_cstore: 'Im Chrome Web Store ansehen',
     tooltip_addons: 'Als Firefox-Addon ansehen',
+    tooltip_coming_soon: 'Veröffentlichung erfolgt bald',
     btn_design: 'Design',
     theme_midnight: 'Midnight Aurora',
     theme_sunset: 'Sunset Rose',
@@ -146,7 +147,7 @@ const translations = {
     search_placeholder_youtube: 'Search YouTube...',
     // Tooltips (EN)
     open_on_github: 'open on GitHub',
-    tooltip_timer: 'KoalaWeb Timer — Online Stopwatch & Alarm',
+    tooltip_timer: 'KoalaWeb Timer — Online Timer',
     tooltip_esports: 'KoalaWeb Esports — Livestreams & Tournaments',
     tooltip_news: 'KoalaWeb News — Daily News Feed',
     tooltip_wordle: 'KoalaWeb Wordle — Daily Word Puzzle',
@@ -171,6 +172,7 @@ const translations = {
     tooltip_unraid: 'Open Unraid Web Interface',
     tooltip_cstore: 'View in Chrome Web Store',
     tooltip_addons: 'View in Firefox Add-ons',
+    tooltip_coming_soon: 'Release coming soon',
     btn_design: 'Design',
     theme_midnight: 'Midnight Aurora',
     theme_sunset: 'Sunset Rose',
