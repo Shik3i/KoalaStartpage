@@ -1,4 +1,4 @@
-const CACHE_NAME = 'koala-startpage-v202605250118';
+const CACHE_NAME = 'koala-startpage-v202605250157';
 const ASSETS = [
   './',
   './index.html',
@@ -53,8 +53,8 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(event.request.url);
 
-  // Skip GitHub API and Weather API requests (always network-only or direct network)
-  if (url.origin === 'https://api.github.com' || url.pathname === '/api/weather') {
+  // Skip cross-origin requests (search forms, external links, GitHub API, Weather API)
+  if (url.origin !== self.location.origin) {
     return;
   }
 
