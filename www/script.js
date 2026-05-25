@@ -241,12 +241,7 @@ fetchWeather();
 if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
 window.addEventListener('load', function() {
 navigator.serviceWorker.register('./sw.js')
-.then(function(registration) {
-console.log('[Service Worker] Registered successfully with scope:', registration.scope);
-})
-.catch(function(err) {
-console.log('[Service Worker] Registration failed:', err);
-});
+.catch(function() {  });
 });
 }
 function initLangToggle() {
@@ -375,7 +370,6 @@ cachedReleases = cached.data.map(r => ({ ...r, date: r.date ? new Date(r.date) :
 renderReleases(cachedReleases, container);
 const isExpired = (Date.now() - cached.timestamp) >= CACHE_TTL;
 if (isDataSaver && isExpired) {
-console.log('[Data-Saver] Using expired releases cache to save bandwidth.');
 return;
 }
 if (!isExpired) {
@@ -461,7 +455,6 @@ status: 'ok'
 };
 }
 } catch (err) {
-console.error(`Error loading ${item.displayName}:`, err);
 return { displayName: item.displayName, tag: null, url: fallbackUrl, date: null, status: 'error' };
 }
 }));
@@ -635,7 +628,6 @@ if (cached) {
 renderWeather(cached.data);
 const isExpired = (Date.now() - cached.timestamp) >= WEATHER_CACHE_TTL;
 if (isDataSaver && isExpired) {
-console.log('[Data-Saver] Using expired weather cache to save bandwidth.');
 return;
 }
 if (!isExpired) {
@@ -652,7 +644,6 @@ storage.setItem(WEATHER_CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data 
 } catch (e) {  }
 renderWeather(data);
 } catch (error) {
-console.warn('Failed to fetch real-time weather, attempting cached/mock fallback:', error);
 try {
 const stale = JSON.parse(storage.getItem(WEATHER_CACHE_KEY));
 if (stale && stale.data) {
@@ -660,7 +651,6 @@ renderWeather(stale.data);
 return;
 }
 } catch (e) {  }
-console.log('[Weather] Displaying fallback local mock weather data');
 renderWeather(MOCK_WEATHER);
 }
 }

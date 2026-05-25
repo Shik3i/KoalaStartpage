@@ -267,12 +267,7 @@ if ('requestIdleCallback' in window) {
 if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('./sw.js')
-      .then(function(registration) {
-        console.log('[Service Worker] Registered successfully with scope:', registration.scope);
-      })
-      .catch(function(err) {
-        console.log('[Service Worker] Registration failed:', err);
-      });
+      .catch(function() { /* registration failed */ });
   });
 }
 
@@ -437,7 +432,6 @@ async function fetchGitHubReleases() {
       
       const isExpired = (Date.now() - cached.timestamp) >= CACHE_TTL;
       if (isDataSaver && isExpired) {
-        console.log('[Data-Saver] Using expired releases cache to save bandwidth.');
         return;
       }
       if (!isExpired) {
@@ -534,7 +528,6 @@ async function fetchGitHubReleases() {
           };
         }
       } catch (err) {
-        console.error(`Error loading ${item.displayName}:`, err);
         return { displayName: item.displayName, tag: null, url: fallbackUrl, date: null, status: 'error' };
       }
     }));
@@ -744,7 +737,6 @@ async function fetchWeather() {
       
       const isExpired = (Date.now() - cached.timestamp) >= WEATHER_CACHE_TTL;
       if (isDataSaver && isExpired) {
-        console.log('[Data-Saver] Using expired weather cache to save bandwidth.');
         return;
       }
       if (!isExpired) {
@@ -765,7 +757,6 @@ async function fetchWeather() {
 
     renderWeather(data);
   } catch (error) {
-    console.warn('Failed to fetch real-time weather, attempting cached/mock fallback:', error);
     // Fallback to stale cache if API failed
     try {
       const stale = JSON.parse(storage.getItem(WEATHER_CACHE_KEY));
@@ -775,8 +766,7 @@ async function fetchWeather() {
       }
     } catch (e) { /* no stale cache */ }
 
-    // If both live and cache failed, display premium mock weather (perfect for local python -m http.server dev environments)
-    console.log('[Weather] Displaying fallback local mock weather data');
+    // If both live and cache failed, display mock weather
     renderWeather(MOCK_WEATHER);
   }
 }
