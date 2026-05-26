@@ -1,2 +1,7 @@
 User-agent: *
-Disallow: /
+Allow: /
+
+# Block API endpoint (weather proxy)
+Disallow: /api/
+
+Sitemap: https://koalastuff.net/sitemap.xml
