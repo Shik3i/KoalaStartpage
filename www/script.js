@@ -227,6 +227,7 @@ initSearchShortcut();
 initTileSpotlight();
 initTooltips();
 initLayoutScaler();
+initHiddenLinks();
 if ('requestIdleCallback' in window) {
 requestIdleCallback(() => {
 fetchGitHubReleases();
@@ -496,8 +497,6 @@ if (rel.status === 'error') tagText = t('releases_fail');
 const tagColor = rel.status === 'ok' ? 'text-gray-400' : (rel.status === 'error' ? 'text-red-400/60' : 'text-gray-600');
 const item = document.createElement('a');
 item.href = rel.url;
-item.target = '_blank';
-item.rel = 'noopener noreferrer';
 item.className = 'bento-link flex items-center justify-between p-3 rounded-xl mb-1.5 last:mb-0 text-gray-200 no-underline group';
 item.setAttribute('title', `${rel.displayName} — ${t('open_on_github')}`);
 item.innerHTML = `
@@ -1114,4 +1113,12 @@ requestAnimationFrame(() => {
 updateScale();
 setTimeout(updateScale, 100);
 });
+}
+function initHiddenLinks() {
+const params = new URLSearchParams(window.location.search);
+if (params.get('showHidden') === 'true') {
+document.querySelectorAll('.bento-hidden').forEach(el => {
+el.classList.remove('bento-hidden');
+});
+}
 }

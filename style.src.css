@@ -633,6 +633,11 @@ html[data-bg-style="solid"] .bg-mesh {
   transform: translateX(2px);
 }
 
+/* ── Hidden Links (WIP items, shown only with ?showHidden=true) ── */
+.bento-hidden {
+  display: none !important;
+}
+
 /* ── Stagger Fade-in Animations ───────────────── */
 .fade-in {
   opacity: 0;

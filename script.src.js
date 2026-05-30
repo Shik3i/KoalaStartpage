@@ -247,6 +247,7 @@ initSearchShortcut();
 initTileSpotlight();
 initTooltips();
 initLayoutScaler();
+initHiddenLinks();
 
 
 
@@ -583,8 +584,6 @@ function renderReleases(releases, container) {
 
     const item = document.createElement('a');
     item.href = rel.url;
-    item.target = '_blank';
-    item.rel = 'noopener noreferrer';
     item.className = 'bento-link flex items-center justify-between p-3 rounded-xl mb-1.5 last:mb-0 text-gray-200 no-underline group';
     item.setAttribute('title', `${rel.displayName} — ${t('open_on_github')}`);
 
@@ -1369,4 +1368,14 @@ function initLayoutScaler() {
     updateScale();
     setTimeout(updateScale, 100);
   });
+}
+
+// ── Hidden Links (WIP items, shown only with ?showHidden=true) ──
+function initHiddenLinks() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('showHidden') === 'true') {
+    document.querySelectorAll('.bento-hidden').forEach(el => {
+      el.classList.remove('bento-hidden');
+    });
+  }
 }
