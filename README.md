@@ -65,6 +65,7 @@ I run multiple self-hosted services (KoalaSync, KoalaWeb, Docker containers, Tai
 ### 🔗 Integrations
 - **Tailscale Service Hub** — Quick links to internal services (Dockge, Grafana, Duplicati, Unraid) grouped for Tailnet users.
 - **Customizable Link Grid** — Add any internal or external service with a friendly display name.
+- **Hidden Links (WIP)** — Hide work-in-progress links by default using the `.bento-hidden` class. Append `?showHidden=true` to the URL to reveal them (e.g., `https://koalastuff.net/?showHidden=true`).
 
 ### 🔒 Privacy & Performance
 - **100% Self-Hosted** — Inter fonts and Phosphor icons served locally from `www/fonts/`. Zero external CDNs.
