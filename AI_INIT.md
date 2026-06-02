@@ -211,6 +211,9 @@ const repositories = [
   { repo: 'Shik3i/KoalaSync',           displayName: 'KoalaSync' },
   { repo: 'Shik3i/Antigrav',            displayName: 'KoalaWeb', type: 'package' },
   { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets', type: 'package' },
+  { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
+  { repo: 'Shik3i/KoalaCookies',        displayName: 'KoalaCookies' },
+  { repo: 'Shik3i/KoalaPull',           displayName: 'KoalaPull' },
   { repo: 'Owner/YourNewRepo',          displayName: 'FriendlyName' },
 ];
 ```
@@ -228,7 +231,7 @@ The tracker supports two modes, controlled by the optional `type` field:
 
 ### Cache Invalidation
 
-The release tracker caches API responses in `localStorage` under `koala-releases-cache-v3` with a 2-hour TTL. If you change a repository's `type` (e.g., from release to package), bump the `CACHE_KEY` version string in `script.src.js` to invalidate stale cached data.
+The release tracker caches API responses in `localStorage` under `koala-releases-cache-v4` with a 2-hour TTL. If you change a repository's `type` (e.g., from release to package), bump the `CACHE_KEY` version string in `script.src.js` to invalidate stale cached data.
 
 ---
 

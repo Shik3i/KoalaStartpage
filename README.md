@@ -117,6 +117,8 @@ const repositories = [
   { repo: 'Shik3i/Antigrav',            displayName: 'KoalaWeb',         type: 'package' },
   { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets',   type: 'package' },
   { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
+  { repo: 'Shik3i/KoalaCookies',        displayName: 'KoalaCookies' },
+  { repo: 'Shik3i/KoalaPull',           displayName: 'KoalaPull' },
 ];
 ```
 
@@ -131,7 +133,7 @@ After editing, run `npm run build` to compile the changes.
 
 ### Cache Invalidation
 
-API responses are cached in `localStorage` under `koala-releases-cache-v3` with a 2-hour TTL. If you change a repository's `type` (e.g., release → package), bump the `CACHE_KEY` version in `script.src.js` to invalidate stale data.
+API responses are cached in `localStorage` under `koala-releases-cache-v4` with a 2-hour TTL. If you change a repository's `type` (e.g., release → package), bump the `CACHE_KEY` version in `script.src.js` to invalidate stale data.
 
 ---
 

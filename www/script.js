@@ -78,6 +78,7 @@ tooltip_duplicati_unraid: 'Duplicati — UnraidBox Backup-Verwaltung',
 tooltip_unraid: 'Unraid Web-Oberfläche öffnen',
 tooltip_cstore: 'Im Chrome Web Store ansehen',
 tooltip_addons: 'Als Firefox-Addon ansehen',
+tooltip_cubetimer: 'KoalaWeb Cube Timer — Speedcubing-Stoppuhr',
 tooltip_coming_soon: 'Veröffentlichung erfolgt bald',
 btn_design: 'Design',
 theme_midnight: 'Midnight Aurora',
@@ -162,6 +163,7 @@ tooltip_duplicati_unraid: 'Duplicati — UnraidBox Backup Management',
 tooltip_unraid: 'Open Unraid Web Interface',
 tooltip_cstore: 'View in Chrome Web Store',
 tooltip_addons: 'View in Firefox Add-ons',
+tooltip_cubetimer: 'KoalaWeb Cube Timer — Speedcubing Stopwatch',
 tooltip_coming_soon: 'Release coming soon',
 btn_design: 'Design',
 theme_midnight: 'Midnight Aurora',
@@ -356,6 +358,7 @@ const repositories = [
 { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets', type: 'package' },
 { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
 { repo: 'Shik3i/KoalaCookies',      displayName: 'KoalaCookies' },
+{ repo: 'Shik3i/KoalaPull',           displayName: 'KoalaPull' },
 ];
 const CACHE_KEY = 'koala-releases-cache-v4';
 const CACHE_TTL = 2 * 60 * 60 * 1000;
