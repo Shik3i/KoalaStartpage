@@ -11,7 +11,6 @@
 .ph-cookie:before { content: "\e6ca"; }
 .ph-download-simple:before { content: "\e20c"; }
 .ph-game-controller:before { content: "\e26e"; }
-.ph-gift:before { content: "\e276"; }
 .ph-git-merge:before { content: "\e280"; }
 .ph-github-logo:before { content: "\e576"; }
 .ph-globe:before { content: "\e288"; }
@@ -25,8 +24,6 @@
 .ph-palette:before { content: "\e6c8"; }
 .ph-rocket-launch:before { content: "\e3fe"; }
 .ph-rss:before { content: "\e400"; }
-.ph-ticket:before { content: "\e490"; }
-.ph-timer:before { content: "\e492"; }
 /* AUTO-ICONS:END */
 
 /* Base Phosphor icon class — font binding. Managed manually, NOT auto-generated. */
