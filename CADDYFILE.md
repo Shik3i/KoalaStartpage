@@ -30,7 +30,7 @@ koalastuff.net {
 
         # Strict Content Security Policy (100% CDN-Free, HASH-FREE)
         # Allows connection only to self and GitHub API with strict script-src 'self'
-        Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; worker-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' data: https://start.koalastuff.net; manifest-src 'self'; base-uri 'none'; form-action 'self' https://www.google.com https://duckduckgo.com https://www.youtube.com; frame-ancestors 'none';"
+        Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; worker-src 'self'; connect-src 'self' https://api.github.com; img-src 'self' data:; manifest-src 'self'; base-uri 'none'; form-action 'self' https://www.google.com https://duckduckgo.com https://www.youtube.com; frame-ancestors 'none';"
 
         # Hide server signature
         -Server

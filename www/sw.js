@@ -20,66 +20,73 @@ const ASSETS = [
   './fonts/Phosphor.woff2'
 ];
 
-// Install Event: Cache all critical assets
+// Install Event: Cache assets individually so one failure doesn't block the SW
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Caching static shell assets');
-      return cache.addAll(ASSETS);
+    caches.open(CACHE_NAME).then(async (cache) => {
+      await Promise.allSettled(ASSETS.map(url =>
+        cache.add(url).catch(() => {})
+      ));
+      return;
     }).then(() => self.skipWaiting())
   );
 });
 
-// Activate Event: Clean up old caches
+// Activate Event: Clean up old caches only if new cache exists
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.map((key) => {
-          if (key !== CACHE_NAME) {
-            console.log('[Service Worker] Removing old cache:', key);
-            return caches.delete(key);
-          }
-        })
-      );
-    }).then(() => self.clients.claim())
+    caches.has(CACHE_NAME).then((exists) => {
+      if (!exists) return self.clients.claim();
+      return caches.keys().then((keys) => {
+        return Promise.all(
+          keys.map((key) => {
+            if (key !== CACHE_NAME) {
+              return caches.delete(key);
+            }
+          })
+        );
+      }).then(() => self.clients.claim());
+    })
   );
 });
 
-// Fetch Event: Network First, falling back to Cache
+// Fetch Event: Cache-first for static assets, Network-first for HTML
 self.addEventListener('fetch', (event) => {
-  // Only handle GET requests and skip external APIs (like GitHub releases)
   if (event.request.method !== 'GET') return;
+  if (new URL(event.request.url).origin !== self.location.origin) return;
 
-  const url = new URL(event.request.url);
+  // Cache-first for fonts, CSS, JS, images, SVG
+  const isStatic = /\.(woff2?|css|js|png|jpg|jpeg|gif|svg|ico|json)$/i.test(event.request.url);
 
-  // Skip cross-origin requests (search forms, external links, GitHub API, Weather API)
-  if (url.origin !== self.location.origin) {
+  if (isStatic) {
+    event.respondWith(
+      caches.match(event.request).then((cached) => {
+        return cached || fetch(event.request).then((res) => {
+          if (res && res.status === 200) {
+            const clone = res.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return res;
+        });
+      })
+    );
     return;
   }
 
+  // Network-first for navigation (HTML) so fresh content is always shown
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
-        // Only cache valid, same-origin responses
-        if (networkResponse && networkResponse.status === 200 && url.origin === self.location.origin) {
+        if (networkResponse && networkResponse.status === 200) {
           const responseToCache = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseToCache));
         }
         return networkResponse;
       })
       .catch(() => {
-        // Fallback to cache if network fails (offline)
         return caches.match(event.request).then((cachedResponse) => {
-          if (cachedResponse) {
-            return cachedResponse;
-          }
-          // Fallback for document navigation when offline and not cached
-          if (event.request.mode === 'navigate') {
-            return caches.match('./index.html');
-          }
+          if (cachedResponse) return cachedResponse;
+          if (event.request.mode === 'navigate') return caches.match('./index.html');
         });
       })
   );

@@ -24,6 +24,7 @@
 .ph-package:before { content: "\e390"; }
 .ph-palette:before { content: "\e6c8"; }
 .ph-rocket-launch:before { content: "\e3fe"; }
+.ph-rss:before { content: "\e400"; }
 .ph-ticket:before { content: "\e490"; }
 .ph-timer:before { content: "\e492"; }
 /* AUTO-ICONS:END */
@@ -540,7 +541,7 @@ html[data-bg-style="solid"] .bg-mesh {
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   
   overflow: hidden;
-  will-change: auto; /* GPU layer only on hover, not permanently for all tiles */
+  /* GPU layer promoted on hover via .bento-tile:hover */
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
               border-color 0.35s ease,
               box-shadow 0.35s ease;
@@ -552,7 +553,7 @@ html[data-bg-style="solid"] .bg-mesh {
   --shadow-y: 12px;
   --shadow-opacity: 0.3;
   --shadow-blur: 60px;
-  will-change: transform; /* Promote to GPU layer only when needed */
+  /* GPU promoted via hover interaction */
 }
 
 /* Theme-specific accent shadow color & border tokens on hover */
@@ -605,6 +606,10 @@ html[data-bg-style="solid"] .bg-mesh {
 @media (prefers-reduced-motion: reduce) {
   .bento-tile::before {
     display: none !important;
+  }
+  .bento-tile,
+  .bento-tile:hover {
+    transform: none !important;
   }
 }
 
@@ -690,12 +695,6 @@ html[data-bg-style="solid"] .bg-mesh {
 }
 
 /* ── Accent Glow Badges ──────────────────────── */
-.badge-emerald {
-  background: rgba(52, 211, 153, 0.12);
-  color: #34d399;
-  box-shadow: 0 0 12px rgba(52, 211, 153, 0.15);
-}
-
 .badge-blue {
   background: rgba(99, 102, 241, 0.12);
   color: #818cf8;
@@ -706,18 +705,6 @@ html[data-bg-style="solid"] .bg-mesh {
   background: rgba(168, 85, 247, 0.12);
   color: #a78bfa;
   box-shadow: 0 0 12px rgba(168, 85, 247, 0.15);
-}
-
-.badge-amber {
-  background: rgba(251, 191, 36, 0.12);
-  color: #fbbf24;
-  box-shadow: 0 0 12px rgba(251, 191, 36, 0.15);
-}
-
-.badge-rose {
-  background: rgba(244, 114, 182, 0.12);
-  color: #f472b6;
-  box-shadow: 0 0 12px rgba(244, 114, 182, 0.15);
 }
 
 .badge-gray {

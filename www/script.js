@@ -23,12 +23,11 @@ tile_extensions: 'Erweiterungen',
 tile_services: 'Websites',
 tile_releases: 'Latest Releases',
 link_uptime: 'Status-Seite',
-link_sync: 'KoalaSync',
 link_blog: 'KoalaBlog',
 link_snap: 'KoalaSnap',
+link_koalanews: 'KoalaNews',
 link_timer: 'KoalaWeb',
 link_snippets: 'KoalaSnippets',
-link_sub_timer: 'Timer',
 link_esports: 'Esports',
 link_news: 'News',
 link_wordle: 'Wordle',
@@ -43,7 +42,6 @@ footer_privacy: 'Datenschutz',
 footer_imprint: 'Impressum',
 date_locale: 'de-DE',
 tile_internal: 'Intern (Tailscale)',
-label_tailscale_only: 'Nur im Tailnet erreichbar',
 time_just_now: 'Gerade eben',
 time_minutes_ago: 'vor {n} Min.',
 time_hours_ago: 'vor {n} Std.',
@@ -66,6 +64,7 @@ tooltip_uptime: 'Status-Seite der Websites anzeigen',
 tooltip_sync: 'KoalaSync-App öffnen',
 tooltip_blog: 'KoalaBlog lesen',
 tooltip_snap: 'KoalaSnap — Fake-Chatverläufe Mockup-Generator für Memes, Witze und Pranks',
+tooltip_koalanews: 'KoalaNews — Privater RSS-Reader, eigene Feeds verwalten & Android-App',
 tooltip_snippets: 'Code-Snippets Sammlung durchsuchen',
 tooltip_pull: 'KoalaPull — YT-DLP GUI Client, leichtgewichtig & datenschutzfreundlich',
 tooltip_legal_privacy: 'Datenschutzerklärung lesen',
@@ -111,12 +110,11 @@ tile_extensions: 'Extensions',
 tile_services: 'Websites',
 tile_releases: 'Latest Releases',
 link_uptime: 'Status Page',
-link_sync: 'KoalaSync',
 link_blog: 'KoalaBlog',
 link_snap: 'KoalaSnap',
+link_koalanews: 'KoalaNews',
 link_timer: 'KoalaWeb',
 link_snippets: 'KoalaSnippets',
-link_sub_timer: 'Timer',
 link_esports: 'Esports',
 link_news: 'News',
 link_wordle: 'Wordle',
@@ -131,7 +129,6 @@ footer_privacy: 'Privacy Policy',
 footer_imprint: 'Imprint',
 date_locale: 'en-US',
 tile_internal: 'Internal (Tailscale)',
-label_tailscale_only: 'Tailnet only',
 time_just_now: 'Just now',
 time_minutes_ago: '{n}m ago',
 time_hours_ago: '{n}h ago',
@@ -154,6 +151,7 @@ tooltip_uptime: 'View websites status page',
 tooltip_sync: 'Open KoalaSync app',
 tooltip_blog: 'Read KoalaBlog',
 tooltip_snap: 'KoalaSnap — Fake chat history mockup generator for memes, pranks, and jokes',
+tooltip_koalanews: 'KoalaNews — Private RSS reader, manage your own feeds & Android app',
 tooltip_snippets: 'Browse Code Snippets Collection',
 tooltip_pull: 'KoalaPull — YT-DLP GUI Client, lightweight & privacy focused',
 tooltip_legal_privacy: 'Read Privacy Policy',
@@ -239,13 +237,17 @@ initHiddenLinks();
 if ('requestIdleCallback' in window) {
 requestIdleCallback(() => {
 fetchGitHubReleases();
-fetchWeather();
 }, { timeout: 2000 });
+requestIdleCallback(() => {
+fetchWeather();
+}, { timeout: 3000 });
 } else {
 setTimeout(() => {
 fetchGitHubReleases();
-fetchWeather();
 }, 800);
+setTimeout(() => {
+fetchWeather();
+}, 1200);
 }
 if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
 window.addEventListener('load', function() {
@@ -365,6 +367,7 @@ const repositories = [
 { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
 { repo: 'Shik3i/KoalaCookies',      displayName: 'KoalaCookies' },
 { repo: 'Shik3i/KoalaPull',           displayName: 'KoalaPull' },
+{ repo: 'Shik3i/KoalaNews',           displayName: 'KoalaNews', type: 'package' },
 ];
 const CACHE_KEY = 'koala-releases-cache-v4';
 const CACHE_TTL = 2 * 60 * 60 * 1000;
@@ -486,9 +489,11 @@ if (b.date) return 1;
 return 0;
 });
 cachedReleases = releases;
+if (releases.some(r => r.status === 'ok')) {
 try {
 storage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: releases }));
 } catch (e) {  }
+}
 renderReleases(releases, container);
 } catch (error) {
 container.innerHTML = `<div class="text-sm text-red-400/80 p-3">${t('releases_error')}</div>`;
@@ -883,8 +888,17 @@ activeElement.setAttribute('title', activeElement.dataset.tooltip);
 tooltip.classList.remove('visible');
 activeElement = null;
 });
-window.addEventListener('scroll', positionTooltip, { passive: true });
-window.addEventListener('resize', positionTooltip, { passive: true });
+let pendingPosition = false;
+function requestPosition() {
+if (pendingPosition) return;
+pendingPosition = true;
+requestAnimationFrame(() => {
+pendingPosition = false;
+positionTooltip();
+});
+}
+window.addEventListener('scroll', requestPosition, { passive: true });
+window.addEventListener('resize', requestPosition, { passive: true });
 function positionTooltip() {
 if (!activeElement) return;
 const rect = activeElement.getBoundingClientRect();

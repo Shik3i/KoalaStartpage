@@ -31,12 +31,11 @@ const translations = {
     tile_services: 'Websites',
     tile_releases: 'Latest Releases',
     link_uptime: 'Status-Seite',
-    link_sync: 'KoalaSync',
     link_blog: 'KoalaBlog',
     link_snap: 'KoalaSnap',
+    link_koalanews: 'KoalaNews',
     link_timer: 'KoalaWeb',
     link_snippets: 'KoalaSnippets',
-    link_sub_timer: 'Timer',
     link_esports: 'Esports',
     link_news: 'News',
     link_wordle: 'Wordle',
@@ -51,7 +50,6 @@ const translations = {
     footer_imprint: 'Impressum',
     date_locale: 'de-DE',
     tile_internal: 'Intern (Tailscale)',
-    label_tailscale_only: 'Nur im Tailnet erreichbar',
     time_just_now: 'Gerade eben',
     time_minutes_ago: 'vor {n} Min.',
     time_hours_ago: 'vor {n} Std.',
@@ -75,6 +73,7 @@ const translations = {
     tooltip_sync: 'KoalaSync-App öffnen',
     tooltip_blog: 'KoalaBlog lesen',
     tooltip_snap: 'KoalaSnap — Fake-Chatverläufe Mockup-Generator für Memes, Witze und Pranks',
+    tooltip_koalanews: 'KoalaNews — Privater RSS-Reader, eigene Feeds verwalten & Android-App',
     tooltip_snippets: 'Code-Snippets Sammlung durchsuchen',
     tooltip_pull: 'KoalaPull — YT-DLP GUI Client, leichtgewichtig & datenschutzfreundlich',
     tooltip_legal_privacy: 'Datenschutzerklärung lesen',
@@ -120,12 +119,11 @@ const translations = {
     tile_services: 'Websites',
     tile_releases: 'Latest Releases',
     link_uptime: 'Status Page',
-    link_sync: 'KoalaSync',
     link_blog: 'KoalaBlog',
     link_snap: 'KoalaSnap',
+    link_koalanews: 'KoalaNews',
     link_timer: 'KoalaWeb',
     link_snippets: 'KoalaSnippets',
-    link_sub_timer: 'Timer',
     link_esports: 'Esports',
     link_news: 'News',
     link_wordle: 'Wordle',
@@ -140,7 +138,6 @@ const translations = {
     footer_imprint: 'Imprint',
     date_locale: 'en-US',
     tile_internal: 'Internal (Tailscale)',
-    label_tailscale_only: 'Tailnet only',
     time_just_now: 'Just now',
     time_minutes_ago: '{n}m ago',
     time_hours_ago: '{n}h ago',
@@ -164,6 +161,7 @@ const translations = {
     tooltip_sync: 'Open KoalaSync app',
     tooltip_blog: 'Read KoalaBlog',
     tooltip_snap: 'KoalaSnap — Fake chat history mockup generator for memes, pranks, and jokes',
+    tooltip_koalanews: 'KoalaNews — Private RSS reader, manage your own feeds & Android app',
     tooltip_snippets: 'Browse Code Snippets Collection',
     tooltip_pull: 'KoalaPull — YT-DLP GUI Client, lightweight & privacy focused',
     tooltip_legal_privacy: 'Read Privacy Policy',
@@ -263,20 +261,24 @@ initHiddenLinks();
 if ('requestIdleCallback' in window) {
   requestIdleCallback(() => {
     fetchGitHubReleases();
-    fetchWeather();
   }, { timeout: 2000 });
+  requestIdleCallback(() => {
+    fetchWeather();
+  }, { timeout: 3000 });
 } else {
   setTimeout(() => {
     fetchGitHubReleases();
-    fetchWeather();
   }, 800);
+  setTimeout(() => {
+    fetchWeather();
+  }, 1200);
 }
 
 // Register Service Worker for offline capability (PWA) asynchronously
 if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('./sw.js')
-      .catch(function() { /* registration failed */ });
+      .catch(function() { /* registration failed silently */ });
   });
 }
 
@@ -421,6 +423,7 @@ const repositories = [
   { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
   { repo: 'Shik3i/KoalaCookies',      displayName: 'KoalaCookies' },
   { repo: 'Shik3i/KoalaPull',           displayName: 'KoalaPull' },
+  { repo: 'Shik3i/KoalaNews',           displayName: 'KoalaNews', type: 'package' },
 ];
 
 const CACHE_KEY = 'koala-releases-cache-v4';
@@ -564,10 +567,12 @@ async function fetchGitHubReleases() {
 
     cachedReleases = releases;
 
-    // Save to cache
-    try {
-      storage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: releases }));
-    } catch (e) { /* storage full */ }
+    // Save to cache (only if at least one repo succeeded)
+    if (releases.some(r => r.status === 'ok')) {
+      try {
+        storage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), data: releases }));
+      } catch (e) { /* storage full */ }
+    }
 
     renderReleases(releases, container);
 
@@ -1075,9 +1080,18 @@ function initTooltips() {
     activeElement = null;
   });
 
-  // Re-position tooltip on window actions
-  window.addEventListener('scroll', positionTooltip, { passive: true });
-  window.addEventListener('resize', positionTooltip, { passive: true });
+  // Re-position tooltip on window actions (debounced with rAF)
+  let pendingPosition = false;
+  function requestPosition() {
+    if (pendingPosition) return;
+    pendingPosition = true;
+    requestAnimationFrame(() => {
+      pendingPosition = false;
+      positionTooltip();
+    });
+  }
+  window.addEventListener('scroll', requestPosition, { passive: true });
+  window.addEventListener('resize', requestPosition, { passive: true });
 
   function positionTooltip() {
     if (!activeElement) return;

@@ -53,6 +53,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="KoalaStuff — All Koala Projects, Tools & YT-DLP GUI">
     <meta name="twitter:description" content="Koala Browser-Erweiterungen, YT-DLP GUI, Web-Timer, Snippets und mehr — alles auf koalastuff.net.">
+    <meta name="twitter:image" content="https://koalastuff.net/og-preview.png">
     <meta name="keywords" content="KoalaStuff, KoalaSync, KoalaPull, KoalaWeb, KoalaSnippets, KoalaFlyff, KoalaClicker, KoalaCookies, Startpage, Dashboard, GitHub Releases, YT-DLP GUI, Browser Extension, Timer">
 
     <!-- Set lang class ASAP to prevent flash of wrong language -->
@@ -162,7 +163,7 @@
                     <!-- Design Selector Dropdown -->
                     <div class="relative shrink-0" id="design-container">
                         <button type="button" id="design-btn" class="design-toggle rounded-full flex items-center px-3.5 py-1.5 gap-2 text-xs font-medium text-gray-400 hover:text-white transition-all focus:outline-none" aria-haspopup="listbox" aria-expanded="false" aria-controls="design-dropdown" data-i18n-title="tooltip_change_theme" title="Design wechseln">
-                            <i class="ph ph-palette text-xs text-gray-500"></i>
+                            <i aria-hidden="true" class="ph ph-palette text-xs text-gray-500"></i>
                             <span data-i18n="btn_design">Design</span>
                         </button>
                         
@@ -353,7 +354,7 @@
                 <div class="bento-tile bento-tile--glow-blue rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col fade-in">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="badge-blue p-2 rounded-xl">
-                            <i class="ph ph-package text-xl"></i>
+                            <i aria-hidden="true" class="ph ph-package text-xl"></i>
                         </div>
                         <h2 class="text-base font-semibold" data-i18n="tile_extensions">Extensions</h2>
                     </div>
@@ -361,7 +362,7 @@
                         <!-- KoalaSync -->
                         <div class="flex items-center justify-between p-2 rounded-xl">
                             <div class="flex items-center gap-3">
-                                <i class="ph ph-arrows-left-right text-lg text-indigo-400/80"></i>
+                                <i aria-hidden="true" class="ph ph-arrows-left-right text-lg text-indigo-400/80"></i>
                                 <a href="https://sync.koalastuff.net" class="font-medium text-sm text-gray-300 no-underline hover:text-gray-300" title="sync.koalastuff.net" style="text-decoration:none;color:inherit;">KoalaSync</a>
                             </div>
                             <div class="flex items-center gap-1">
@@ -377,7 +378,7 @@
                         <!-- KoalaClicker -->
                         <div class="flex items-center justify-between p-2 rounded-xl">
                             <div class="flex items-center gap-3">
-                                <i class="ph ph-hand-pointing text-lg text-amber-400/80"></i>
+                                <i aria-hidden="true" class="ph ph-hand-pointing text-lg text-amber-400/80"></i>
                                 <a href="https://clicker.koalastuff.net" class="font-medium text-sm text-gray-300 no-underline hover:text-gray-300" title="clicker.koalastuff.net" style="text-decoration:none;color:inherit;">KoalaClicker</a>
                             </div>
                             <div class="flex items-center gap-1">
@@ -393,7 +394,7 @@
                         <!-- KoalaFlyff -->
                         <div class="flex items-center justify-between p-2 rounded-xl">
                             <div class="flex items-center gap-3">
-                                <i class="ph ph-game-controller text-lg text-rose-400/80"></i>
+                                <i aria-hidden="true" class="ph ph-game-controller text-lg text-rose-400/80"></i>
                                 <a href="https://multibox.koalastuff.net" class="font-medium text-sm text-gray-300 no-underline hover:text-gray-300" title="multibox.koalastuff.net" style="text-decoration:none;color:inherit;">KoalaFlyff</a>
                             </div>
                             <div class="flex items-center gap-1">
@@ -409,7 +410,7 @@
                         <!-- KoalaCookies -->
                         <div class="flex items-center justify-between p-2 rounded-xl">
                             <div class="flex items-center gap-3">
-                                <i class="ph ph-cookie text-lg text-pink-400/80"></i>
+                                <i aria-hidden="true" class="ph ph-cookie text-lg text-pink-400/80"></i>
                                 <span class="font-medium text-sm text-gray-300">KoalaCookies</span>
                             </div>
                             <div class="flex items-center gap-1">
@@ -428,14 +429,14 @@
                 <div class="bento-tile bento-tile--glow-purple rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col lg:row-span-2 fade-in overflow-y-auto overflow-x-hidden">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="badge-blue p-2 rounded-xl">
-                            <i class="ph ph-rocket-launch text-xl"></i>
+                            <i aria-hidden="true" class="ph ph-rocket-launch text-xl"></i>
                         </div>
                         <h2 class="text-base font-semibold" data-i18n="tile_services">Websites</h2>
                     </div>
                     <div class="flex flex-col gap-1 flex-1">
                         <!-- Uptime / Status -->
                         <a href="https://status.koalastuff.net" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="status.koalastuff.net" data-i18n-title="tooltip_uptime">
-                            <i class="ph ph-heartbeat text-lg text-emerald-400/80"></i>
+                            <i aria-hidden="true" class="ph ph-heartbeat text-lg text-emerald-400/80"></i>
                             <span class="font-medium" data-i18n="link_uptime">Status-Seite</span>
                         </a>
 
@@ -443,7 +444,7 @@
 
                         <!-- KoalaBlog -->
                         <a href="https://blog.koalastuff.net" class="bento-hidden bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="blog.koalastuff.net" data-i18n-title="tooltip_blog">
-                            <i class="ph ph-newspaper text-lg text-sky-400/80"></i>
+                            <i aria-hidden="true" class="ph ph-newspaper text-lg text-sky-400/80"></i>
                             <span class="font-medium" data-i18n="link_blog">KoalaBlog</span>
                         </a>
 
@@ -457,9 +458,17 @@
 
                         <div class="bento-hidden h-px bg-white/5 mx-2 my-1.5"></div>
 
+                        <!-- KoalaNews (hidden by default) -->
+                        <a href="https://news.koalastuff.net" class="bento-hidden bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="news.koalastuff.net" data-i18n-title="tooltip_koalanews">
+                            <i aria-hidden="true" class="ph ph-rss text-lg text-orange-400/80"></i>
+                            <span class="font-medium" data-i18n="link_koalanews">KoalaNews</span>
+                        </a>
+
+                        <div class="bento-hidden h-px bg-white/5 mx-2 my-1.5"></div>
+
                         <!-- KoalaSnippets -->
                         <a href="https://snippets.koalastuff.net" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="snippets.koalastuff.net — Code-Snippets Sammlung" data-i18n-title="tooltip_snippets">
-                            <i class="ph ph-code text-lg text-cyan-400/80"></i>
+                            <i aria-hidden="true" class="ph ph-code text-lg text-cyan-400/80"></i>
                             <span class="font-medium" data-i18n="link_snippets">KoalaSnippets</span>
                         </a>
 
@@ -467,7 +476,7 @@
 
                         <!-- KoalaPull -->
                         <a href="https://pull.koalastuff.net" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="pull.koalastuff.net — YT-DLP GUI Client" data-i18n-title="tooltip_pull">
-                            <i class="ph ph-download-simple text-lg text-rose-400/80"></i>
+                            <i aria-hidden="true" class="ph ph-download-simple text-lg text-rose-400/80"></i>
                             <span class="font-medium">KoalaPull</span>
                         </a>
 
@@ -475,41 +484,41 @@
 
                         <!-- KoalaWeb -->
                         <a href="https://timer.koalastuff.net" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="timer.koalastuff.net" data-i18n-title="tooltip_timer">
-                            <i class="ph ph-globe text-lg text-purple-400/80"></i>
+                            <i aria-hidden="true" class="ph ph-globe text-lg text-purple-400/80"></i>
                             <span class="font-medium" data-i18n="link_timer">KoalaWeb</span>
                         </a>
 
                         <!-- Timer Subpages (indented) -->
                         <div class="ml-8 flex flex-col gap-0.5">
                             <a href="https://timer.koalastuff.net/speedcube" class="bento-link flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs text-gray-500 hover:text-gray-300" title="KoalaWeb Cube Timer" data-i18n-title="tooltip_cubetimer">
-                                <i class="ph ph-timer text-sm text-indigo-400/60"></i>
+                                <i aria-hidden="true" class="ph ph-timer text-sm text-indigo-400/60"></i>
                                 <span>Cube Timer</span>
                             </a>
                             <a href="https://timer.koalastuff.net/esports" class="bento-link flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs text-gray-500 hover:text-gray-300" title="KoalaWeb Esports" data-i18n-title="tooltip_esports">
-                                <i class="ph ph-game-controller text-sm text-rose-400/60"></i>
+                                <i aria-hidden="true" class="ph ph-game-controller text-sm text-rose-400/60"></i>
                                 <span data-i18n="link_esports">Esports</span>
                             </a>
                             <a href="https://timer.koalastuff.net/news" class="bento-link flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs text-gray-500 hover:text-gray-300" title="KoalaWeb News" data-i18n-title="tooltip_news">
-                                <i class="ph ph-newspaper text-sm text-blue-400/60"></i>
+                                <i aria-hidden="true" class="ph ph-newspaper text-sm text-blue-400/60"></i>
                                 <span data-i18n="link_news">News</span>
                             </a>
                             
                             <div class="h-px bg-white/5 my-1"></div>
 
                             <a href="https://timer.koalastuff.net/wordle" class="bento-link flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs text-gray-500 hover:text-gray-300" title="KoalaWeb Wordle" data-i18n-title="tooltip_wordle">
-                                <i class="ph ph-grid-four text-sm text-emerald-400/60"></i>
+                                <i aria-hidden="true" class="ph ph-grid-four text-sm text-emerald-400/60"></i>
                                 <span data-i18n="link_wordle">Wordle</span>
                             </a>
                             <a href="https://timer.koalastuff.net/color-sync" class="bento-link flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs text-gray-500 hover:text-gray-300" title="KoalaWeb Color Sync" data-i18n-title="tooltip_colorsync">
-                                <i class="ph ph-palette text-sm text-purple-400/60"></i>
+                                <i aria-hidden="true" class="ph ph-palette text-sm text-purple-400/60"></i>
                                 <span data-i18n="link_colorsync">Color Sync</span>
                             </a>
                             <a href="https://timer.koalastuff.net/lotto" class="bento-link flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs text-gray-500 hover:text-gray-300" title="KoalaWeb Lotto" data-i18n-title="tooltip_lotto">
-                                <i class="ph ph-ticket text-sm text-amber-400/60"></i>
+                                <i aria-hidden="true" class="ph ph-ticket text-sm text-amber-400/60"></i>
                                 <span data-i18n="link_lotto">Lotto</span>
                             </a>
                             <a href="https://timer.koalastuff.net/scratchcards" class="bento-link flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-xs text-gray-500 hover:text-gray-300" title="KoalaWeb Rubbellose" data-i18n-title="tooltip_scratchcards">
-                                <i class="ph ph-gift text-sm text-cyan-400/60"></i>
+                                <i aria-hidden="true" class="ph ph-gift text-sm text-cyan-400/60"></i>
                                 <span data-i18n="link_scratchcards">Rubbellose</span>
                             </a>
                         </div>
@@ -521,12 +530,12 @@
                     <div class="flex items-center justify-between mb-4">
                         <div class="flex items-center gap-3">
                             <div class="badge-gray p-2 rounded-xl">
-                                <i class="ph ph-git-merge text-xl"></i>
+                                <i aria-hidden="true" class="ph ph-git-merge text-xl"></i>
                             </div>
                             <h2 class="text-base font-semibold" data-i18n="tile_releases">Latest Releases</h2>
                         </div>
                         <a href="https://github.com/Shik3i" class="text-xs text-gray-500 hover:text-gray-300 transition-colors flex items-center gap-1.5 py-1.5 px-3 rounded-lg bg-white/[0.03] hover:bg-white/[0.08] border border-white/[0.05]" title="GitHub Profile" data-i18n-title="tooltip_github">
-                            <i class="ph ph-github-logo text-sm"></i>
+                            <i aria-hidden="true" class="ph ph-github-logo text-sm"></i>
                             <span>GitHub</span>
                         </a>
                     </div>
@@ -539,41 +548,41 @@
                 <div class="bento-tile bento-tile--glow-emerald rounded-2xl lg:rounded-3xl p-5 lg:p-6 flex flex-col fade-in">
                     <div class="flex items-center gap-3 mb-4">
                         <div class="badge-purple p-2 rounded-xl">
-                            <i class="ph ph-lock-key text-xl"></i>
+                            <i aria-hidden="true" class="ph ph-lock-key text-xl"></i>
                         </div>
                         <h2 class="text-base font-semibold" data-i18n="tile_internal">Internal</h2>
                     </div>
                     <div class="flex flex-col gap-1.5 flex-1 justify-center">
                         <a href="http://100.68.158.76:5001" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="Dockge — Container Management" data-i18n-title="tooltip_dockge">
-                            <i class="ph ph-package text-lg text-purple-400/70"></i>
+                            <i aria-hidden="true" class="ph ph-package text-lg text-purple-400/70"></i>
                             <div class="flex flex-col">
                                 <span class="font-medium">Dockge</span>
                                 <span class="text-[0.65rem] text-gray-600">HetznerBox</span>
                             </div>
                         </a>
                         <a href="http://100.68.158.76:3000/d/rYdddlPWk/node-exporter-full" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="Grafana — Server Monitoring" data-i18n-title="tooltip_grafana">
-                            <i class="ph ph-chart-line text-lg text-amber-400/70"></i>
+                            <i aria-hidden="true" class="ph ph-chart-line text-lg text-amber-400/70"></i>
                             <div class="flex flex-col">
                                 <span class="font-medium">Grafana</span>
                                 <span class="text-[0.65rem] text-gray-600">HetznerBox</span>
                             </div>
                         </a>
                         <a href="http://100.68.158.76:8200/ngclient/" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="Duplicati — HetznerBox Backup" data-i18n-title="tooltip_duplicati_hetzner">
-                            <i class="ph ph-cloud-arrow-up text-lg text-emerald-400/70"></i>
+                            <i aria-hidden="true" class="ph ph-cloud-arrow-up text-lg text-emerald-400/70"></i>
                             <div class="flex flex-col">
                                 <span class="font-medium">Duplicati</span>
                                 <span class="text-[0.65rem] text-gray-600">HetznerBox</span>
                             </div>
                         </a>
                         <a href="http://100.99.84.61:8200/ngclient/" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="Duplicati — UnraidBox Backup" data-i18n-title="tooltip_duplicati_unraid">
-                            <i class="ph ph-cloud-arrow-up text-lg text-emerald-400/70"></i>
+                            <i aria-hidden="true" class="ph ph-cloud-arrow-up text-lg text-emerald-400/70"></i>
                             <div class="flex flex-col">
                                 <span class="font-medium">Duplicati</span>
                                 <span class="text-[0.65rem] text-gray-600">UnraidBox</span>
                             </div>
                         </a>
                         <a href="http://100.99.84.61/login" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="Unraid UI" data-i18n-title="tooltip_unraid">
-                            <i class="ph ph-hard-drives text-lg text-blue-400/70"></i>
+                            <i aria-hidden="true" class="ph ph-hard-drives text-lg text-blue-400/70"></i>
                             <div class="flex flex-col">
                                 <span class="font-medium">Unraid UI</span>
                                 <span class="text-[0.65rem] text-gray-600">UnraidBox</span>
@@ -593,7 +602,7 @@
         <a href="impressum.html" class="footer-link" data-i18n="footer_imprint" title="Impressum lesen" data-i18n-title="tooltip_legal_imprint">Impressum</a>
         <span>·</span>
         <a href="https://github.com/Shik3i/KoalaStartpage" class="footer-link flex items-center gap-1" aria-label="GitHub Repository of KoalaStartpage" title="Quellcode auf GitHub ansehen" data-i18n-title="tooltip_source_code">
-            <i class="ph ph-github-logo"></i>
+            <i aria-hidden="true" class="ph ph-github-logo"></i>
             <span>© 2026 KoalaStuff</span>
         </a>
     </footer>
