@@ -425,9 +425,10 @@ const repositories = [
   { repo: 'Shik3i/KoalaPull',           displayName: 'KoalaPull' },
   { repo: 'Shik3i/KoalaNews',           displayName: 'KoalaNews', type: 'package', pkgOverride: 'koalanews%2Fkoalanews-website' },
   { repo: 'Shik3i/KoalaLanding',        displayName: 'KoalaLanding' },
+  { repo: 'Shik3i/KoalaSnap',           displayName: 'KoalaSnap' },
 ];
 
-const CACHE_KEY = 'koala-releases-cache-v5';
+const CACHE_KEY = 'koala-releases-cache-v6';
 const CACHE_TTL = 2 * 60 * 60 * 1000; // 2 hours (safeguards against GitHub API rate-limiting)
 
 async function fetchGitHubReleases() {
@@ -487,6 +488,21 @@ async function fetchGitHubReleases() {
         const response = await fetch(apiUrl);
         if (!response.ok) {
           if (response.status === 404) {
+            try {
+              const commitsRes = await fetch(`https://api.github.com/repos/${item.repo}/commits?per_page=1`);
+              if (commitsRes.ok) {
+                const commits = await commitsRes.json();
+                if (commits.length > 0 && commits[0].commit && commits[0].commit.author) {
+                  return {
+                    displayName: item.displayName,
+                    tag: 'Latest Commit',
+                    url: `https://github.com/${item.repo}/commits`,
+                    date: new Date(commits[0].commit.author.date),
+                    status: 'ok'
+                  };
+                }
+              }
+            } catch (e) { /* ignore fallback error */ }
             return { displayName: item.displayName, tag: null, url: fallbackUrl, date: null, status: 'none' };
           }
           throw new Error(`HTTP ${response.status}`);
