@@ -423,10 +423,11 @@ const repositories = [
   { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
   { repo: 'Shik3i/KoalaCookies',      displayName: 'KoalaCookies' },
   { repo: 'Shik3i/KoalaPull',           displayName: 'KoalaPull' },
-  { repo: 'Shik3i/KoalaNews',           displayName: 'KoalaNews', type: 'package' },
+  { repo: 'Shik3i/KoalaNews',           displayName: 'KoalaNews', type: 'package', pkgOverride: 'koalanews%2Fkoalanews-website' },
+  { repo: 'Shik3i/KoalaLanding',        displayName: 'KoalaLanding' },
 ];
 
-const CACHE_KEY = 'koala-releases-cache-v4';
+const CACHE_KEY = 'koala-releases-cache-v5';
 const CACHE_TTL = 2 * 60 * 60 * 1000; // 2 hours (safeguards against GitHub API rate-limiting)
 
 async function fetchGitHubReleases() {
@@ -479,7 +480,7 @@ async function fetchGitHubReleases() {
         : `https://api.github.com/repos/${item.repo}/releases/latest`;
         
       const fallbackUrl = isPackage
-        ? `https://github.com/${item.repo}/pkgs/container/${pkgName}`
+        ? `https://github.com/${item.repo}/pkgs/container/${item.pkgOverride || pkgName}`
         : `https://github.com/${item.repo}/releases`;
 
       try {
