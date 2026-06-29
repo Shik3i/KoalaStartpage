@@ -23,9 +23,12 @@ tile_extensions: 'Erweiterungen',
 tile_services: 'Websites',
 tile_releases: 'Latest Releases',
 link_uptime: 'Status-Seite',
-link_blog: 'KoalaBlog',
 link_snap: 'KoalaSnap',
 link_koalanews: 'KoalaNews',
+link_bye: 'KoalaBye',
+link_ship: 'KoalaShip',
+link_trade: 'KoalaTrade',
+link_tower: 'KoalaTower',
 link_timer: 'KoalaWeb',
 link_snippets: 'KoalaSnippets',
 link_esports: 'Esports',
@@ -62,9 +65,12 @@ tooltip_scratchcards: 'KoalaWeb Rubbellose — Virtueller Rubbelspaß',
 tooltip_github: 'GitHub-Profil von Shik3i besuchen',
 tooltip_uptime: 'Status-Seite der Websites anzeigen',
 tooltip_sync: 'KoalaSync-App öffnen',
-tooltip_blog: 'KoalaBlog lesen',
 tooltip_snap: 'KoalaSnap — Fake-Chatverläufe Mockup-Generator für Memes, Witze und Pranks',
 tooltip_koalanews: 'KoalaNews — Privater RSS-Reader, eigene Feeds verwalten & Android-App',
+tooltip_bye: 'KoalaBye öffnen',
+tooltip_ship: 'KoalaShip öffnen',
+tooltip_trade: 'KoalaTrade öffnen',
+tooltip_tower: 'KoalaTower / FlatLandTD öffnen',
 tooltip_snippets: 'Code-Snippets Sammlung durchsuchen',
 tooltip_pull: 'KoalaPull — YT-DLP GUI Client, leichtgewichtig & datenschutzfreundlich',
 tooltip_legal_privacy: 'Datenschutzerklärung lesen',
@@ -78,6 +84,7 @@ tooltip_grafana: 'Grafana — Server-Metriken & Monitoring',
 tooltip_duplicati_hetzner: 'Duplicati — HetznerBox Backup-Verwaltung',
 tooltip_duplicati_unraid: 'Duplicati — UnraidBox Backup-Verwaltung',
 tooltip_unraid: 'Unraid Web-Oberfläche öffnen',
+tooltip_hermes: 'Hermes — AI Assistant öffnen',
 tooltip_cstore: 'Im Chrome Web Store ansehen',
 tooltip_addons: 'Als Firefox-Addon ansehen',
 tooltip_cubetimer: 'KoalaWeb Cube Timer — Speedcubing-Stoppuhr',
@@ -110,9 +117,12 @@ tile_extensions: 'Extensions',
 tile_services: 'Websites',
 tile_releases: 'Latest Releases',
 link_uptime: 'Status Page',
-link_blog: 'KoalaBlog',
 link_snap: 'KoalaSnap',
 link_koalanews: 'KoalaNews',
+link_bye: 'KoalaBye',
+link_ship: 'KoalaShip',
+link_trade: 'KoalaTrade',
+link_tower: 'KoalaTower',
 link_timer: 'KoalaWeb',
 link_snippets: 'KoalaSnippets',
 link_esports: 'Esports',
@@ -149,9 +159,12 @@ tooltip_scratchcards: 'KoalaWeb Scratchcards — Virtual Scratchcards',
 tooltip_github: 'Visit Shik3i\'s GitHub profile',
 tooltip_uptime: 'View websites status page',
 tooltip_sync: 'Open KoalaSync app',
-tooltip_blog: 'Read KoalaBlog',
 tooltip_snap: 'KoalaSnap — Fake chat history mockup generator for memes, pranks, and jokes',
 tooltip_koalanews: 'KoalaNews — Private RSS reader, manage your own feeds & Android app',
+tooltip_bye: 'Open KoalaBye',
+tooltip_ship: 'Open KoalaShip',
+tooltip_trade: 'Open KoalaTrade',
+tooltip_tower: 'Open KoalaTower / FlatLandTD',
 tooltip_snippets: 'Browse Code Snippets Collection',
 tooltip_pull: 'KoalaPull — YT-DLP GUI Client, lightweight & privacy focused',
 tooltip_legal_privacy: 'Read Privacy Policy',
@@ -165,6 +178,7 @@ tooltip_grafana: 'Grafana — Server Metrics & Monitoring',
 tooltip_duplicati_hetzner: 'Duplicati — HetznerBox Backup Management',
 tooltip_duplicati_unraid: 'Duplicati — UnraidBox Backup Management',
 tooltip_unraid: 'Open Unraid Web Interface',
+tooltip_hermes: 'Open Hermes — AI Assistant',
 tooltip_cstore: 'View in Chrome Web Store',
 tooltip_addons: 'View in Firefox Add-ons',
 tooltip_cubetimer: 'KoalaWeb Cube Timer — Speedcubing Stopwatch',
@@ -361,17 +375,27 @@ return t('time_months_ago').replace('{n}', diffMonths);
 const repositories = [
 { repo: 'Shik3i/KoalaSync',           displayName: 'KoalaSync' },
 { repo: 'Shik3i/KoalaClicker',        displayName: 'KoalaClicker' },
+{ repo: 'Shik3i/KoalaBye',            displayName: 'KoalaBye' },
 { repo: 'Shik3i/FlyffUniverseHelper', displayName: 'KoalaFlyff' },
 { repo: 'Shik3i/Antigrav',            displayName: 'KoalaWeb', type: 'package' },
 { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets', type: 'package' },
 { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
-{ repo: 'Shik3i/KoalaCookies',      displayName: 'KoalaCookies' },
+{ repo: 'Shik3i/KoalaCookies',        displayName: 'KoalaCookies' },
+{ repo: 'Shik3i/KoalaEdit',           displayName: 'KoalaEdit', type: 'commit' },
+{ repo: 'Shik3i/KoalaFinance',        displayName: 'KoalaFinance', type: 'commit' },
+{ repo: 'Shik3i/KoalaNotes',          displayName: 'KoalaNotes', type: 'commit' },
 { repo: 'Shik3i/KoalaPull',           displayName: 'KoalaPull' },
 { repo: 'Shik3i/KoalaNews',           displayName: 'KoalaNews', type: 'package', pkgOverride: 'koalanews%2Fkoalanews-website' },
-{ repo: 'Shik3i/KoalaLanding',        displayName: 'KoalaLanding' },
-{ repo: 'Shik3i/KoalaSnap',           displayName: 'KoalaSnap' },
+{ repo: 'Shik3i/KoalaLanding',        displayName: 'KoalaLanding', type: 'commit' },
+{ repo: 'Shik3i/KoalaShare',          displayName: 'KoalaShare', type: 'commit' },
+{ repo: 'Shik3i/KoalaShip',           displayName: 'KoalaShip', type: 'commit' },
+{ repo: 'Shik3i/KoalaSnap',           displayName: 'KoalaSnap', type: 'commit' },
+{ repo: 'Shik3i/KoalaSound',          displayName: 'KoalaSound' },
+{ repo: 'Shik3i/KoalaTower',          displayName: 'KoalaTower', type: 'commit' },
+{ repo: 'Shik3i/KoalaTrade',          displayName: 'KoalaTrade', type: 'commit' },
+{ repo: 'Shik3i/KoalaWorld',          displayName: 'KoalaWorld', type: 'commit' },
 ];
-const CACHE_KEY = 'koala-releases-cache-v6';
+const CACHE_KEY = 'koala-releases-cache-v7';
 const CACHE_TTL = 2 * 60 * 60 * 1000;
 async function fetchGitHubReleases() {
 const container = document.getElementById('releases-container');
@@ -407,14 +431,19 @@ container.innerHTML = Array(repositories.length).fill(0).map(() => `
 try {
 const releases = await Promise.all(repositories.map(async (item) => {
 const isPackage = item.type === 'package';
+const isCommit = item.type === 'commit';
 const owner = item.repo.split('/')[0];
 const repoName = item.repo.split('/')[1];
 const pkgName = repoName.toLowerCase();
 const apiUrl = isPackage
 ? `https://api.github.com/repos/${item.repo}/tags`
+: isCommit
+? `https://api.github.com/repos/${item.repo}/commits?per_page=1`
 : `https://api.github.com/repos/${item.repo}/releases/latest`;
 const fallbackUrl = isPackage
 ? `https://github.com/${item.repo}/pkgs/container/${item.pkgOverride || pkgName}`
+: isCommit
+? `https://github.com/${item.repo}/commits`
 : `https://github.com/${item.repo}/releases`;
 try {
 const response = await fetch(apiUrl);
@@ -440,6 +469,18 @@ return { displayName: item.displayName, tag: null, url: fallbackUrl, date: null,
 throw new Error(`HTTP ${response.status}`);
 }
 const data = await response.json();
+if (isCommit) {
+if (!Array.isArray(data) || data.length === 0 || !data[0].commit?.author) {
+return { displayName: item.displayName, tag: null, url: fallbackUrl, date: null, status: 'none' };
+}
+return {
+displayName: item.displayName,
+tag: 'Latest Commit',
+url: fallbackUrl,
+date: new Date(data[0].commit.author.date),
+status: 'ok'
+};
+}
 if (isPackage) {
 if (!data || data.length === 0) {
 return { displayName: item.displayName, tag: null, url: fallbackUrl, date: null, status: 'none' };

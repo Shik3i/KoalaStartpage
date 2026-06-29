@@ -209,29 +209,47 @@ To append or modify tracked projects in the GitHub Release/Package widget:
 ```javascript
 const repositories = [
   { repo: 'Shik3i/KoalaSync',           displayName: 'KoalaSync' },
+  { repo: 'Shik3i/KoalaClicker',        displayName: 'KoalaClicker' },
+  { repo: 'Shik3i/KoalaBye',            displayName: 'KoalaBye' },
+  { repo: 'Shik3i/FlyffUniverseHelper', displayName: 'KoalaFlyff' },
   { repo: 'Shik3i/Antigrav',            displayName: 'KoalaWeb', type: 'package' },
   { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets', type: 'package' },
   { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
   { repo: 'Shik3i/KoalaCookies',        displayName: 'KoalaCookies' },
+  { repo: 'Shik3i/KoalaEdit',           displayName: 'KoalaEdit', type: 'commit' },
+  { repo: 'Shik3i/KoalaFinance',        displayName: 'KoalaFinance', type: 'commit' },
+  { repo: 'Shik3i/KoalaNotes',          displayName: 'KoalaNotes', type: 'commit' },
   { repo: 'Shik3i/KoalaPull',           displayName: 'KoalaPull' },
+  { repo: 'Shik3i/KoalaNews',           displayName: 'KoalaNews', type: 'package', pkgOverride: 'koalanews%2Fkoalanews-website' },
+  { repo: 'Shik3i/KoalaLanding',        displayName: 'KoalaLanding', type: 'commit' },
+  { repo: 'Shik3i/KoalaShare',          displayName: 'KoalaShare', type: 'commit' },
+  { repo: 'Shik3i/KoalaShip',           displayName: 'KoalaShip', type: 'commit' },
+  { repo: 'Shik3i/KoalaSnap',           displayName: 'KoalaSnap', type: 'commit' },
+  { repo: 'Shik3i/KoalaSound',          displayName: 'KoalaSound' },
+  { repo: 'Shik3i/KoalaTower',          displayName: 'KoalaTower', type: 'commit' },
+  { repo: 'Shik3i/KoalaTrade',          displayName: 'KoalaTrade', type: 'commit' },
+  { repo: 'Shik3i/KoalaWorld',          displayName: 'KoalaWorld', type: 'commit' },
   { repo: 'Owner/YourNewRepo',          displayName: 'FriendlyName' },
 ];
 ```
 
 ### Release vs. Package Tracking
 
-The tracker supports two modes, controlled by the optional `type` field:
+The tracker supports three modes, controlled by the optional `type` field:
 
 | Mode | `type` value | API Endpoint | Link Target | Use Case |
 |------|-------------|-------------|-------------|----------|
 | **Release** | omitted / default | `/repos/{owner}/{repo}/releases/latest` | `/{owner}/{repo}/releases` | Projects that publish GitHub Releases with release notes and downloadable assets |
 | **Package** | `'package'` | `/repos/{owner}/{repo}/tags` | `/{owner}/{repo}/pkgs/container/{name}` | Projects that publish Docker container images via GitHub Packages — versions are tracked through Git tags rather than formal releases |
+| **Commit** | `'commit'` | `/repos/{owner}/{repo}/commits?per_page=1` | `/{owner}/{repo}/commits` | Projects with no release or package yet, tracked by latest commit |
 
 4. **ALWAYS run `npm run build`** after editing `script.src.js` to compile the changes into `www/script.js`.
 
 ### Cache Invalidation
 
-The release tracker caches API responses in `localStorage` under `koala-releases-cache-v4` with a 2-hour TTL. If you change a repository's `type` (e.g., from release to package), bump the `CACHE_KEY` version string in `script.src.js` to invalidate stale cached data.
+The release tracker caches API responses in `localStorage` under `koala-releases-cache-v7` with a 2-hour TTL. If you change a repository's `type` (e.g., from release to package), bump the `CACHE_KEY` version string in `script.src.js` to invalidate stale cached data.
+
+Run `npm run check` before committing. Use `npm run check:external` when you also want to compare the tracker against the public GitHub repo list.
 
 ---
 

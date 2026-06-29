@@ -114,11 +114,26 @@ Edit the `repositories` array in `script.src.js` (source file, not `www/script.j
 ```js
 const repositories = [
   { repo: 'Shik3i/KoalaSync',           displayName: 'KoalaSync' },
+  { repo: 'Shik3i/KoalaClicker',        displayName: 'KoalaClicker' },
+  { repo: 'Shik3i/KoalaBye',            displayName: 'KoalaBye' },
+  { repo: 'Shik3i/FlyffUniverseHelper', displayName: 'KoalaFlyff' },
   { repo: 'Shik3i/Antigrav',            displayName: 'KoalaWeb',         type: 'package' },
   { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets',   type: 'package' },
   { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
   { repo: 'Shik3i/KoalaCookies',        displayName: 'KoalaCookies' },
+  { repo: 'Shik3i/KoalaEdit',           displayName: 'KoalaEdit',       type: 'commit' },
+  { repo: 'Shik3i/KoalaFinance',        displayName: 'KoalaFinance',    type: 'commit' },
+  { repo: 'Shik3i/KoalaNotes',          displayName: 'KoalaNotes',      type: 'commit' },
   { repo: 'Shik3i/KoalaPull',           displayName: 'KoalaPull' },
+  { repo: 'Shik3i/KoalaNews',           displayName: 'KoalaNews',       type: 'package', pkgOverride: 'koalanews%2Fkoalanews-website' },
+  { repo: 'Shik3i/KoalaLanding',        displayName: 'KoalaLanding',    type: 'commit' },
+  { repo: 'Shik3i/KoalaShare',          displayName: 'KoalaShare',      type: 'commit' },
+  { repo: 'Shik3i/KoalaShip',           displayName: 'KoalaShip',       type: 'commit' },
+  { repo: 'Shik3i/KoalaSnap',           displayName: 'KoalaSnap',       type: 'commit' },
+  { repo: 'Shik3i/KoalaSound',          displayName: 'KoalaSound' },
+  { repo: 'Shik3i/KoalaTower',          displayName: 'KoalaTower',      type: 'commit' },
+  { repo: 'Shik3i/KoalaTrade',          displayName: 'KoalaTrade',      type: 'commit' },
+  { repo: 'Shik3i/KoalaWorld',          displayName: 'KoalaWorld',      type: 'commit' },
 ];
 ```
 
@@ -130,10 +145,13 @@ After editing, run `npm run build` to compile the changes.
 |------|-------------|-------------|----------|
 | **Release** _(default)_ | `/repos/{owner}/{repo}/releases/latest` | `/releases` | Projects publishing GitHub Releases with release notes and assets |
 | **Package** (`type: 'package'`) | `/repos/{owner}/{repo}/tags` | `/pkgs/container/{name}` | Projects publishing Docker images via GitHub Packages (tracked by Git tags) |
+| **Commit** (`type: 'commit'`) | `/repos/{owner}/{repo}/commits?per_page=1` | `/commits` | Projects with no release or package yet, tracked by latest commit |
 
 ### Cache Invalidation
 
-API responses are cached in `localStorage` under `koala-releases-cache-v4` with a 2-hour TTL. If you change a repository's `type` (e.g., release → package), bump the `CACHE_KEY` version in `script.src.js` to invalidate stale data.
+API responses are cached in `localStorage` under `koala-releases-cache-v7` with a 2-hour TTL. If you change a repository's `type` (e.g., release → package), bump the `CACHE_KEY` version in `script.src.js` to invalidate stale data.
+
+Run `npm run check` before committing. Use `npm run check:external` when you also want to compare the tracker against the public GitHub repo list.
 
 ---
 

@@ -4,6 +4,7 @@
 .ph-arrow-left:before { content: "\e058"; }
 .ph-arrow-up-right:before { content: "\e092"; }
 .ph-arrows-left-right:before { content: "\e0a0"; }
+.ph-castle-turret:before { content: "\e9d0"; }
 .ph-chart-line:before { content: "\e154"; }
 .ph-chat-circle-dots:before { content: "\e16c"; }
 .ph-cloud-arrow-up:before { content: "\e1ae"; }
@@ -16,14 +17,18 @@
 .ph-globe:before { content: "\e288"; }
 .ph-grid-four:before { content: "\e296"; }
 .ph-hand-pointing:before { content: "\e29a"; }
+.ph-hand-waving:before { content: "\e580"; }
 .ph-hard-drives:before { content: "\e2a0"; }
 .ph-heartbeat:before { content: "\e2ac"; }
 .ph-lock-key:before { content: "\e2fe"; }
 .ph-newspaper:before { content: "\e344"; }
 .ph-package:before { content: "\e390"; }
 .ph-palette:before { content: "\e6c8"; }
+.ph-robot:before { content: "\e762"; }
+.ph-rocket:before { content: "\e3fc"; }
 .ph-rocket-launch:before { content: "\e3fe"; }
 .ph-rss:before { content: "\e400"; }
+.ph-trend-up:before { content: "\e4ae"; }
 /* AUTO-ICONS:END */
 
 /* Base Phosphor icon class — font binding. Managed manually, NOT auto-generated. */

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Koala Startpage — Zentrale Übersicht über alle KoalaStuff-Projekte: KoalaSync Browser-Erweiterung, KoalaPull YT-DLP GUI, KoalaWeb Timer, KoalaSnippets, KoalaFlyff, Blog & mehr. Dein selbst-gehostetes Dashboard.">
+    <meta name="description" content="Koala Startpage — Zentrale Übersicht über KoalaStuff-Projekte: KoalaSync, KoalaPull, KoalaWeb, KoalaSnippets, KoalaBye, KoalaTrade, KoalaTower, KoalaShip und mehr.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://koalastuff.net/">
     <link rel="alternate" hreflang="de" href="https://koalastuff.net/">
@@ -16,10 +16,20 @@
         "name": "KoalaStuff",
         "alternateName": "Koala Startpage",
         "url": "https://koalastuff.net/",
-        "description": "Koala Startpage — Zentrale Übersicht über alle KoalaStuff-Projekte: KoalaSync, KoalaPull, KoalaWeb Timer, KoalaSnippets, KoalaFlyff, Blog & mehr.",
+        "description": "Koala Startpage — Zentrale Übersicht über KoalaStuff-Projekte: KoalaSync, KoalaPull, KoalaWeb, KoalaSnippets, KoalaBye, KoalaTrade, KoalaTower, KoalaShip und mehr.",
         "inLanguage": ["de", "en"],
         "sameAs": [
             "https://github.com/Shik3i"
+        ],
+        "hasPart": [
+            { "@type": "WebSite", "name": "KoalaSync", "url": "https://sync.koalastuff.net" },
+            { "@type": "WebSite", "name": "KoalaPull", "url": "https://pull.koalastuff.net" },
+            { "@type": "WebSite", "name": "KoalaWeb", "url": "https://timer.koalastuff.net" },
+            { "@type": "WebSite", "name": "KoalaSnippets", "url": "https://snippets.koalastuff.net" },
+            { "@type": "WebSite", "name": "KoalaBye", "url": "https://bye.koalastuff.net" },
+            { "@type": "WebSite", "name": "KoalaTrade", "url": "https://trade.koalastuff.net" },
+            { "@type": "WebSite", "name": "KoalaTower", "url": "https://tower.koalastuff.net" },
+            { "@type": "WebSite", "name": "KoalaShip", "url": "https://ship.koalastuff.net" }
         ],
         "potentialAction": {
             "@type": "SearchAction",
@@ -42,7 +52,7 @@
 
     <!-- Open Graph / SEO -->
     <meta property="og:title" content="KoalaStuff — All Koala Projects, Tools & YT-DLP GUI">
-    <meta property="og:description" content="Zentrale Übersicht über alle KoalaStuff-Projekte: KoalaSync Browser-Erweiterung, KoalaPull YT-DLP GUI, KoalaWeb Timer, KoalaSnippets, KoalaFlyff, Blog & mehr.">
+    <meta property="og:description" content="Zentrale Übersicht über KoalaStuff-Projekte: KoalaSync, KoalaPull, KoalaWeb, KoalaSnippets, KoalaBye, KoalaTrade, KoalaTower, KoalaShip und mehr.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://koalastuff.net/">
     <meta property="og:image" content="https://koalastuff.net/og-preview.png">
@@ -52,9 +62,9 @@
     <meta property="og:site_name" content="KoalaStuff">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="KoalaStuff — All Koala Projects, Tools & YT-DLP GUI">
-    <meta name="twitter:description" content="Koala Browser-Erweiterungen, YT-DLP GUI, Web-Timer, Snippets und mehr — alles auf koalastuff.net.">
+    <meta name="twitter:description" content="Koala-Projekte, Webtools, Tracker und interne Services — alles auf koalastuff.net.">
     <meta name="twitter:image" content="https://koalastuff.net/og-preview.png">
-    <meta name="keywords" content="KoalaStuff, KoalaSync, KoalaPull, KoalaWeb, KoalaSnippets, KoalaFlyff, KoalaClicker, KoalaCookies, Startpage, Dashboard, GitHub Releases, YT-DLP GUI, Browser Extension, Timer">
+    <meta name="keywords" content="KoalaStuff, KoalaSync, KoalaPull, KoalaWeb, KoalaSnippets, KoalaBye, KoalaTrade, KoalaTower, KoalaShip, KoalaFlyff, KoalaClicker, KoalaCookies, Startpage, Dashboard, GitHub Releases, YT-DLP GUI, Browser Extension, Timer">
 
     <!-- Set lang class ASAP to prevent flash of wrong language -->
     <script src="js/lang-init.js" fetchpriority="high"></script>
@@ -458,14 +468,6 @@
 
                         <div class="h-px bg-white/5 mx-2 my-1.5"></div>
 
-                        <!-- KoalaBlog -->
-                        <a href="https://blog.koalastuff.net" class="bento-hidden bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="blog.koalastuff.net" data-i18n-title="tooltip_blog">
-                            <i aria-hidden="true" class="ph ph-newspaper text-lg text-sky-400/80"></i>
-                            <span class="font-medium" data-i18n="link_blog">KoalaBlog</span>
-                        </a>
-
-                        <div class="bento-hidden h-px bg-white/5 mx-2 my-1.5"></div>
-
                         <!-- KoalaSnap -->
                         <a href="https://snap.koalastuff.net" class="bento-hidden bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="snap.koalastuff.net" data-i18n-title="tooltip_snap">
                             <i class="ph ph-chat-circle-dots text-lg text-yellow-400/80"></i>
@@ -494,6 +496,38 @@
                         <a href="https://pull.koalastuff.net" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="pull.koalastuff.net — YT-DLP GUI Client" data-i18n-title="tooltip_pull">
                             <i aria-hidden="true" class="ph ph-download-simple text-lg text-rose-400/80"></i>
                             <span class="font-medium">KoalaPull</span>
+                        </a>
+
+                        <div class="h-px bg-white/5 mx-2 my-1.5"></div>
+
+                        <!-- KoalaBye -->
+                        <a href="https://bye.koalastuff.net" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="bye.koalastuff.net" data-i18n-title="tooltip_bye">
+                            <i aria-hidden="true" class="ph ph-hand-waving text-lg text-lime-400/80"></i>
+                            <span class="font-medium" data-i18n="link_bye">KoalaBye</span>
+                        </a>
+
+                        <div class="h-px bg-white/5 mx-2 my-1.5"></div>
+
+                        <!-- KoalaShip -->
+                        <a href="https://ship.koalastuff.net" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="ship.koalastuff.net" data-i18n-title="tooltip_ship">
+                            <i aria-hidden="true" class="ph ph-rocket text-lg text-orange-400/80"></i>
+                            <span class="font-medium" data-i18n="link_ship">KoalaShip</span>
+                        </a>
+
+                        <div class="h-px bg-white/5 mx-2 my-1.5"></div>
+
+                        <!-- KoalaTrade -->
+                        <a href="https://trade.koalastuff.net" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="trade.koalastuff.net" data-i18n-title="tooltip_trade">
+                            <i aria-hidden="true" class="ph ph-trend-up text-lg text-emerald-400/80"></i>
+                            <span class="font-medium" data-i18n="link_trade">KoalaTrade</span>
+                        </a>
+
+                        <div class="h-px bg-white/5 mx-2 my-1.5"></div>
+
+                        <!-- KoalaTower -->
+                        <a href="https://tower.koalastuff.net" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="tower.koalastuff.net — FlatLandTD" data-i18n-title="tooltip_tower">
+                            <i aria-hidden="true" class="ph ph-castle-turret text-lg text-violet-400/80"></i>
+                            <span class="font-medium" data-i18n="link_tower">KoalaTower</span>
                         </a>
 
                         <div class="h-px bg-white/5 mx-2 my-1.5"></div>
@@ -587,6 +621,13 @@
                             <div class="flex flex-col">
                                 <span class="font-medium">Unraid UI</span>
                                 <span class="text-[0.65rem] text-gray-600">UnraidBox</span>
+                            </div>
+                        </a>
+                        <a href="http://100.99.84.61:8787" class="bento-link flex items-center gap-3 p-2.5 rounded-xl text-gray-300 text-sm" title="Hermes — AI Assistant" data-i18n-title="tooltip_hermes">
+                            <i aria-hidden="true" class="ph ph-robot text-lg text-indigo-400/70"></i>
+                            <div class="flex flex-col">
+                                <span class="font-medium">Hermes</span>
+                                <span class="text-[0.65rem] text-gray-600">AI Assistant</span>
                             </div>
                         </a>
                     </div>

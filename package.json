@@ -4,10 +4,17 @@
   "description": "Security and performance optimized Koala Startpage",
   "private": true,
   "scripts": {
-    "build": "node ./js/compile-icons.js && tailwindcss -i ./style.src.css -o ./www/style.css --minify && node ./js/compile-js.js && node ./js/version-sw.js",
-    "watch": "tailwindcss -i ./style.src.css -o ./www/style.css --watch"
+    "build": "node ./js/compile-icons.js && BROWSERSLIST_IGNORE_OLD_DATA=1 tailwindcss -i ./style.src.css -o ./www/style.css --minify && node ./js/compile-js.js && node ./js/version-sw.js",
+    "check": "node --check ./script.src.js && node ./scripts/check-startpage.js",
+    "check:external": "node ./scripts/check-startpage.js --external",
+    "watch": "BROWSERSLIST_IGNORE_OLD_DATA=1 tailwindcss -i ./style.src.css -o ./www/style.css --watch"
   },
+  "browserslist": [
+    ">0.5%",
+    "last 2 versions",
+    "not dead"
+  ],
   "devDependencies": {
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.19"
   }
 }
