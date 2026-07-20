@@ -121,9 +121,12 @@ const repositories = [
   { repo: 'Shik3i/KoalaSnippets',       displayName: 'KoalaSnippets',   type: 'package' },
   { repo: 'Shik3i/KoalaStartpage',      displayName: 'KoalaStartpage' },
   { repo: 'Shik3i/KoalaCookies',        displayName: 'KoalaCookies' },
+  { repo: 'Shik3i/KoalaData',           displayName: 'KoalaData',       type: 'package' },
   { repo: 'Shik3i/KoalaEdit',           displayName: 'KoalaEdit',       type: 'commit' },
   { repo: 'Shik3i/KoalaFinance',        displayName: 'KoalaFinance',    type: 'commit' },
+  { repo: 'Shik3i/KoalaFi',             displayName: 'KoalaFi',         type: 'package' },
   { repo: 'Shik3i/KoalaNotes',          displayName: 'KoalaNotes',      type: 'commit' },
+  { repo: 'Shik3i/KoalaParty',          displayName: 'KoalaParty' },
   { repo: 'Shik3i/KoalaPull',           displayName: 'KoalaPull' },
   { repo: 'Shik3i/KoalaNews',           displayName: 'KoalaNews',       type: 'package', pkgOverride: 'koalanews%2Fkoalanews-website' },
   { repo: 'Shik3i/KoalaLanding',        displayName: 'KoalaLanding',    type: 'commit' },
@@ -133,6 +136,7 @@ const repositories = [
   { repo: 'Shik3i/KoalaSound',          displayName: 'KoalaSound' },
   { repo: 'Shik3i/KoalaTower',          displayName: 'KoalaTower',      type: 'commit' },
   { repo: 'Shik3i/KoalaTrade',          displayName: 'KoalaTrade',      type: 'commit' },
+  { repo: 'Shik3i/KoalaTranslate',      displayName: 'KoalaTranslate',  type: 'commit' },
   { repo: 'Shik3i/KoalaWorld',          displayName: 'KoalaWorld',      type: 'commit' },
 ];
 ```
@@ -149,7 +153,7 @@ After editing, run `npm run build` to compile the changes.
 
 ### Cache Invalidation
 
-API responses are cached in `localStorage` under `koala-releases-cache-v7` with a 2-hour TTL. If you change a repository's `type` (e.g., release → package), bump the `CACHE_KEY` version in `script.src.js` to invalidate stale data.
+API responses are cached in `localStorage` under `koala-releases-cache-v8` with a 2-hour TTL. If you change a repository's `type` (e.g., release → package), bump the `CACHE_KEY` version in `script.src.js` to invalidate stale data.
 
 Run `npm run check` before committing. Use `npm run check:external` when you also want to compare the tracker against the public GitHub repo list.
 
