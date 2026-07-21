@@ -6,11 +6,9 @@
 .ph-arrows-left-right:before { content: "\e0a0"; }
 .ph-castle-turret:before { content: "\e9d0"; }
 .ph-chart-line:before { content: "\e154"; }
-.ph-chat-circle-dots:before { content: "\e16c"; }
 .ph-cloud-arrow-up:before { content: "\e1ae"; }
 .ph-code:before { content: "\e1bc"; }
 .ph-cookie:before { content: "\e6ca"; }
-.ph-download-simple:before { content: "\e20c"; }
 .ph-game-controller:before { content: "\e26e"; }
 .ph-git-merge:before { content: "\e280"; }
 .ph-github-logo:before { content: "\e576"; }
@@ -24,11 +22,11 @@
 .ph-newspaper:before { content: "\e344"; }
 .ph-package:before { content: "\e390"; }
 .ph-palette:before { content: "\e6c8"; }
-.ph-robot:before { content: "\e762"; }
 .ph-rocket:before { content: "\e3fc"; }
 .ph-rocket-launch:before { content: "\e3fe"; }
 .ph-rss:before { content: "\e400"; }
 .ph-trend-up:before { content: "\e4ae"; }
+.ph-users-three:before { content: "\e68e"; }
 /* AUTO-ICONS:END */
 
 /* Base Phosphor icon class — font binding. Managed manually, NOT auto-generated. */
@@ -1111,15 +1109,9 @@ html.theme-obsidian .svg-weather line {
     overflow: hidden;
   }
 
-  html.layout-height #releases-container {
-    max-height: none;
-    overflow: visible;
-  }
-
   html.layout-height footer {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
   }
 }
-
 

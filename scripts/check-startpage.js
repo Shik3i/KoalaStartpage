@@ -82,7 +82,7 @@ for (const repo of repositories) {
   }
 }
 
-for (const required of ['KoalaBye', 'KoalaShip', 'KoalaTrade', 'KoalaTower', 'Hermes']) {
+for (const required of ['KoalaBye', 'KoalaParty', 'KoalaShip', 'KoalaTrade', 'KoalaTower']) {
   if (!html.includes(required)) fail(`missing visible link label: ${required}`);
 }
 
