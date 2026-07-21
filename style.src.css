@@ -1109,9 +1109,13 @@ html.theme-obsidian .svg-weather line {
     overflow: hidden;
   }
 
+  html.layout-height #releases-container {
+    max-height: none;
+    overflow-y: auto;
+  }
+
   html.layout-height footer {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
   }
 }
-

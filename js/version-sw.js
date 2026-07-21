@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const swPath = path.join(__dirname, '../www/sw.js');
+const indexPath = path.join(__dirname, '../www/index.html');
 if (!fs.existsSync(swPath)) {
   console.error('[SW Versioning] sw.js not found!');
   process.exit(1);
@@ -24,3 +25,10 @@ if (cacheNameRegex.test(swContent)) {
   console.error('[SW Versioning] Could not find CACHE_NAME definition in sw.js!');
   process.exit(1);
 }
+
+let indexContent = fs.readFileSync(indexPath, 'utf8');
+indexContent = indexContent
+  .replace(/href="style\.css(?:\?v=[^"]*)?"/, `href="style.css?v=${timestamp}"`)
+  .replace(/src="script\.js(?:\?v=[^"]*)?"/, `src="script.js?v=${timestamp}"`);
+fs.writeFileSync(indexPath, indexContent, 'utf8');
+console.log(`[Asset Versioning] Updated CSS and JS URLs to v${timestamp}`);
